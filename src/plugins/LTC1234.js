@@ -1,3 +1,5 @@
+import { send } from 'utils/linduino';
+
 export default {
 	id: 'LTC1234',
 	name: 'LTC1234 Plugin',
@@ -19,23 +21,38 @@ export default {
 	}, {
 		name: 'linOutput',
 		label: 'Linduino Output',
+		type: 'text',
 		output: true,
 	}, {
-		name: 'blabla',
+		name: 'resetButton',
+		label: 'Reset Values',
 		type: 'button',
 		onClick: (values) => {
-			return sendLinduinoString(
-				`Please set the volts to ${values.volts}`,
+			/*return send(
+				values.volts,
 				linduinoValues => {
 					return {
 						linOutput: linduinoValues.volts,
 					}
 				}
-			);
+			);*/
 			
 			return {
 				volts: 420,
 			};
+		},
+	}, {
+		name: 'linduinoButton',
+		label: 'Talk to Linduino',
+		type: 'button',
+		onClick: (values) => {
+			return send(
+				'',
+				(linduinoValues) => {
+					console.log(linduinoValues);
+					return { linOutput: linduinoValues.myVal }
+				}, 
+			)
 		},
 	}],
 	

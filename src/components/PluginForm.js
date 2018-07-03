@@ -34,8 +34,10 @@ class PluginForm extends Component {
 		for(let field of fields) {
 			let { name, defaultValue, output } = field;
 			
-			values[name] = defaultValue;
+			values[name] = defaultValue || '';
 		}
+		
+		console.log("INITIAL VALUES", values);
 		
 		this.performReduce(values);
 	}
@@ -52,18 +54,60 @@ class PluginForm extends Component {
 		this.performReduce(newValues);
 	}
 	
+	handleInputClick = (buttonName) => {
+		
+		console.log("BUTTON WAS CLICKED:", buttonName);
+		
+		let buttonField = this.props.fields.find(f => f.name === buttonName);
+		
+		if(!buttonField) {
+			console.error("NO BUTTON BY THAT NAME FOUND")
+			return;
+		}
+		
+		let updatedValues = buttonField.onClick({...this.state.values});
+		
+		updatedValues = this.cleanValues(updatedValues);
+		
+		console.log(updatedValues);
+		
+		this.performReduce(updatedValues);
+	}
+	
+	/** Removes any keys that shouldn't exist in the state
+	 * (kind of slow, n^2)
+	 */
+	cleanValues = (values) => {
+		let cleanedValues = {};
+		let { fields } = this.props;
+		
+		for(let key in values) {
+			let field = fields.find(f => f.name === key);
+			if(field && field !== 'button') {
+				cleanedValues[key] = values[key];
+			}
+		}
+		
+		return {
+			...this.state.values,
+			...cleanedValues,
+		};
+	}
+	
 	performReduce = (values) => {
 		
 		const { reducer, fields } = this.props;
 		
 		if(typeof reducer == 'function') {
 			let reducedValues = reducer(values);
-			let reducedOutputs = {};
+			let reducedOutputs = { };
 			
 			// Don't let the reducer change the inputs
-			let outputNames = fields.filter(f => f.output === true).map(f => f.name);
-			for(let n of outputNames) {
-				reducedOutputs[n] = reducedValues[n];
+			for(let key in reducedValues) {
+				let field = fields.find(f => f.name === key);
+				if(field && field.output) {
+					reducedOutputs[key] = reducedValues[key];
+				}
 			}
 			
 			let combo = {
@@ -111,7 +155,9 @@ class PluginForm extends Component {
 						className={classes.input}
 						field={f}
 						value={this.state.values[f.name]}
-						onChange={this.handleInputChange} />
+						onChange={this.handleInputChange}
+						onClick={this.handleInputClick}
+						key={f.name} />
 				))}
 			</form>
 		)
