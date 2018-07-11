@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import Header from 'components/Header';
 import Body from './Body';
+import HomePage from 'pages/HomePage';
 
 class App extends Component {
 	
@@ -14,25 +15,11 @@ class App extends Component {
 		}
 	}
 	
-	loadPlugin = (filename) => {
-		import(`../plugins/${this.state.input}`)
-		.then(plugin => {
-			this.setState({
-				data: plugin.default,
-			})
-		})
-		.catch(error => {
-			this.setState({
-				data: "Couldn't find a plugin by that name",
-			})
-		})
-	}
-	
 	render() {
 		return (
 			<div className="App">
 				<Header />
-				<Body />
+				<HomePage />
 			</div>
 		);
 	}
