@@ -34,7 +34,6 @@ const PluginPage = ({ classes, match }) => (
 	<div className={classes.root} >
 		
 		<div className={classes.content} >
-			<PluginList />
 			<Grid container spacing={16} className={classes.grid} >
 				<Grid item xs={12}>
 					<Typography variant="display1">Plugin ID is: {match.params.id}</Typography>
