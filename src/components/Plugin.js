@@ -50,7 +50,7 @@ class Plugin extends React.Component {
 	
 	// Fetch plugin if one is selected
 	componentDidMount() {
-		let pluginId = this.props.store.get('pluginId');
+		let pluginId = this.props.pluginId;// store.get('pluginId');
 		
 		console.log("ID", pluginId);
 		
@@ -62,8 +62,8 @@ class Plugin extends React.Component {
 	
 	// Re-fetch new plugin if selected plugin changed
 	componentDidUpdate(prevProps) {
-		let newId = this.props.store.get('pluginId');
-		let oldId = prevProps.store.get('pluginId');
+		let newId = this.props.pluginId; //store.get('pluginId');
+		let oldId = prevProps.pluginId; //store.get('pluginId');
 		
 		if(oldId !== newId) {
 			this.loadPlugin(newId);

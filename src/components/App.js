@@ -1,8 +1,18 @@
 import React, { Component } from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
+
+import { withStyles } from '@material-ui/core';
 
 import Header from 'components/Header';
-import Body from './Body';
 import HomePage from 'pages/HomePage';
+import PluginPage from 'pages/PluginPage';
+
+const styles = theme => ({
+	root: {},
+	pageArea: {
+		margin: 0, // Should this be here or on each page?
+	}
+})
 
 class App extends Component {
 	
@@ -16,13 +26,20 @@ class App extends Component {
 	}
 	
 	render() {
+		const { classes } = this.props;
+		
 		return (
 			<div className="App">
 				<Header />
-				<HomePage />
+				<BrowserRouter>
+					<div className={classes.pageArea} >
+						<Route exact path="/" component={HomePage} />
+						<Route path="/plugin/:id" component={PluginPage} />
+					</div>
+				</BrowserRouter>
 			</div>
 		);
 	}
 }
 
-export default App;
+export default withStyles(styles)(App);

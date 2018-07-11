@@ -9,9 +9,9 @@ import {
 	Grid,
 } from '@material-ui/core';
 
-import PluginList from './PluginList';
-import Plugin from './Plugin';
-import SerialCard from './SerialCard';
+import PluginList from 'components/PluginList';
+import Plugin from 'components/Plugin';
+import SerialCard from 'components/SerialCard';
 
 const styles = theme => ({
 	root: {
@@ -30,14 +30,17 @@ const styles = theme => ({
 	}
 })
 
-const Body = ({ classes }) => (
+const PluginPage = ({ classes, match }) => (
 	<div className={classes.root} >
 		
 		<div className={classes.content} >
 			<PluginList />
 			<Grid container spacing={16} className={classes.grid} >
+				<Grid item xs={12}>
+					<Typography variant="display1">Plugin ID is: {match.params.id}</Typography>
+				</Grid>
 				<Grid item xs={6} >
-					<Plugin pluginId="LTC1234" />
+					<Plugin pluginId={match.params.id} />
 				</Grid>
 				<Grid item xs={6} >
 					<SerialCard />
@@ -47,4 +50,4 @@ const Body = ({ classes }) => (
 	</div>
 )
 
-export default withStyles(styles)(Body);
+export default withStyles(styles)(PluginPage);
