@@ -22,7 +22,7 @@ const Header = ({ classes }) => (
 		<AppBar position="static">
 			<Toolbar>
 				<Typography variant="title" color="inherit" className={classes.title} >
-					Linduino Gooey
+					Linduino Vicini
 				</Typography>
 			</Toolbar>
 		</AppBar>
