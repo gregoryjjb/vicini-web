@@ -1,0 +1,8 @@
+
+const api = {};
+
+api.getHardware = () => {
+    
+    
+    
+}

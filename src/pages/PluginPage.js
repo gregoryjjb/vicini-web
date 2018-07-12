@@ -9,7 +9,6 @@ import {
 	Grid,
 } from '@material-ui/core';
 
-import PluginList from 'components/PluginList';
 import Plugin from 'components/Plugin';
 import SerialCard from 'components/SerialCard';
 
