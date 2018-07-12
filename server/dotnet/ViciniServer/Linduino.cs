@@ -1,54 +1,53 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using LibUFT;
+using System.IO;
+using System.IO.Ports;
 using System.Text.RegularExpressions;
 
-namespace ViviniServer
-{
+namespace ViviniServer {
     class Linduino : IComm, IDisposable
     {
-        public string SerialNumber { get { return serialNumber; } }
+        public string PortNumber { get { return portNumber; } }
 
-        public Linduino(string serialNumber)
+        public Linduino(string portNumber)
         {
-            this.serialNumber = serialNumber;
-            this.ftdi = Ftdi.Open(serialNumber);
+            this.portNumber = portNumber;
+            this.serialPort = new SerialPort(portNumber, 115200);
         }
 
         public static string[] FindLinduinos(int maxLinduinos = int.MaxValue)
         {
-            var serialNumbers = new List<string>();
-            int index = 0;
-            string id;
-            string sn;
-            while (Ftdi.FindController2(ref index, ControllerType.Linduino, out id, out sn))
-            {
-                serialNumbers.Add(sn);
-                if (serialNumbers.Count >= maxLinduinos)
-                {
-                    break;
+            var portNumbers = new List<string>();
+
+            foreach (var portNumber in SerialPort.GetPortNames()) {
+                using (var sp = new SerialPort(portNumber)) {
+                    try {
+                        sp.Open();
+                        portNumbers.Add(portNumber);
+                    } catch (IOException) {
+                        // already open, don't add it to the list
+                    }
                 }
             }
-            return serialNumbers.ToArray();
+
+            return portNumbers.ToArray();
         }
 
         public void WriteString(string data)
         {
-            ftdi.Write(Encoding.ASCII.GetBytes(data));
+            serialPort.Write(data);
         }
 
         public string ReadString()
         {
-            return ftdi.ReadAllAsString();
+            return serialPort.ReadExisting();
         }
 
         public void Reset(bool sleep = true)
         {
-            ftdi.SetDtr(true);
+            serialPort.DtrEnable = true;
             System.Threading.Thread.Sleep(1);
-            ftdi.SetDtr(false);
+            serialPort.DtrEnable = false;
             if (sleep)
             {
                 System.Threading.Thread.Sleep(2000);
@@ -76,11 +75,11 @@ namespace ViviniServer
 
         public void Dispose()
         {
-            ((IDisposable)ftdi).Dispose();
+            ((IDisposable)serialPort).Dispose();
         }
 
-        private string serialNumber;
-        private Ftdi ftdi;
+        private string portNumber;
+        private SerialPort serialPort;
         private static readonly Regex sketchPattern =
             new Regex("(DC\\d+[-_A-Za-z]*)\\s+Demonstration");
     }
