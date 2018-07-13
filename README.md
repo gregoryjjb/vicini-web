@@ -17,15 +17,33 @@ All commands are relative to `http://localhost:8998/vicini`. For example the `fi
 
 
 <details>
-<summary><strong style = "font-family:monospace;">open/&lt;id&gt;:</strong> Opens a device identified by &lt;id&gt;</summary>
-<p>Returns: <pre>{ 'status': 'OK', 'id': &lt;id&gt; }</pre><p>
-<p>Errors: <pre>InvalidId, IoError</pre></p>
-</details>
+<summary><strong>open/:id</strong></summary>
 
+Opens a device identified by `:id`
+
+Returns:
+```
+{ 'status': 'OK', 'id': &lt;id&gt; }
+```
+Errors:
+```
+InvalidId, IoError
+```
+</details>
+<br/>
 <details>
-<summary><strong style = "font-family:monospace;">close/&lt;id&gt;:</strong> Closes a device identified by &lt;id&gt;</summary>
-<p>Returns: <pre>{ 'status': 'OK', 'id': &lt;id&gt; }</pre><p>
-<p>Errors: <pre>InvalidId</pre></p>
+<summary><strong>close/:id</strong></summary>
+
+Closes a device identified by `:id`
+
+Returns:
+```
+{ 'status': 'OK', 'id': &lt;id&gt; }
+```
+Errors:
+```
+InvalidId, IoError
+```
 </details>
 
 ### Get
