@@ -24,8 +24,10 @@ class PluginContainer extends Component {
 		.then(pluginModule => {
             let plugin = pluginModule.default;
             
+            console.log(plugin);
+            
             // Validate plugin with proptypes
-            PropTypes.checkPropTypes(pluginType, plugin, 'prop', 'PluginContainer');
+            PropTypes.checkPropTypes({ plugin: pluginType }, { plugin }, 'prop', 'PluginContainer-loader');
             
             console.log("Setting state with plugin")
             

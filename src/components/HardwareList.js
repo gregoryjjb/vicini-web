@@ -1,4 +1,7 @@
 import React from "react";
+import PropTypes from 'prop-types';
+import { hardwareType } from "utils/types";
+
 import {
     withStyles,
     CircularProgress,
@@ -28,11 +31,15 @@ const HardwareList = ({ classes, hardware, isLoading, refreshClicked }) => (
             :
             <div className={classes.cards} >
                 {hardware.map(h => (
-                    <HardwareCard hardware={h} />
+                    <HardwareCard hardware={h} key={h.name} />
                 ))}
             </div>
         }
     </div>
 );
+
+HardwareList.propTypes = {
+    hardware: PropTypes.arrayOf(hardwareType),
+}
 
 export default withStyles(styles)(HardwareList);

@@ -6,6 +6,8 @@ export let store = createStore({
 	'hardware.loading': false,
 	'hardware.error': false,
 	'hardware.list': [],
+	
+	'plugin.id': '',
 })
 
 export let withStore = connect(withLogger(store));

@@ -1,5 +1,9 @@
 import PropTypes from 'prop-types';
 
+export const hardwareType = PropTypes.shape({
+    name: PropTypes.string.isRequired,
+})
+
 export const fieldType = PropTypes.shape({
     name: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
