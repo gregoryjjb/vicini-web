@@ -127,7 +127,6 @@ class PluginForm extends Component {
 	}
 	
 	componentDidMount() {
-		
 		if(this.props.fields) {
 			this.loadValues(this.props.fields);
 		}

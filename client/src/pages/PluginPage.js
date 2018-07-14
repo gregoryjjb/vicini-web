@@ -9,6 +9,7 @@ import {
 	Grid,
 } from '@material-ui/core';
 
+import PluginContainer from 'containers/PluginContainer';
 import Plugin from 'components/Plugin';
 import SerialCard from 'components/SerialCard';
 
@@ -38,7 +39,7 @@ const PluginPage = ({ classes, match }) => (
 					<Typography variant="display1">Plugin ID is: {match.params.id}</Typography>
 				</Grid>
 				<Grid item xs={6} >
-					<Plugin pluginId={match.params.id} />
+					<PluginContainer pluginId={match.params.id} />
 				</Grid>
 				<Grid item xs={6} >
 					<SerialCard />

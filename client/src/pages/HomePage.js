@@ -8,6 +8,7 @@ import {
 
 import UnstyledLink from 'components/UnstyledLink';
 import HardwareCard from 'components/HardwareCard';
+import HardwareContainer from "../containers/HardwareContainer";
 
 const styles = theme => ({
 	root: {
@@ -29,9 +30,7 @@ const HomePage = ({ classes }) => (
 	<div className={classes.root} >
 		<Typography variant="display2" gutterBottom >Attached Hardware</Typography>
 		<div className={classes.hardwareArea} >
-			{dummyHardware.map(h => (
-				<HardwareCard hardware={h} />
-			))}
+			<HardwareContainer />
 		</div>
 	</div>
 );

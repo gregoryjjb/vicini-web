@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { pluginType } from 'utils/types';
 
 import {
 	withStyles,
@@ -6,10 +8,11 @@ import {
 	Card,
 	CardContent,
 	TextField,
+	CircularProgress,
 } from '@material-ui/core';
 
 import { withStore } from 'utils/store';
-import PluginForm from './PluginForm';
+import PluginForm from './PluginFormDumb';
 
 const styles = theme => ({
 	
@@ -21,77 +24,150 @@ class Plugin extends React.Component {
 		super(props);
 		
 		this.state = {
-			plugin: null,
-			error: "Please select a plugin",
+			values: {}
 		}
 	}
 	
-	loadPlugin = (pluginId) => {
-		import(`../plugins/${pluginId}`)
-		.then(plugin => {
-			this.setState({
-				plugin: plugin.default,
-				error: '',
-			});
-			
-			console.log(plugin.default);
-		})
-		.catch(err => {
-			
-			let msg = `Plugin '${pluginId}' not found or failed to load`;
-			console.error(msg);
-			
-			this.setState({
-				plugin: null,
-				error: msg,
-			})
-		})
+	loadValues = (fields = []) => {
+		let values = {};
+		
+		for(let field of fields) {
+			let { name, defaultValue, output } = field;
+			values[name] = defaultValue || '';
+		}
+		
+		this.performReduce(values);
 	}
 	
-	// Fetch plugin if one is selected
+	performReduce = (values) => {
+		
+		const { reducer, fields } = this.props;
+		
+		if(typeof reducer == 'function') {
+			let reducedValues = reducer(values);
+			let reducedOutputs = { };
+			
+			// Don't let the reducer change the inputs
+			for(let key in reducedValues) {
+				let field = fields.find(f => f.name === key);
+				if(field && field.output) {
+					reducedOutputs[key] = reducedValues[key];
+				}
+			}
+			
+			let combo = {
+				...values,
+				...reducedOutputs,
+			}
+			
+			this.setState({
+				values: combo,
+			})
+		}
+		else {
+			this.setState({
+				values: values,
+			})
+		}
+	}
+	
+	handleInputChange = (e) => {
+		let { name, value } = e.target;
+		
+		let newValues = {
+			...this.state.values,
+			[name]: value,
+		}
+		
+		this.performReduce(newValues);
+	}
+	
+	handleInputClick = (buttonName) => {
+		let buttonField = this.props.plugin.fields.find(f => f.name === buttonName);
+		
+		if(!buttonField) {
+			console.error(`NO BUTTON WITH NAME '${buttonName}' FOUND`)
+			return;
+		}
+		
+		let updatedValues = buttonField.onClick({...this.state.values});
+		updatedValues = this.cleanValues(updatedValues);
+		this.performReduce(updatedValues);
+	}
+	
+	/** Removes any keys that shouldn't exist in the state
+	 * (kind of slow, n^2)
+	 */
+	cleanValues = (values) => {
+		let cleanedValues = {};
+		let { fields } = this.props.plugin;
+		
+		for(let key in values) {
+			let field = fields.find(f => f.name === key);
+			if(field && field !== 'button') {
+				cleanedValues[key] = values[key];
+			}
+		}
+		
+		return {
+			...this.state.values,
+			...cleanedValues,
+		};
+	}
+	
 	componentDidMount() {
-		let pluginId = this.props.pluginId;// store.get('pluginId');
-		
-		console.log("ID", pluginId);
-		
-		if(pluginId && typeof pluginId == 'string') {
-			this.loadPlugin(pluginId);
-			console.log("Loading plugin")
+		if(this.props.plugin.fields) {
+			this.loadValues(this.props.plugin.fields);
 		}
 	}
 	
 	// Re-fetch new plugin if selected plugin changed
 	componentDidUpdate(prevProps) {
-		let newId = this.props.pluginId; //store.get('pluginId');
-		let oldId = prevProps.pluginId; //store.get('pluginId');
-		
-		if(oldId !== newId) {
-			this.loadPlugin(newId);
+		if(this.props.plugin != prevProps.plugin) {
+			this.loadValues(this.props.plugin.fields);
 		}
 	}
 	
 	render() {
 		
-		let { plugin } = this.state;
+		let { loading, error, plugin } = this.props;
+		
+		let content = <Typography variant="headline">No plugin loaded</Typography>
+		
+		if(loading) {
+			content = <CircularProgress />
+		}
+		else if(error) {
+			content = <Typography variant="headline">{error}</Typography>
+		}
+		else if(plugin && plugin.name) {
+			content = (
+				<div style={{ display: 'flex', flexDirection: 'column' }} >
+					<Typography variant="headline" gutterBottom>{plugin.name}</Typography>
+					<Typography variant="subheading" gutterBottom>{plugin.description}</Typography>
+					<PluginForm
+						fields={plugin.fields}
+						values={this.state.values}
+						handleChange={this.handleInputChange}
+						handleClick={this.handleInputClick} />
+				</div>
+			)
+		}
 		
 		return(
 			<div style={{flex: 1}} >
 				<Card>
 					<CardContent>
-						{plugin && plugin.name ? 
-							<div style={{ display: 'flex', flexDirection: 'column' }} >
-								<Typography variant="headline" gutterBottom>{plugin.name}</Typography>
-								<Typography variant="subheading" gutterBottom>{plugin.description}</Typography>
-								<PluginForm fields={plugin.fields} reducer={plugin.reducer} />
-							</div>
-							:
-							<Typography variant="subheading">{this.state.error}</Typography>
-						}
+						{content}
 					</CardContent>
 				</Card>
 			</div>
 		)
 	}
+}
+
+Plugin.propTypes = {
+	plugin: pluginType.isRequired,
 }
 
 export default withStyles(styles)(withStore(Plugin));
