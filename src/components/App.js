@@ -29,15 +29,15 @@ class App extends Component {
 		const { classes } = this.props;
 		
 		return (
-			<div className="App">
-				<Header />
-				<BrowserRouter>
+			<BrowserRouter>
+				<div className="App">
+					<Header />
 					<div className={classes.pageArea} >
 						<Route exact path="/" component={HomePage} />
 						<Route path="/plugin/:id" component={PluginPage} />
 					</div>
-				</BrowserRouter>
-			</div>
+				</div>
+			</BrowserRouter>
 		);
 	}
 }

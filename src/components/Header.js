@@ -7,6 +7,8 @@ import {
 	Typography,
 } from '@material-ui/core';
 
+import UnstyledLink from 'components/UnstyledLink';
+
 const styles = theme => ({
 	root: {
 		flexGrow: 1,
@@ -20,9 +22,11 @@ const Header = ({ classes }) => (
 	<header className={classes.root} >
 		<AppBar position="static">
 			<Toolbar>
-				<Typography variant="title" color="inherit" className={classes.title} >
-					Linduino Vicini
-				</Typography>
+				<UnstyledLink to="/">
+					<Typography variant="title" color="inherit" className={classes.title} >
+						Linduino Vicini
+					</Typography>
+				</UnstyledLink>
 			</Toolbar>
 		</AppBar>
 	</header>
