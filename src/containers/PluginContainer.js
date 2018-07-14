@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { pluginType } from 'utils/types';
 
-import Plugin from 'components/Plugin';
+import PluginWrapper from 'components/PluginWrapper';
 
 class PluginContainer extends Component {
     
@@ -63,21 +63,7 @@ class PluginContainer extends Component {
     render() {
         let { loading, error, plugin } = this.state;
         
-        if(loading) return(
-            <p>Loading...</p>
-        )
-        
-        if(error) return(
-            <p>{error}</p>
-        )
-        
-        if(plugin !== null && plugin !== undefined) return (
-            <Plugin plugin={plugin} />
-        )
-        
-        return(
-            <p>No plugin loaded</p>
-        )
+        return <PluginWrapper loading={loading} error={error} plugin={plugin} />
     }
 }
 

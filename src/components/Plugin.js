@@ -12,7 +12,7 @@ import {
 } from '@material-ui/core';
 
 import { withStore } from 'utils/store';
-import PluginForm from './PluginFormDumb';
+import PluginForm from './PluginForm';
 
 const styles = theme => ({
 	
@@ -130,37 +130,17 @@ class Plugin extends React.Component {
 	
 	render() {
 		
-		let { loading, error, plugin } = this.props;
-		
-		let content = <Typography variant="headline">No plugin loaded</Typography>
-		
-		if(loading) {
-			content = <CircularProgress />
-		}
-		else if(error) {
-			content = <Typography variant="headline">{error}</Typography>
-		}
-		else if(plugin && plugin.name) {
-			content = (
-				<div style={{ display: 'flex', flexDirection: 'column' }} >
-					<Typography variant="headline" gutterBottom>{plugin.name}</Typography>
-					<Typography variant="subheading" gutterBottom>{plugin.description}</Typography>
-					<PluginForm
-						fields={plugin.fields}
-						values={this.state.values}
-						handleChange={this.handleInputChange}
-						handleClick={this.handleInputClick} />
-				</div>
-			)
-		}
+		let { plugin } = this.props;
 		
 		return(
-			<div style={{flex: 1}} >
-				<Card>
-					<CardContent>
-						{content}
-					</CardContent>
-				</Card>
+			<div style={{ display: 'flex', flexDirection: 'column' }} >
+				<Typography variant="headline" gutterBottom>{plugin.name}</Typography>
+				<Typography variant="subheading" gutterBottom>{plugin.description}</Typography>
+				<PluginForm
+					fields={plugin.fields}
+					values={this.state.values}
+					handleChange={this.handleInputChange}
+					handleClick={this.handleInputClick} />
 			</div>
 		)
 	}
