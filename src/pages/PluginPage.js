@@ -2,15 +2,11 @@ import React from 'react';
 
 import {
 	withStyles,
-	AppBar,
-	Toolbar,
 	Typography,
-	Button,
 	Grid,
 } from '@material-ui/core';
 
 import PluginContainer from 'containers/PluginContainer';
-import Plugin from 'components/Plugin';
 import SerialCard from 'components/SerialCard';
 
 const styles = theme => ({

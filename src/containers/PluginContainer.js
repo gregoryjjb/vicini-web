@@ -47,7 +47,7 @@ class PluginContainer extends Component {
     componentDidMount() {
 		let pluginId = this.props.pluginId;// store.get('pluginId');
 		
-		if(pluginId && typeof pluginId == 'string') {
+		if(pluginId && typeof pluginId === 'string') {
 			this.loadPlugin(pluginId);
 		}
 	}

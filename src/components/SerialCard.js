@@ -51,7 +51,7 @@ const SerialArea = ({ classes }) => (
 			<CardContent className={classes.content}>
 				<div className={classes.textArea} >
 					{testLines.map(l => (
-						<Typography variant="body2" >{l}</Typography>
+						<Typography variant="body2" key={l} >{l}</Typography>
 					))}
 				</div>
 				<div className={classes.inputArea} >

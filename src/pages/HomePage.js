@@ -1,13 +1,10 @@
 import React from "react";
-import { Link } from 'react-router-dom';
 
 import {
 	withStyles,
 	Typography,
 } from "@material-ui/core";
 
-import UnstyledLink from 'components/UnstyledLink';
-import HardwareCard from 'components/HardwareCard';
 import HardwareContainer from "../containers/HardwareContainer";
 
 const styles = theme => ({
@@ -19,12 +16,6 @@ const styles = theme => ({
 		flexDirection: 'row',
 	}
 })
-
-const dummyHardware = [{
-	name: "LTC1234",
-}, {
-	name: "AD",
-}]
 
 const HomePage = ({ classes }) => (
 	<div className={classes.root} >

@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import HardwareCard from 'components/HardwareCard';
-
 import api from 'utils/api';
 import { withStore } from 'utils/store';
 import HardwareList from '../components/HardwareList';

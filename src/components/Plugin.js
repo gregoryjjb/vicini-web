@@ -1,14 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { pluginType } from 'utils/types';
 
 import {
 	withStyles,
 	Typography,
-	Card,
-	CardContent,
-	TextField,
-	CircularProgress,
 } from '@material-ui/core';
 
 import { withStore } from 'utils/store';
@@ -32,7 +27,7 @@ class Plugin extends React.Component {
 		let values = {};
 		
 		for(let field of fields) {
-			let { name, defaultValue, output } = field;
+			let { name, defaultValue } = field;
 			values[name] = defaultValue || '';
 		}
 		
@@ -43,7 +38,7 @@ class Plugin extends React.Component {
 		
 		const { reducer, fields } = this.props;
 		
-		if(typeof reducer == 'function') {
+		if(typeof reducer === 'function') {
 			let reducedValues = reducer(values);
 			let reducedOutputs = { };
 			
@@ -123,7 +118,7 @@ class Plugin extends React.Component {
 	
 	// Re-fetch new plugin if selected plugin changed
 	componentDidUpdate(prevProps) {
-		if(this.props.plugin != prevProps.plugin) {
+		if(this.props.plugin !== prevProps.plugin) {
 			this.loadValues(this.props.plugin.fields);
 		}
 	}
