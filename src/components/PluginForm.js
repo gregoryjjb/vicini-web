@@ -2,7 +2,12 @@ import React from "react";
 import PropTypes from 'prop-types';
 import { fieldType } from 'utils/types';
 
-import { withStyles } from "@material-ui/core";
+import {
+    withStyles,
+    ExpansionPanel,
+    ExpansionPanelDetails,
+    ExpansionPanelSummary,
+} from "@material-ui/core";
 
 import PluginField from 'components/PluginField';
 
@@ -14,18 +19,40 @@ const styles = theme => ({
     },
 })
 
-const PluginForm = ({ classes, fields, values, handleChange, handleClick }) => (
-    <form className={classes.form} >
-        {fields.map(f => (
-            <PluginField
-                field={f}
-                value={values[f.name]}
-                onChange={handleChange}
-                onClick={handleClick}
-                key={f.name} />
-        ))}
-    </form>
-);
+const PluginForm = ({ classes, fields, values, handleChange, handleClick }) => {
+    
+    const groups = [...new Set(fields.map(f => f.group || 'nogroup'))];
+    
+    console.log("GROUPS", groups);
+    
+    const groupedFields = groups.map(g => {
+        return {
+            group: g,
+            fields: fields.filter(f => f.group === g || (f.group === undefined && g === 'nogroup')),
+        }
+    })
+    
+    console.log(groupedFields);
+    
+    return(
+        <form className={classes.form} >
+            {groupedFields.map(g => (
+                <div>
+                    <p>{g.group}</p>
+                    {g.fields.map(f => (
+                        <PluginField
+                            field={f}
+                            value={values[f.name]}
+                            onChange={handleChange}
+                            onClick={handleClick}
+                            key={f.name} />
+                    ))}
+                </div>
+            ))}
+            
+        </form>
+    )
+}
 
 PluginForm.propTypes = {
     fields: PropTypes.arrayOf(fieldType).isRequired,

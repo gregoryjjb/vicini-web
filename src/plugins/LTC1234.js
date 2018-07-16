@@ -9,20 +9,21 @@ export default {
 		name: 'volts',
 		label: 'Voltage (mv)',
 		type: 'number',
-		units: 'mV',
-		unitScale: 0.001,
 		defaultValue: 420,
 		output: false,
+		group: "Inputs",
 	}, {
 		name: 'text',
 		label: 'Volts but doubled',
 		type: 'text',
 		output: true,
+		group: "Outputs",
 	}, {
 		name: 'linOutput',
 		label: 'Linduino Output',
 		type: 'text',
 		output: true,
+		group: "Outputs",
 	}, {
 		name: 'resetButton',
 		label: 'Reset Values',
