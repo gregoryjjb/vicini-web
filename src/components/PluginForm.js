@@ -18,6 +18,9 @@ const styles = theme => ({
         display: 'flex',
         flexDirection: 'column',
     },
+    panel: {
+        backgroundColor: theme.palette.background.default,
+    },
     inputArea: {
         display: 'flex',
         flexDirection: 'column',
@@ -42,7 +45,7 @@ const PluginForm = ({ classes, fields, values, handleChange, handleClick }) => {
     return(
         <form className={classes.form} >
             {groupedFields.map(g => (
-                <ExpansionPanel key={g.group} >
+                <ExpansionPanel key={g.group} className={classes.panel} >
                     <ExpansionPanelSummary>
                         <Typography>
                             {g.group}
