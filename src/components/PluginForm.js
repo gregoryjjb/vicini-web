@@ -7,6 +7,7 @@ import {
     ExpansionPanel,
     ExpansionPanelDetails,
     ExpansionPanelSummary,
+    Typography,
 } from "@material-ui/core";
 
 import PluginField from 'components/PluginField';
@@ -17,6 +18,10 @@ const styles = theme => ({
         display: 'flex',
         flexDirection: 'column',
     },
+    inputArea: {
+        display: 'flex',
+        flexDirection: 'column',
+    }
 })
 
 const PluginForm = ({ classes, fields, values, handleChange, handleClick }) => {
@@ -37,17 +42,23 @@ const PluginForm = ({ classes, fields, values, handleChange, handleClick }) => {
     return(
         <form className={classes.form} >
             {groupedFields.map(g => (
-                <div>
-                    <p>{g.group}</p>
-                    {g.fields.map(f => (
-                        <PluginField
-                            field={f}
-                            value={values[f.name]}
-                            onChange={handleChange}
-                            onClick={handleClick}
-                            key={f.name} />
-                    ))}
-                </div>
+                <ExpansionPanel key={g.group} >
+                    <ExpansionPanelSummary>
+                        <Typography>
+                            {g.group}
+                        </Typography>
+                    </ExpansionPanelSummary>
+                    <ExpansionPanelDetails className={classes.inputArea} >
+                        {g.fields.map(f => (
+                            <PluginField
+                                field={f}
+                                value={values[f.name]}
+                                onChange={handleChange}
+                                onClick={handleClick}
+                                key={f.name} />
+                        ))}
+                    </ExpansionPanelDetails>
+                </ExpansionPanel>
             ))}
             
         </form>
