@@ -36,7 +36,7 @@ class Plugin extends React.Component {
 	
 	performReduce = (values) => {
 		
-		const { reducer, fields } = this.props;
+		const { reducer, fields } = this.props.plugin;
 		
 		if(typeof reducer === 'function') {
 			let reducedValues = reducer(values);
