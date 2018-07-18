@@ -8,6 +8,7 @@ import {
 } from '@material-ui/core';
 
 import UnstyledLink from 'components/UnstyledLink';
+import ThemeModeSwitchContainer from 'containers/ThemeModeSwitchContainer';
 
 const styles = theme => ({
 	root: {
@@ -27,6 +28,7 @@ const Header = ({ classes }) => (
 						Linduino Vicini
 					</Typography>
 				</UnstyledLink>
+				<ThemeModeSwitchContainer />
 			</Toolbar>
 		</AppBar>
 	</header>
