@@ -19,12 +19,13 @@ const styles = theme => ({
     form: {
         display: 'flex',
         flexDirection: 'column',
-        flexWrap: 'column',
+        flexWrap: 'wrap',
     },
     panel: {
         //backgroundColor: theme.palette.background.default,
         maxWidth: 240,
         marginBottom: 16,
+        marginRight: 16,
     },
     inputArea: {
         display: 'flex',
