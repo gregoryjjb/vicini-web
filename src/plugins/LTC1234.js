@@ -13,6 +13,18 @@ export default {
 		output: false,
 		group: "Inputs",
 	}, {
+		name: 'selectTest',
+		label: 'Select Test',
+		type: 'select',
+		options: [
+			{value: 0, label: 'Zero'},
+			{value: 1, label: 'Single'},
+			{value: 2, label: 'Double'},
+			{value: 3, label: 'Triple'},
+		],
+		defaultValue: 1,
+		group: 'Inputs',
+	}, {
 		name: 'text',
 		label: 'Volts but doubled',
 		type: 'text',
@@ -62,10 +74,10 @@ export default {
 		
 		//console.log("REDUCER CALLED:", oldValues);
 		
-		let { volts } = oldValues;
+		let { volts, selectTest } = oldValues;
 		
 		return {
-			text: volts * 2 + ' mV',
+			text: volts * selectTest + ' mV',
 		};
 	},
 }

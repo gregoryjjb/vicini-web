@@ -7,6 +7,8 @@ import {
     ExpansionPanel,
     ExpansionPanelDetails,
     ExpansionPanelSummary,
+    Card,
+    CardContent,
     Typography,
 } from "@material-ui/core";
 
@@ -17,14 +19,21 @@ const styles = theme => ({
     form: {
         display: 'flex',
         flexDirection: 'column',
+        flexWrap: 'column',
     },
     panel: {
-        backgroundColor: theme.palette.background.default,
+        //backgroundColor: theme.palette.background.default,
+        maxWidth: 240,
+        marginBottom: 16,
     },
     inputArea: {
         display: 'flex',
         flexDirection: 'column',
-    }
+    },
+    input: {
+        marginTop: 8,
+        width: '100%',
+    },
 })
 
 const PluginForm = ({ classes, fields, values, handleChange, handleClick }) => {
@@ -45,23 +54,22 @@ const PluginForm = ({ classes, fields, values, handleChange, handleClick }) => {
     return(
         <form className={classes.form} >
             {groupedFields.map(g => (
-                <ExpansionPanel key={g.group} className={classes.panel} >
-                    <ExpansionPanelSummary>
-                        <Typography>
+                <Card key={g.group} className={classes.panel} >
+                    <CardContent>
+                        <Typography variant="subheading" gutterBottom >
                             {g.group}
                         </Typography>
-                    </ExpansionPanelSummary>
-                    <ExpansionPanelDetails className={classes.inputArea} >
                         {g.fields.map(f => (
                             <PluginField
+                                className={classes.input}
                                 field={f}
                                 value={values[f.name]}
                                 onChange={handleChange}
                                 onClick={handleClick}
                                 key={f.name} />
                         ))}
-                    </ExpansionPanelDetails>
-                </ExpansionPanel>
+                    </CardContent>
+                </Card>
             ))}
             
         </form>

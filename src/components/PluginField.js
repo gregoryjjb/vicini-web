@@ -1,7 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { TextField, Button } from '@material-ui/core';
+import {
+	TextField,
+	Button,
+	FormControl,
+	InputLabel,
+	Select,
+	MenuItem,
+} from '@material-ui/core';
 
 const PluginField = ({ className, field, value, onChange, onClick, }) => {
 	
@@ -9,14 +16,41 @@ const PluginField = ({ className, field, value, onChange, onClick, }) => {
 	
 	let label = field.label || field.name;
 	
+	let fixedValue = (value === undefined) ? '' : value;
+	
 	if(field.type === 'button') {
 		return (
 			<Button
 				className={className}
 				name={field.name}
+				variant="outlined"
+				color="primary"
 				onClick={() => onClick(field.name)} >
 				{label}
 			</Button>
+		)
+	}
+	
+	if(field.type === 'select') {
+		return(
+			<FormControl className={className}>
+				<InputLabel htmlFor={field.name}>{field.label}</InputLabel>
+				<Select
+					value={fixedValue}
+					onChange={!isOutput ? onChange : undefined}
+					inputProps={{
+						name: field.name,
+						id: field.name,
+					}}>
+					{field.options.map(o => (
+						<MenuItem
+							value={o.value}
+							key={o.value} >
+							{o.label}
+						</MenuItem>
+					))}
+				</Select>
+			</FormControl>
 		)
 	}
 	
@@ -27,7 +61,7 @@ const PluginField = ({ className, field, value, onChange, onClick, }) => {
 			label={label}
 			type={field.type}
 			disabled={isOutput}
-			value={value || ''}
+			value={fixedValue}
 			onChange={!isOutput ? onChange : undefined}
 		/>
 	)
