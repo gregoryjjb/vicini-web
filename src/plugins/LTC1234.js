@@ -11,7 +11,7 @@ export default {
 		type: 'number',
 		defaultValue: 420,
 		output: false,
-		group: "Inputs",
+		group: "My First Groups",
 	}, {
 		name: 'selectTest',
 		label: 'Select Test',
@@ -67,6 +67,18 @@ export default {
 				}, 
 			)
 		},
+	}, {
+		name: 'g1',
+		type: 'text',
+		group: 'Group 1',
+	}, {
+		name: 'g2',
+		type: 'text',
+		group: 'Group 2',
+	}, {
+		name: 'g3',
+		type: 'text',
+		group: 'Group 3',
 	}],
 	
 	
