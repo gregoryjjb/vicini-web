@@ -7,8 +7,9 @@ export default {
 	
 	fields: [{
 		name: 'volts',
-		label: 'Voltage (mv)',
+		label: 'Voltage',
 		type: 'number',
+		units: 'mV',
 		defaultValue: 420,
 		output: false,
 		group: "My First Groups",
@@ -16,6 +17,7 @@ export default {
 		name: 'selectTest',
 		label: 'Select Test',
 		type: 'select',
+		units: 'times',
 		options: [
 			{value: 0, label: 'Zero'},
 			{value: 1, label: 'Single'},

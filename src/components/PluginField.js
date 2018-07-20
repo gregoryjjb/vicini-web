@@ -8,6 +8,7 @@ import {
 	InputLabel,
 	Select,
 	MenuItem,
+	InputAdornment,
 } from '@material-ui/core';
 
 const PluginField = ({ className, field, value, onChange, onClick, }) => {
@@ -17,6 +18,8 @@ const PluginField = ({ className, field, value, onChange, onClick, }) => {
 	let label = field.label || field.name;
 	
 	let fixedValue = (value === undefined) ? '' : value;
+	
+	let units = (field.units ? <InputAdornment position='end'>{field.units}</InputAdornment> : null);
 	
 	if(field.type === 'button') {
 		return (
@@ -38,6 +41,7 @@ const PluginField = ({ className, field, value, onChange, onClick, }) => {
 				<Select
 					value={fixedValue}
 					onChange={!isOutput ? onChange : undefined}
+					endAdornment={units}
 					inputProps={{
 						name: field.name,
 						id: field.name,
@@ -62,6 +66,9 @@ const PluginField = ({ className, field, value, onChange, onClick, }) => {
 			type={field.type}
 			disabled={isOutput}
 			value={fixedValue}
+			InputProps={{
+				endAdornment: units,
+			}}
 			onChange={!isOutput ? onChange : undefined}
 		/>
 	)
