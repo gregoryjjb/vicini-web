@@ -17,7 +17,7 @@ export const pluginType = PropTypes.shape({
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     
-    fields: PropTypes.arrayOf(fieldType),
+    fields: PropTypes.arrayOf(fieldType).isRequired,
     
     reducer: PropTypes.func,
 })

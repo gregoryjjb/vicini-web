@@ -14,6 +14,9 @@ import Plugin from 'components/Plugin';
 
 const styles = theme => ({
 	root: {},
+	error: {
+		color: theme.palette.error.dark,
+	}
 })
 
 const PluginWrapper = ({ classes, loading, error, plugin }) => {
@@ -28,7 +31,12 @@ const PluginWrapper = ({ classes, loading, error, plugin }) => {
 		)
 	}
 	else if(error) {
-		content = <Typography variant="headline">{error}</Typography>;
+		content = (
+			<span>
+				<Typography variant="headline" className={classes.error} gutterBottom>Error loading plugin</Typography>
+				<Typography variant="subheading">{error}</Typography>
+			</span>
+		);
 	}
 	else if(plugin && plugin.name) {
 		content = <Plugin plugin={plugin} />;
