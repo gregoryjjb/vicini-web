@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import checkTypes from 'utils/check-types';
 import { pluginType } from 'utils/types';
 
 import PluginWrapper from 'components/PluginWrapper';
@@ -26,13 +27,23 @@ class PluginContainer extends Component {
             
             console.log(plugin);
             
+            
             // Validate plugin with proptypes
-            PropTypes.checkPropTypes({ plugin: pluginType }, { plugin }, 'prop', 'PluginContainer-loader');
+            //PropTypes.checkPropTypes({ plugin: pluginType }, { plugin }, 'prop', 'PluginContainer-loader');
+            try {
+                checkTypes({ plugin: pluginType }, { plugin }, 'prop', 'PluginContainer-loader');
+                
+                console.log("Setting state with plugin")
             
-            console.log("Setting state with plugin")
-            
-            // Put plugin somewhere
-            this.setState({ plugin });
+                // Put plugin somewhere
+                this.setState({ plugin });
+            }
+            catch(e) {
+                
+                console.log("Caught an error")
+                
+                this.setState({ error: e.message });
+            }
 		})
 		.catch(err => {
 			let msg = `Plugin '${pluginId}' not found or failed to load`;

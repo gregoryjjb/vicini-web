@@ -18,12 +18,13 @@ const styles = theme => ({
     root: {},
     form: {
         display: 'flex',
-        flexDirection: 'column',
+        flexDirection: 'row',
         flexWrap: 'wrap',
+        alignItems: 'baseline',
     },
     panel: {
         //backgroundColor: theme.palette.background.default,
-        maxWidth: 240,
+        width: 240,
         marginBottom: 16,
         marginRight: 16,
     },
