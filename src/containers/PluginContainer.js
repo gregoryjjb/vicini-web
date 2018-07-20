@@ -25,24 +25,17 @@ class PluginContainer extends Component {
 		.then(pluginModule => {
             let plugin = pluginModule.default;
             
-            console.log(plugin);
-            
-            
-            // Validate plugin with proptypes
-            //PropTypes.checkPropTypes({ plugin: pluginType }, { plugin }, 'prop', 'PluginContainer-loader');
             try {
+                // Validate plugin with proptypes
                 checkTypes({ plugin: pluginType }, { plugin }, 'prop', 'PluginContainer-loader');
                 
-                console.log("Setting state with plugin")
-            
                 // Put plugin somewhere
                 this.setState({ plugin });
             }
             catch(e) {
-                
-                console.log("Caught an error")
-                
-                this.setState({ error: e.message });
+                let msg = 'Plugin validation failed: ' + e.message;
+                console.error(msg);
+                this.setState({ error: msg });
             }
 		})
 		.catch(err => {

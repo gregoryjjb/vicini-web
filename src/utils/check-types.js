@@ -1,8 +1,5 @@
 
 function checkTypes(typeSpecs, values, location, componentName, getStack) {
-    
-    console.info("MANUAL TYPE CHECK")
-    
     for (var typeSpecName in typeSpecs) {
         if (typeSpecs.hasOwnProperty(typeSpecName)) {
             var error;
@@ -35,10 +32,7 @@ function checkTypes(typeSpecs, values, location, componentName, getStack) {
                     'shape all require an argument).'
                 )
                 
-                console.error("AN ERROR WAS CAUGHT");
-                
                 throw new Error(msg);
-
             }
             if (error instanceof Error) {
                 // Only monitor this failure once because there tends to be a lot of the
@@ -47,11 +41,9 @@ function checkTypes(typeSpecs, values, location, componentName, getStack) {
 
                 var stack = getStack ? getStack() : '';
 
-                console.error(
-                    'Failed ' + location + ' type: ' + error.message + (stack != null ? stack : '')
-                );
+                let msg = 'Failed ' + location + ' type: ' + error.message + (stack != null ? stack : '')
                 
-                
+                throw new Error(msg);
             }
         }
     }
