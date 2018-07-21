@@ -26,17 +26,19 @@ class PluginContainer extends Component {
 		.then(pluginModule => {
             let plugin = pluginModule.default;
             
-            try {
+            let typeErrors = checkTypes(pluginShape, plugin, 'PluginContainer-loader');
+            
+            if(typeErrors.length > 0) {
+                let msg = 'Plugin validation failed: \n' + typeErrors.join('\n');
+                console.error(msg);
+                this.setState({ error: msg });
+            }
+            else {
                 // Validate plugin with proptypes
                 checkTypes(pluginShape, plugin, 'PluginContainer-loader');
                 
                 // Put plugin somewhere
                 this.setState({ plugin });
-            }
-            catch(e) {
-                let msg = 'Plugin validation failed: \n' + e.message;
-                console.error(msg);
-                this.setState({ error: msg });
             }
 		})
 		.catch(err => {

@@ -7,6 +7,13 @@
 // Don't ask
 const ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
 
+/**
+ * Check the types of an object
+ * @param {PropTypes object} typeSpecs 
+ * @param {Values to get type-checked} values 
+ * @param {Gets printed out in message} componentName 
+ * @returns {Array of errors (emtpy if no errors)}
+ */
 function checkTypes(typeSpecs, values, componentName) {
     
     const errors = [];
@@ -43,9 +50,7 @@ function checkTypes(typeSpecs, values, componentName) {
         }
     }
     
-    if(errors.length > 0) {
-        throw new Error(errors.join('\n'));
-    }
+    return errors;
 }
 
 export default checkTypes;
