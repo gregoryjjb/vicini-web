@@ -21,7 +21,7 @@ export const fieldType = PropTypes.shape({
     onClick: PropTypes.func,
 })
 
-export const pluginType = PropTypes.shape({
+export const pluginShape = {
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
@@ -29,4 +29,6 @@ export const pluginType = PropTypes.shape({
     fields: PropTypes.arrayOf(fieldType).isRequired,
     
     reducer: PropTypes.func,
-})
+}
+
+export const pluginType = PropTypes.shape(pluginShape);

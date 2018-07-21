@@ -34,7 +34,8 @@ const PluginWrapper = ({ classes, loading, error, plugin }) => {
 		content = (
 			<span>
 				<Typography variant="headline" className={classes.error} gutterBottom>Error loading plugin</Typography>
-				<Typography variant="subheading">{error}</Typography>
+				
+				<code style={{ whiteSpace: 'pre-wrap' }} >{error}</code>
 			</span>
 		);
 	}

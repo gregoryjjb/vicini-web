@@ -5,6 +5,7 @@ import checkTypes from 'utils/check-types';
 import { pluginType } from 'utils/types';
 
 import PluginWrapper from 'components/PluginWrapper';
+import { pluginShape } from '../utils/types';
 
 class PluginContainer extends Component {
     
@@ -27,13 +28,13 @@ class PluginContainer extends Component {
             
             try {
                 // Validate plugin with proptypes
-                checkTypes({ plugin: pluginType }, { plugin }, 'prop', 'PluginContainer-loader');
+                checkTypes(pluginShape, plugin, 'PluginContainer-loader');
                 
                 // Put plugin somewhere
                 this.setState({ plugin });
             }
             catch(e) {
-                let msg = 'Plugin validation failed: ' + e.message;
+                let msg = 'Plugin validation failed: \n' + e.message;
                 console.error(msg);
                 this.setState({ error: msg });
             }
