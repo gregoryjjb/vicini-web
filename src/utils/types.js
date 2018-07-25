@@ -2,7 +2,18 @@ import PropTypes from 'prop-types';
 
 export const hardwareType = PropTypes.shape({
     name: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
 })
+
+export const hardwareShape = {
+    id: PropTypes.string.isRequired,
+    available: PropTypes.bool.isRequired,
+    open: PropTypes.bool.isRequired,
+    details: PropTypes.shape({
+        part: PropTypes.string.isRequired,
+        eval: PropTypes.string.isRequired,
+    })
+}
 
 const stringOrNumber = PropTypes.oneOfType([PropTypes.string, PropTypes.number]);
 
