@@ -6,6 +6,7 @@ import {
 } from "@material-ui/core";
 
 import HardwareContainer from "../containers/HardwareContainer";
+import SerialContainer from "../containers/SerialContainer";
 
 const styles = theme => ({
 	root: {
@@ -23,6 +24,7 @@ const HomePage = ({ classes }) => (
 		<div className={classes.hardwareArea} >
 			<HardwareContainer />
 		</div>
+		<SerialContainer />
 	</div>
 );
 

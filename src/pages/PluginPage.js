@@ -7,7 +7,7 @@ import {
 } from '@material-ui/core';
 
 import PluginContainer from 'containers/PluginContainer';
-import SerialCard from 'components/SerialCard';
+import SerialContainer from 'containers/SerialContainer';
 
 const styles = theme => ({
 	root: {
@@ -38,7 +38,7 @@ const PluginPage = ({ classes, match }) => (
 					<PluginContainer pluginId={match.params.id} />
 				</Grid>
 				<Grid item xs={6} >
-					<SerialCard />
+					<SerialContainer />
 				</Grid>
 			</Grid>
 		</div>

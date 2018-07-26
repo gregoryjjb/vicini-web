@@ -43,3 +43,13 @@ export const pluginShape = {
 }
 
 export const pluginType = PropTypes.shape(pluginShape);
+
+
+export const serialPortShape = {
+    id: PropTypes.string.isRequired,
+    lines: PropTypes.arrayOf(
+        PropTypes.shape({
+            text: PropTypes.string.isRequired
+        }).isRequired
+    )
+}

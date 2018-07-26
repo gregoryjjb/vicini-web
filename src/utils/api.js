@@ -1,4 +1,5 @@
 import { store } from 'utils/store';
+import { addSerialChannel, addSerialLine } from './actions';
 
 const api = {};
 
@@ -51,6 +52,13 @@ api.identifyHardware = (id) => {
         part: id === "COM1" ? "LTC1234" : "AD",
         eval: "EVAL",
     }
+    
+    addSerialChannel({ id });
+    
+    addSerialLine({
+        channel: id,
+        text: "Well golly gee looks like we've opened a serial line at " + id,
+    });
     
     api.getHardware();
 }

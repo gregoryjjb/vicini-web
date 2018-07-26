@@ -11,6 +11,9 @@ export let store = createStore({
 	'hardware.list': [],
 	
 	'plugin.id': '',
+	
+	'serial.ports': [],
+	'serial.selectedTab': 0,
 })
 
 export let withStore = connect(withLogger(store));
