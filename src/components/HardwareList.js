@@ -16,22 +16,28 @@ const styles = theme => ({
         flexDirection: 'column',
         alignItems: 'start',
     },
+    buttonArea: {
+        display: 'flex',
+        
+    },
     cards: {
         display: 'flex',
         flexDirection: 'row',
+        alignItems: 'baseline',
         marginTop: 16,
-    }
+    },
 })
 
 const HardwareList = ({ classes, hardware, isLoading, refreshClicked }) => (
     <div className={classes.root} >
-        <Button onClick={refreshClicked} disabled={isLoading} >Refresh</Button>
-        {isLoading ?
-            <CircularProgress color="secondary" />
-            :
+        <div className={classes.buttonArea} >
+            <Button onClick={refreshClicked} disabled={isLoading} >Refresh</Button>
+            {isLoading && <CircularProgress color="secondary" size={30} />}
+        </div>
+        {hardware &&
             <div className={classes.cards} >
                 {hardware.map(h => (
-                    <HardwareCard hardware={h} key={h.name} />
+                    <HardwareCard hardware={h} key={h.name} disabled={isLoading} />
                 ))}
             </div>
         }
