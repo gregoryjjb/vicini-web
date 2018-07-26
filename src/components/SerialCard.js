@@ -20,6 +20,10 @@ const styles = theme => ({
 		minWidth: 300,
 		//margin: 16,
 	},
+	tabs: {
+		background: theme.palette.primary.main,
+		color: theme.palette.getContrastText(theme.palette.primary.light),
+	},
 	content: {
 		display: 'flex',
 		flexDirection: 'column',
@@ -42,28 +46,19 @@ const styles = theme => ({
 	}
 })
 
-const testLines = [
-	"Hi there",
-	"This is some test serial lines",
-	"One",
-	"Two",
-	"Three",
-	"Four",
-]
-
 const SerialArea = ({ classes, ports, selectedTab, onTabChange }) => (
 	<div style={{flex: 1}} >
 		<Card className={classes.card}>
+			<Tabs className={classes.tabs} value={selectedTab} onChange={onTabChange} >
+				{ports.map(port => (
+					<Tab label={port.id} key={port.id} />
+				))}
+			</Tabs>
 			<CardContent className={classes.content}>
-				<Tabs value={selectedTab} onChange={onTabChange}>
-					{ports.map(port => (
-						<Tab label={port.id} />
-					))}
-				</Tabs>
 				{ports[selectedTab] &&
 					<div>
-						{ports[selectedTab].lines.map(l => (
-							<p>{l.text}</p>
+						{ports[selectedTab].lines.map((l, key) => (
+							<p key={key}>{l.text}</p>
 						))}
 					</div>
 				}

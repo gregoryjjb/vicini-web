@@ -37,7 +37,7 @@ const HardwareList = ({ classes, hardware, isLoading, refreshClicked }) => (
         {hardware &&
             <div className={classes.cards} >
                 {hardware.map(h => (
-                    <HardwareCard hardware={h} key={h.name} disabled={isLoading} />
+                    <HardwareCard hardware={h} key={h.id} disabled={isLoading} />
                 ))}
             </div>
         }

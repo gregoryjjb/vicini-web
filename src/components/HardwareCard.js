@@ -17,6 +17,7 @@ const styles = theme => ({
     card: {
         width: 275,
         marginRight: 16, //temp
+        marginBottom: 16,
     },
     buttonArea: {
         display: 'flex',
