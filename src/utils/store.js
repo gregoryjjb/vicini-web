@@ -14,6 +14,10 @@ export let store = createStore({
 	
 	'serial.ports': [],
 	'serial.selectedTab': 0,
-})
+});
+
+store.getCopy = (key) => JSON.parse(JSON.stringify(store.get(key)));
+
+store.setCopy = (key) => (value) => store.set(key)(JSON.parse(JSON.stringify(value)));
 
 export let withStore = connect(withLogger(store));
