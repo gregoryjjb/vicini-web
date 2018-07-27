@@ -49,7 +49,8 @@ export const serialPortShape = {
     id: PropTypes.string.isRequired,
     lines: PropTypes.arrayOf(
         PropTypes.shape({
-            text: PropTypes.string.isRequired
-        }).isRequired
-    )
+            text: PropTypes.string.isRequired,
+            sent: PropTypes.bool.isRequired,
+        })
+    ).isRequired
 }

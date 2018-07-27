@@ -14,6 +14,7 @@ import {
 	Tab,
 	TabContainer,
 } from '@material-ui/core';
+import SerialMonitor from './SerialMonitor';
 
 const styles = theme => ({
 	card: {
@@ -56,11 +57,12 @@ const SerialArea = ({ classes, ports, selectedTab, onTabChange }) => (
 			</Tabs>
 			<CardContent className={classes.content}>
 				{ports[selectedTab] &&
-					<div>
+					<SerialMonitor port={ports[selectedTab]} />
+					/*<div>
 						{ports[selectedTab].lines.map((l, key) => (
 							<p key={key}>{l.text}</p>
 						))}
-					</div>
+					</div>*/
 				}
 				{/*<div className={classes.textArea} >
 					{testLines.map(l => (

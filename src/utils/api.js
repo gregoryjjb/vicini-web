@@ -36,7 +36,7 @@ api.getHardware = () => {
     
     fakeAxios(hardwares)
     .then(result => {
-        store.set('hardware.list')([...result]);
+        store.setCopy('hardware.list')(result);
     })
     .catch(error => {
         store.set('hardware.error')(true);
