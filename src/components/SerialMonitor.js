@@ -23,6 +23,14 @@ const styles = theme => ({
 	chip: {
 		marginBottom: 8,
 	},
+	sentChip: {
+		backgroundColor: 'unset',
+		border: '1px solid ' + theme.palette.text.secondary,
+		alignSelf: 'flex-end',
+	},
+	receivedChip: {
+		alignSelf: 'flex-start',
+	},
 	inputArea: {
 		display: 'flex',
 		flexDirection: 'row',
@@ -40,7 +48,7 @@ const SerialMonitor = ({ classes, port }) => (
 	<div className={classes.root} >
 		<div className={classes.chipArea} >
 			{port.lines.map(line => (
-				<Chip className={classes.chip} label={line.text} style={{ alignSelf: line.sent ? 'flex-end' : 'flex-start' }} />
+				<Chip className={classes.chip + " " + (line.sent ? classes.sentChip : classes.receivedChip)} label={line.text} />
 			))}
 		</div>
 		<div className={classes.inputArea} >
