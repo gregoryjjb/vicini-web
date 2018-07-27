@@ -26,7 +26,7 @@ export const addSerialLine = ({ channel, text, sent = false }) => {
 	
 	port.lines.push({
 		text,
-		sent: true,
+		sent,
 	})
 	
 	store.set('serial.ports')(ports);

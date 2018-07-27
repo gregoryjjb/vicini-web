@@ -58,6 +58,7 @@ api.identifyHardware = (id) => {
     addSerialLine({
         channel: id,
         text: "Well golly gee looks like we've opened a serial line at " + id,
+        sent: false,
     });
     
     api.getHardware();

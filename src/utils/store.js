@@ -12,7 +12,19 @@ export let store = createStore({
 	
 	'plugin.id': '',
 	
-	'serial.ports': [],
+	'serial.ports': [{
+		id: 'TEST',
+		lines: [{
+			text: 'Hello there Linduino',
+			sent: true,
+		}, {
+			text: 'Why hello customer',
+			sent: false,
+		}, {
+			text: 'How are you on this fine day?',
+			sent: false,
+		}]
+	}],
 	'serial.selectedTab': 0,
 });
 

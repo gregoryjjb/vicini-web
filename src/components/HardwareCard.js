@@ -11,6 +11,7 @@ import {
 import UnstyledLink from "components/UnstyledLink";
 
 import api from 'utils/api';
+import { addSerialLine } from 'utils/actions';
 
 const styles = theme => ({
     root: {},
@@ -57,7 +58,7 @@ const HardwareCard = ({ classes, hardware, disabled }) => {
                 {identified && <UnstyledLink to={`/plugin/${hardware.details.part}`} >
                     <Button disabled={btnDisabled} >Open</Button>
                 </UnstyledLink>}
-                <Button disabled={btnDisabled} >Blink</Button>
+                <Button disabled={btnDisabled} onClick={() => addSerialLine({channel: hardware.id, text: "BLINK", sent: true})} >Blink</Button>
             </CardActions>
         </Card>
     );
