@@ -2,7 +2,7 @@ import { store } from './store';
 
 export const addSerialChannel = ({ id }) => {
 	
-	let ports = store.get('serial.ports');
+	let ports = store.getCopy('serial.ports');
 	
 	if(ports.find(p => p.id === id) !== undefined) return;
 	
@@ -17,13 +17,17 @@ export const addSerialChannel = ({ id }) => {
 	store.set('serial.ports')(newPorts);
 }
 
-export const addSerialLine = ({ channel, text }) => {
+export const addSerialLine = ({ channel, text, sent = false }) => {
 	
-	let ports = store.get('serial.ports');
+	//let ports = JSON.parse(JSON.stringify(store.get('serial.ports')));
+	let ports = store.getCopy('serial.ports');
 	let port = ports.find(p => p.id === channel);
 	if(port === undefined) return;
 	
 	port.lines.push({
 		text,
+		sent: true,
 	})
+	
+	store.set('serial.ports')(ports);
 }
