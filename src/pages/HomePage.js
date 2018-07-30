@@ -19,7 +19,7 @@ const styles = theme => ({
 })
 
 const HomePage = ({ classes }) => (
-	<div className={classes.root} >
+	<div>
 		<Typography variant="display2" gutterBottom >Attached Hardware</Typography>
 		<div className={classes.hardwareArea} >
 			<HardwareContainer />

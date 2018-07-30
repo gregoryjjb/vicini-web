@@ -18,6 +18,7 @@ class SerialContainer extends Component {
 		
 		return(
 			<SerialArea
+				className={this.props.className}
 				ports={ports}
 				selectedTab={tab}
 				onTabChange={this.handleTabChange} />

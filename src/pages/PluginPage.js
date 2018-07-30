@@ -22,7 +22,6 @@ const styles = theme => ({
 		flexDirection: 'row',
 	},
 	grid: {
-		margin: 16,
 	}
 })
 

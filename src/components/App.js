@@ -6,9 +6,17 @@ import { withStyles } from '@material-ui/core';
 import Header from 'components/Header';
 import HomePage from 'pages/HomePage';
 import PluginPage from 'pages/PluginPage';
+import PageArea from './PageArea';
+import TestPage from '../pages/TestPage';
 
 const styles = theme => ({
-	root: {},
+	root: {
+		position: 'absolute',
+		top: 0,
+		bottom: 0,
+		left: 0,
+		right: 0,
+	},
 	pageArea: {
 		margin: 0, // Should this be here or on each page?
 	}
@@ -30,12 +38,13 @@ class App extends Component {
 		
 		return (
 			<BrowserRouter>
-				<div className="App">
+				<div className={classes.root} >
 					<Header />
-					<div className={classes.pageArea} >
+					<PageArea>
 						<Route exact path="/" component={HomePage} />
 						<Route path="/plugin/:id" component={PluginPage} />
-					</div>
+						<Route path="/test" component={TestPage} />
+					</PageArea>
 				</div>
 			</BrowserRouter>
 		);

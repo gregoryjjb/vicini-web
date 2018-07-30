@@ -21,7 +21,7 @@ const styles = theme => ({
 
 const Header = ({ classes }) => (
 	<header className={classes.root} >
-		<AppBar position="static">
+		<AppBar position="fixed" >
 			<Toolbar>
 				<UnstyledLink to="/">
 					<Typography variant="title" color="inherit" className={classes.title} >

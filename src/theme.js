@@ -4,7 +4,7 @@ const getTheme = mode => {
 	let theme = createMuiTheme({
 		palette: {
 			type: mode,
-		}
+		},
 	})
 	
 	window.theme = theme;

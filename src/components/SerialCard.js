@@ -47,37 +47,35 @@ const styles = theme => ({
 	}
 })
 
-const SerialArea = ({ classes, ports, selectedTab, onTabChange }) => (
-	<div style={{flex: 1}} >
-		<Card className={classes.card}>
-			<Tabs className={classes.tabs} value={selectedTab} onChange={onTabChange} >
-				{ports.map(port => (
-					<Tab label={port.id} key={port.id} />
-				))}
-			</Tabs>
-			<CardContent className={classes.content}>
-				{ports[selectedTab] &&
-					<SerialMonitor port={ports[selectedTab]} />
-					/*<div>
-						{ports[selectedTab].lines.map((l, key) => (
-							<p key={key}>{l.text}</p>
-						))}
-					</div>*/
-				}
-				{/*<div className={classes.textArea} >
-					{testLines.map(l => (
-						<Typography variant="body2" key={l} >{l}</Typography>
+const SerialArea = ({ className, classes, ports, selectedTab, onTabChange }) => (
+	<Card className={classes.card + " " + className}>
+		<Tabs className={classes.tabs} value={selectedTab} onChange={onTabChange} >
+			{ports.map(port => (
+				<Tab label={port.id} key={port.id} />
+			))}
+		</Tabs>
+		<CardContent className={classes.content}>
+			{ports[selectedTab] &&
+				<SerialMonitor port={ports[selectedTab]} />
+				/*<div>
+					{ports[selectedTab].lines.map((l, key) => (
+						<p key={key}>{l.text}</p>
 					))}
-				</div>
-				<div className={classes.inputArea} >
-					<TextField className={classes.input} placeholder="Send serial..." />
-					<Button variant="contained" color="secondary" size='small' className={classes.sendButton} >
-						Send
-					</Button>
-				</div>*/}
-			</CardContent>
-		</Card>
-	</div>
+				</div>*/
+			}
+			{/*<div className={classes.textArea} >
+				{testLines.map(l => (
+					<Typography variant="body2" key={l} >{l}</Typography>
+				))}
+			</div>
+			<div className={classes.inputArea} >
+				<TextField className={classes.input} placeholder="Send serial..." />
+				<Button variant="contained" color="secondary" size='small' className={classes.sendButton} >
+					Send
+				</Button>
+			</div>*/}
+		</CardContent>
+	</Card>
 )
 
 SerialArea.propTypes = {
