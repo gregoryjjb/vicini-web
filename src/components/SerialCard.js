@@ -50,7 +50,7 @@ const styles = theme => ({
 	}
 })
 
-const SerialCard = ({ className, classes, ports, selectedTab, onTabChange }) => (
+const SerialCard = ({ className, classes, ports, selectedTab, onTabChange, onSend }) => (
 	<Card className={classes.root + " " + className}>
 		<Tabs className={classes.tabs} value={selectedTab} onChange={onTabChange} >
 			{ports.map(port => (
@@ -59,7 +59,7 @@ const SerialCard = ({ className, classes, ports, selectedTab, onTabChange }) => 
 		</Tabs>
 		<CardContent className={classes.content}>
 			{ports[selectedTab] &&
-				<SerialMonitor port={ports[selectedTab]} />
+				<SerialMonitor port={ports[selectedTab]} onSend={onSend} />
 			}
 		</CardContent>
 	</Card>

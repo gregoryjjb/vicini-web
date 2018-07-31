@@ -3,11 +3,19 @@ import { withStore } from 'utils/store';
 
 import SerialCard from 'components/SerialCard';
 
+import { addSerialLine } from 'utils/actions';
+
 class SerialContainer extends Component {
 	
 	handleTabChange = (event, value) => {
 		let { store } = this.props;
 		store.set('serial.selectedTab')(value);
+	}
+	
+	handleSend = (text, channel) => {
+		if(text) {
+			addSerialLine({ channel, text, sent: true });
+		}
 	}
 	
 	render() {
@@ -21,7 +29,8 @@ class SerialContainer extends Component {
 				className={this.props.className}
 				ports={ports}
 				selectedTab={tab}
-				onTabChange={this.handleTabChange} />
+				onTabChange={this.handleTabChange}
+				onSend={this.handleSend} />
 		)
 	}
 }

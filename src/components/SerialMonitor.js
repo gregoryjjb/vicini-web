@@ -57,14 +57,51 @@ class SerialMonitor extends Component {
 		super(props);
 		
 		this.scrollRef = null;
+		
+		this.state = {
+			inputValue: '',
+		}
 	}
 	
 	componentDidMount() {
-		//this.scrollRef.scrollIntoView({ behavior: 'smooth' });
+		setTimeout(() => this.forceScrollDown(), 500); // This is hacky but if we call it right away it's too soon
+	}
+	
+	componentDidUpdate(prevProps) {
+		
+		let oldPort = prevProps.port;
+		let newPort = this.props.port;
+		
+		if(!newPort) return;
+		
+		if(!oldPort && newPort) {
+			this.forceScrollDown();
+			return;
+		}
+		
+		if(oldPort.lines.length !== newPort.lines.length) {
+			this.forceScrollDown();
+			return;
+		}
+	}
+	
+	forceScrollDown = () => {
+		console.log("FORCING SCROLL")
+		this.scrollRef.scrollIntoView({ behavior: 'smooth' });
+	}
+	
+	handleSend = () => {
+		let { onSend, port } = this.props;
+		let { inputValue } = this.state;
+		
+		if(onSend && inputValue) {
+			onSend(inputValue, port.id);
+			this.setState({ inputValue: '' });
+		}
 	}
 	
 	render() {
-		let { classes, port } = this.props;
+		let { classes, port, } = this.props;
 		
 		return (
 			<div className={classes.root} >
@@ -76,13 +113,18 @@ class SerialMonitor extends Component {
 				</div>
 				<Divider />
 				<div className={classes.inputArea} >
-					<TextField className={classes.input} placeholder="Send serial..." />
+					<TextField
+						className={classes.input}
+						placeholder="Send serial..."
+						value={this.state.inputValue}
+						onChange={e => this.setState({ inputValue: e.target.value })}
+						onKeyDown={e => { if(e.keyCode === 13) this.handleSend() }} />
 					<Button
 						variant="contained"
 						color="secondary"
 						size='small'
 						className={classes.sendButton}
-						onClick={() => addSerialLine({ channel: port.id, text: "I can't read your input yet", sent: true })} >
+						onClick={this.handleSend} >
 						Send
 					</Button>
 				</div>
