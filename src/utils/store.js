@@ -23,6 +23,18 @@ export let store = createStore({
 		}, {
 			text: 'How are you on this fine day?',
 			sent: false,
+		}, {
+			text: 'Well, and you?',
+			sent: true,
+		}, {
+			text: 'Well as well',
+			sent: false,
+		}, {
+			text: 'It is good to be a Linduino',
+			sent: false,
+		}, {
+			text: 'I concur',
+			sent: true,
 		}]
 	}],
 	'serial.selectedTab': 0,

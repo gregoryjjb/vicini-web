@@ -17,11 +17,14 @@ const styles = theme => ({
 		flexDirection: 'column',
 	},
 	chipArea: {
+		flex: 1,
 		display: 'flex',
 		flexDirection: 'column',
+		overflowY: 'auto',
 	},
 	chip: {
 		marginBottom: 8,
+		flexShrink: 0,
 	},
 	sentChip: {
 		backgroundColor: 'unset',
@@ -32,6 +35,7 @@ const styles = theme => ({
 		alignSelf: 'flex-start',
 	},
 	inputArea: {
+		flexShrink: 0,
 		display: 'flex',
 		flexDirection: 'row',
 	},

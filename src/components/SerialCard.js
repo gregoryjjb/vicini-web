@@ -17,15 +17,19 @@ import {
 import SerialMonitor from './SerialMonitor';
 
 const styles = theme => ({
-	card: {
+	root: {
 		minWidth: 300,
 		//margin: 16,
+		display: 'flex',
+		flexDirection: 'column',
 	},
 	tabs: {
 		background: theme.palette.primary.main,
 		color: theme.palette.getContrastText(theme.palette.primary.light),
+		flexShrink: 0,
 	},
 	content: {
+		flexShrink: 1,
 		display: 'flex',
 		flexDirection: 'column',
 		height: '100%',
@@ -48,7 +52,7 @@ const styles = theme => ({
 })
 
 const SerialArea = ({ className, classes, ports, selectedTab, onTabChange }) => (
-	<Card className={classes.card + " " + className}>
+	<Card className={classes.root + " " + className}>
 		<Tabs className={classes.tabs} value={selectedTab} onChange={onTabChange} >
 			{ports.map(port => (
 				<Tab label={port.id} key={port.id} />

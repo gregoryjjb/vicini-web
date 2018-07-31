@@ -21,7 +21,7 @@ const styles = theme => ({
 	card: {
 		margin: '0 8px',
 		flex: 1,
-		overflowY: 'auto',
+		//overflowY: 'auto',
 		maxHeight: '100%',
 	},
 })
