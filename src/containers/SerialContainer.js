@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withStore } from 'utils/store';
 
-import SerialArea from 'components/SerialCard';
+import SerialCard from 'components/SerialCard';
 
 class SerialContainer extends Component {
 	
@@ -17,7 +17,7 @@ class SerialContainer extends Component {
 		let tab = store.get('serial.selectedTab');
 		
 		return(
-			<SerialArea
+			<SerialCard
 				className={this.props.className}
 				ports={ports}
 				selectedTab={tab}

@@ -19,7 +19,6 @@ import SerialMonitor from './SerialMonitor';
 const styles = theme => ({
 	root: {
 		minWidth: 300,
-		//margin: 16,
 		display: 'flex',
 		flexDirection: 'column',
 	},
@@ -51,7 +50,7 @@ const styles = theme => ({
 	}
 })
 
-const SerialArea = ({ className, classes, ports, selectedTab, onTabChange }) => (
+const SerialCard = ({ className, classes, ports, selectedTab, onTabChange }) => (
 	<Card className={classes.root + " " + className}>
 		<Tabs className={classes.tabs} value={selectedTab} onChange={onTabChange} >
 			{ports.map(port => (
@@ -61,29 +60,13 @@ const SerialArea = ({ className, classes, ports, selectedTab, onTabChange }) => 
 		<CardContent className={classes.content}>
 			{ports[selectedTab] &&
 				<SerialMonitor port={ports[selectedTab]} />
-				/*<div>
-					{ports[selectedTab].lines.map((l, key) => (
-						<p key={key}>{l.text}</p>
-					))}
-				</div>*/
 			}
-			{/*<div className={classes.textArea} >
-				{testLines.map(l => (
-					<Typography variant="body2" key={l} >{l}</Typography>
-				))}
-			</div>
-			<div className={classes.inputArea} >
-				<TextField className={classes.input} placeholder="Send serial..." />
-				<Button variant="contained" color="secondary" size='small' className={classes.sendButton} >
-					Send
-				</Button>
-			</div>*/}
 		</CardContent>
 	</Card>
 )
 
-SerialArea.propTypes = {
+SerialCard.propTypes = {
 	ports: PropTypes.arrayOf(PropTypes.shape(serialPortShape)).isRequired,
 }
 
-export default withStyles(styles)(SerialArea);
+export default withStyles(styles)(SerialCard);
