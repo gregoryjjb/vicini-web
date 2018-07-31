@@ -5,6 +5,13 @@ const getTheme = mode => {
 		palette: {
 			type: mode,
 		},
+		mixins: {
+			verticalSlice: {
+				margin: '0 8px',
+				flex: 1,
+				maxHeight: '100%',
+			}
+		}
 	})
 	
 	window.theme = theme;

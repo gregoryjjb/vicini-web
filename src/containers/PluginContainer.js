@@ -72,7 +72,7 @@ class PluginContainer extends Component {
     render() {
         let { loading, error, plugin } = this.state;
         
-        return <PluginWrapper loading={loading} error={error} plugin={plugin} />
+        return <PluginWrapper loading={loading} error={error} plugin={plugin} className={this.props.className} />
     }
 }
 

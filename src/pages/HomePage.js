@@ -7,6 +7,7 @@ import {
 
 import HardwareContainer from "../containers/HardwareContainer";
 import SerialContainer from "../containers/SerialContainer";
+import PageLayout from "../components/PageLayout";
 
 const styles = theme => ({
 	root: {
@@ -15,17 +16,19 @@ const styles = theme => ({
 	hardwareArea: {
 		display: 'flex',
 		flexDirection: 'row',
-	}
+		overflowY: 'auto',
+		...theme.mixins.verticalSlice,
+	},
+	serialArea: theme.mixins.verticalSlice,
 })
 
 const HomePage = ({ classes }) => (
-	<div>
-		<Typography variant="display2" gutterBottom >Attached Hardware</Typography>
+	<PageLayout>
 		<div className={classes.hardwareArea} >
 			<HardwareContainer />
 		</div>
-		<SerialContainer />
-	</div>
+		<SerialContainer className={classes.serialArea} />
+	</PageLayout>
 );
 
 export default withStyles(styles)(HomePage);

@@ -8,6 +8,7 @@ import {
 
 import PluginContainer from 'containers/PluginContainer';
 import SerialContainer from 'containers/SerialContainer';
+import PageLayout from '../components/PageLayout';
 
 const styles = theme => ({
 	root: {
@@ -21,14 +22,19 @@ const styles = theme => ({
 		display: 'flex',
 		flexDirection: 'row',
 	},
-	grid: {
-	}
+	plugin: {
+		...theme.mixins.verticalSlice,
+	},
+	serial: theme.mixins.verticalSlice,
 })
 
 const PluginPage = ({ classes, match }) => (
-	<div className={classes.root} >
-		
-		<div className={classes.content} >
+	<PageLayout>
+		<div className={classes.plugin}>
+			<PluginContainer pluginId={match.params.id} />
+		</div>
+		<SerialContainer className={classes.serial} />
+		{/*<div className={classes.content} >
 			<Grid container spacing={16} className={classes.grid} >
 				<Grid item xs={12}>
 					<Typography variant="display1">Plugin ID is: {match.params.id}</Typography>
@@ -40,8 +46,8 @@ const PluginPage = ({ classes, match }) => (
 					<SerialContainer />
 				</Grid>
 			</Grid>
-		</div>
-	</div>
+		</div>*/}
+	</PageLayout>
 )
 
 export default withStyles(styles)(PluginPage);

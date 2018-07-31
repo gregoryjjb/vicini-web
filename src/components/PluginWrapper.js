@@ -19,7 +19,7 @@ const styles = theme => ({
 	}
 })
 
-const PluginWrapper = ({ classes, loading, error, plugin }) => {
+const PluginWrapper = ({ className, classes, loading, error, plugin }) => {
 	
 	let content;
 	
@@ -47,7 +47,7 @@ const PluginWrapper = ({ classes, loading, error, plugin }) => {
 	}
 	
 	return(
-		<div style={{flex: 1}} >
+		<div style={{flex: 1}} className={className} >
 			<Card>
 				<CardContent>
 					{content}
