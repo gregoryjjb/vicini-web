@@ -6,6 +6,8 @@ import {
     withStyles,
     CircularProgress,
     Button,
+    Divider,
+    Typography,
 } from "@material-ui/core";
 
 import HardwareCard from 'components/HardwareCard';
@@ -14,26 +16,40 @@ const styles = theme => ({
     root: {
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'start',
+        //alignItems: 'start',
     },
     buttonArea: {
-        display: 'flex',
+        flexShrink: 0,
         
+        display: 'flex',
+        flexDirection: 'row',
+        marginBottom: 16,
+    },
+    refreshButton: {
+        marginLeft: 16,
     },
     cards: {
+        flexShrink: 1,
+        
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'baseline',
-        marginTop: 16,
+        flexWrap: 'wrap',
+        overflowY: 'auto',
+        paddingTop: 16,
+        paddingBottom: 16,
+        //marginTop: 16,
     },
 })
 
 const HardwareList = ({ classes, hardware, isLoading, refreshClicked }) => (
     <div className={classes.root} >
         <div className={classes.buttonArea} >
-            <Button onClick={refreshClicked} disabled={isLoading} >Refresh</Button>
+            <Typography variant='display1' >Attached Hardware</Typography>
+            <Button onClick={refreshClicked} disabled={isLoading} className={classes.refreshButton} >Refresh</Button>
             {isLoading && <CircularProgress color="secondary" size={30} />}
         </div>
+        <Divider />
         {hardware &&
             <div className={classes.cards} >
                 {hardware.map(h => (
@@ -41,6 +57,7 @@ const HardwareList = ({ classes, hardware, isLoading, refreshClicked }) => (
                 ))}
             </div>
         }
+        <Divider />
     </div>
 );
 

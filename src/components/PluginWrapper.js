@@ -13,7 +13,9 @@ import {
 import Plugin from 'components/Plugin';
 
 const styles = theme => ({
-	root: {},
+	root: {
+		overflowY: 'auto',
+	},
 	error: {
 		color: theme.palette.error.dark,
 	}
@@ -47,13 +49,11 @@ const PluginWrapper = ({ className, classes, loading, error, plugin }) => {
 	}
 	
 	return(
-		<div style={{flex: 1}} className={className} >
-			<Card>
-				<CardContent>
-					{content}
-				</CardContent>
-			</Card>
-		</div>
+		<Card className={classes.root} >
+			<CardContent>
+				{content}
+			</CardContent>
+		</Card>
 	)
 };
 

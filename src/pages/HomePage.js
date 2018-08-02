@@ -14,9 +14,9 @@ const styles = theme => ({
 		margin: 16,
 	},
 	hardwareArea: {
-		display: 'flex',
-		flexDirection: 'row',
-		overflowY: 'auto',
+		//display: 'flex',
+		//flexDirection: 'row',
+		//overflowY: 'auto',
 		...theme.mixins.verticalSlice,
 	},
 	serialArea: theme.mixins.verticalSlice,

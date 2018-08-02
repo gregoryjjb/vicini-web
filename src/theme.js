@@ -10,6 +10,8 @@ const getTheme = mode => {
 				margin: '0 8px',
 				flex: 1,
 				maxHeight: '100%',
+				display: 'flex',
+				flexDirection: 'column',
 			}
 		}
 	})
