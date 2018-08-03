@@ -8,6 +8,7 @@ import {
     Button,
     Divider,
     Typography,
+    Grid,
 } from "@material-ui/core";
 
 import HardwareCard from 'components/HardwareCard';
@@ -40,6 +41,13 @@ const styles = theme => ({
         paddingBottom: 16,
         //marginTop: 16,
     },
+    cardGrid: {
+        paddingTop: 8,
+        paddingBottom: 8,
+        marginTop: 0,
+        marginBottom: 0,
+        overflowY: 'auto',
+    }
 })
 
 const HardwareList = ({ classes, hardware, isLoading, refreshClicked }) => (
@@ -51,11 +59,13 @@ const HardwareList = ({ classes, hardware, isLoading, refreshClicked }) => (
         </div>
         <Divider />
         {hardware &&
-            <div className={classes.cards} >
+            <Grid container spacing={16} className={classes.cardGrid} >
                 {hardware.map(h => (
-                    <HardwareCard hardware={h} key={h.id} disabled={isLoading} />
+                    <Grid item xs={12} md={6} lg={4} >
+                        <HardwareCard hardware={h} key={h.id} disabled={isLoading} />
+                    </Grid>
                 ))}
-            </div>
+            </Grid>
         }
         <Divider />
     </div>
