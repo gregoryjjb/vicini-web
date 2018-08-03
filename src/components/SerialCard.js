@@ -24,7 +24,7 @@ const styles = theme => ({
 	},
 	tabs: {
 		//background: theme.palette.primary.main,
-		//color: theme.palette.getContrastText(theme.palette.primary.light),
+		color: theme.palette.text.primary,
 		flexShrink: 0,
 	},
 	content: {
