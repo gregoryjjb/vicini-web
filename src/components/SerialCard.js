@@ -23,8 +23,8 @@ const styles = theme => ({
 		flexDirection: 'column',
 	},
 	tabs: {
-		background: theme.palette.primary.main,
-		color: theme.palette.getContrastText(theme.palette.primary.light),
+		//background: theme.palette.primary.main,
+		//color: theme.palette.getContrastText(theme.palette.primary.light),
 		flexShrink: 0,
 	},
 	content: {
@@ -46,12 +46,15 @@ const styles = theme => ({
 	},
 	sendButton: {
 		borderRadius: 100,
-		marginLeft: 16,
+		marginLeft: theme.spacing.unit * 2,
 	}
 })
 
 const SerialCard = ({ className, classes, ports, selectedTab, onTabChange, onSend }) => (
 	<Card className={classes.root + " " + className}>
+		<CardContent>
+			<Typography variant="headline">Serial Monitor</Typography>
+		</CardContent>
 		<Tabs className={classes.tabs} value={selectedTab} onChange={onTabChange} >
 			{ports.map(port => (
 				<Tab label={port.id} key={port.id} />
