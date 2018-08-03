@@ -31,7 +31,7 @@ const styles = theme => ({
 
 const PluginPage = ({ classes, match }) => (
 	<PageLayout>
-		<VerticalSliceCard>
+		<VerticalSliceCard noBottom >
 			<PluginContainer pluginId={match.params.id} />
 		</VerticalSliceCard>
 		<VerticalSliceCard>

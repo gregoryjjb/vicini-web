@@ -24,7 +24,7 @@ const styles = theme => ({
     },
     grid: {
         paddingTop: 8,
-        paddingBottom: 8,
+        paddingBottom: 16,
         marginTop: 0,
         marginBottom: 0,
         overflowY: 'auto',
@@ -32,6 +32,11 @@ const styles = theme => ({
     inputArea: {
         display: 'flex',
         flexDirection: 'column',
+    },
+    panel: {
+        boxShadow: 'none',
+        border: '1px solid ' + theme.palette.divider,
+        borderRadius: 8,
     },
     input: {
         marginTop: 8,

@@ -27,7 +27,7 @@ const styles = theme => ({
 
 const HomePage = ({ classes }) => (
 	<PageLayout>
-		<VerticalSliceCard >
+		<VerticalSliceCard noBottom >
 			<HardwareContainer />
 		</VerticalSliceCard>
 		<VerticalSliceCard>

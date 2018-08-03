@@ -20,9 +20,13 @@ const styles = theme => ({
 	}
 })
 
-const VerticalSliceCard = ({ classes, children }) => (
+const VerticalSliceCard = ({ classes, children, noBottom, }) => (
 	<Card className={classes.root} >
-		<CardContent className={classes.content}>
+		<CardContent
+			className={classes.content}
+			style={{
+				paddingBottom: noBottom ? 0 : 24,
+			}} >
 			{children}
 		</CardContent>
 	</Card>

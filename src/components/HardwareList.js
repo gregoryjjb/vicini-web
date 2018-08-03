@@ -43,7 +43,7 @@ const styles = theme => ({
     },
     cardGrid: {
         paddingTop: 8,
-        paddingBottom: 8,
+        paddingBottom: 16,
         marginTop: 0,
         marginBottom: 0,
         overflowY: 'auto',
@@ -67,7 +67,6 @@ const HardwareList = ({ classes, hardware, isLoading, refreshClicked }) => (
                 ))}
             </Grid>
         }
-        <Divider />
     </div>
 );
 

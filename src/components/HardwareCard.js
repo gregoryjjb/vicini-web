@@ -9,6 +9,7 @@ import {
 } from "@material-ui/core";
 
 import UnstyledLink from "components/UnstyledLink";
+import OutlinedCard from 'components/OutlinedCard';
 
 import api from 'utils/api';
 import { addSerialLine } from 'utils/actions';
@@ -38,7 +39,7 @@ const HardwareCard = ({ classes, hardware, disabled }) => {
     let btnDisabled = !available || disabled;
     
     return (
-        <Card className={classes.card} >
+        <OutlinedCard className={classes.card} >
             <CardContent>
                 <Typography variant="headline" gutterBottom>{hardware.id}</Typography>
                 {identified &&
@@ -60,7 +61,7 @@ const HardwareCard = ({ classes, hardware, disabled }) => {
                 </UnstyledLink>}
                 <Button disabled={btnDisabled} onClick={() => addSerialLine({channel: hardware.id, text: "BLINK", sent: true})} >Blink</Button>
             </CardActions>
-        </Card>
+        </OutlinedCard>
     );
 }
 
