@@ -19,27 +19,18 @@ const styles = theme => ({
         flexDirection: 'column',
         //alignItems: 'start',
     },
-    buttonArea: {
+    titleArea: {
         flexShrink: 0,
         
         display: 'flex',
         flexDirection: 'row',
         marginBottom: 16,
     },
+    title: {
+        flex: 1,
+    },
     refreshButton: {
         marginLeft: 16,
-    },
-    cards: {
-        flexShrink: 1,
-        
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'baseline',
-        flexWrap: 'wrap',
-        overflowY: 'auto',
-        paddingTop: 16,
-        paddingBottom: 16,
-        //marginTop: 16,
     },
     cardGrid: {
         paddingTop: 8,
@@ -52,10 +43,17 @@ const styles = theme => ({
 
 const HardwareList = ({ classes, hardware, isLoading, refreshClicked }) => (
     <div className={classes.root} >
-        <div className={classes.buttonArea} >
-            <Typography variant='display1' >Attached Hardware</Typography>
-            <Button onClick={refreshClicked} disabled={isLoading} className={classes.refreshButton} >Refresh</Button>
+        <div className={classes.titleArea} >
+            <Typography variant='headline' className={classes.title} >Attached Hardware</Typography>
             {isLoading && <CircularProgress color="secondary" size={30} />}
+            <Button
+                onClick={refreshClicked}
+                disabled={isLoading}
+                className={classes.refreshButton}
+                variant='outlined'
+                size='small' >
+                Rescan
+            </Button>
         </div>
         <Divider />
         {hardware &&

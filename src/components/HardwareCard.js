@@ -55,11 +55,11 @@ const HardwareCard = ({ classes, hardware, disabled }) => {
                 }
             </CardContent>
             <CardActions className={classes.buttonArea} >
-                {!identified && <Button disabled={btnDisabled} onClick={() => api.identifyHardware(hardware.id)} >Identify</Button>}
+                {!identified && <Button disabled={btnDisabled} onClick={() => api.identifyHardware(hardware.id)} size='small' >Identify</Button>}
                 {identified && <UnstyledLink to={`/plugin/${hardware.details.part}`} >
-                    <Button disabled={btnDisabled} >Open</Button>
+                    <Button disabled={btnDisabled} size='small' >Open</Button>
                 </UnstyledLink>}
-                <Button disabled={btnDisabled} onClick={() => addSerialLine({channel: hardware.id, text: "BLINK", sent: true})} >Blink</Button>
+                <Button disabled={btnDisabled} size='small' onClick={() => addSerialLine({channel: hardware.id, text: "BLINK", sent: true})} >Blink</Button>
             </CardActions>
         </OutlinedCard>
     );
