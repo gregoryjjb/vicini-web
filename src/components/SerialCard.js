@@ -51,21 +51,17 @@ const styles = theme => ({
 })
 
 const SerialCard = ({ className, classes, ports, selectedTab, onTabChange, onSend }) => (
-	<Card className={classes.root + " " + className}>
-		<CardContent>
-			<Typography variant="headline">Serial Monitor</Typography>
-		</CardContent>
+	<div className={classes.root}>
+		<Typography variant="headline">Serial Monitor</Typography>
 		<Tabs className={classes.tabs} value={selectedTab} onChange={onTabChange} >
 			{ports.map(port => (
 				<Tab label={port.id} key={port.id} />
 			))}
 		</Tabs>
-		<CardContent className={classes.content}>
-			{ports[selectedTab] &&
-				<SerialMonitor port={ports[selectedTab]} onSend={onSend} />
-			}
-		</CardContent>
-	</Card>
+		{ports[selectedTab] &&
+			<SerialMonitor port={ports[selectedTab]} onSend={onSend} />
+		}
+	</div>
 )
 
 SerialCard.propTypes = {

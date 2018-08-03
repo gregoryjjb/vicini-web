@@ -14,7 +14,7 @@ import Plugin from 'components/Plugin';
 
 const styles = theme => ({
 	root: {
-		overflowY: 'auto',
+		//overflowY: 'auto',
 	},
 	error: {
 		color: theme.palette.error.dark,
@@ -48,12 +48,7 @@ const PluginWrapper = ({ className, classes, loading, error, plugin }) => {
 		content = <Typography variant="headline">No plugin loaded</Typography>
 	}
 	
-	return(
-		<Card className={classes.root} >
-			<CardContent>
-				{content}
-			</CardContent>
-		</Card>
+	return(content
 	)
 };
 

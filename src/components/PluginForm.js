@@ -11,6 +11,7 @@ import {
     CardContent,
     Typography,
     Grid,
+    Divider,
 } from "@material-ui/core";
 
 import PluginField from 'components/PluginField';
@@ -19,15 +20,14 @@ const styles = theme => ({
     root: {},
     form: {
         display: 'flex',
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        alignItems: 'baseline',
+        flexDirection: 'column',
     },
-    panel: {
-        //backgroundColor: theme.palette.background.default,
-        //width: 240,
-        //marginBottom: 16,
-        //marginRight: 16,
+    grid: {
+        paddingTop: 8,
+        paddingBottom: 8,
+        marginTop: 0,
+        marginBottom: 0,
+        overflowY: 'auto',
     },
     inputArea: {
         display: 'flex',
@@ -56,7 +56,8 @@ const PluginForm = ({ classes, fields, values, handleChange, handleClick }) => {
     
     return(
         <form className={classes.form} >
-            <Grid container spacing={16}>
+            <Divider />
+            <Grid container spacing={16} className={classes.grid} >
                 {groupedFields.map(g => (
                     <Grid item xl={3} lg={4} md={6} sm={12} >
                         <Card key={g.group} className={classes.panel} >

@@ -3,11 +3,14 @@ import React from "react";
 import {
 	withStyles,
 	Typography,
+	CardContent,
 } from "@material-ui/core";
 
 import HardwareContainer from "../containers/HardwareContainer";
 import SerialContainer from "../containers/SerialContainer";
+
 import PageLayout from "../components/PageLayout";
+import VerticalSliceCard from 'components/layout/VerticalSliceCard';
 
 const styles = theme => ({
 	root: {
@@ -24,10 +27,12 @@ const styles = theme => ({
 
 const HomePage = ({ classes }) => (
 	<PageLayout>
-		<div className={classes.hardwareArea} >
+		<VerticalSliceCard >
 			<HardwareContainer />
-		</div>
-		<SerialContainer className={classes.serialArea} />
+		</VerticalSliceCard>
+		<VerticalSliceCard>
+			<SerialContainer className={classes.serialArea} />
+		</VerticalSliceCard>
 	</PageLayout>
 );
 

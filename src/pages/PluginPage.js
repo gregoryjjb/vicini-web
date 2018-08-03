@@ -9,6 +9,7 @@ import {
 import PluginContainer from 'containers/PluginContainer';
 import SerialContainer from 'containers/SerialContainer';
 import PageLayout from '../components/PageLayout';
+import VerticalSliceCard from 'components/layout/VerticalSliceCard';
 
 const styles = theme => ({
 	root: {
@@ -30,23 +31,12 @@ const styles = theme => ({
 
 const PluginPage = ({ classes, match }) => (
 	<PageLayout>
-		<div className={classes.plugin}>
+		<VerticalSliceCard>
 			<PluginContainer pluginId={match.params.id} />
-		</div>
-		<SerialContainer className={classes.serial} />
-		{/*<div className={classes.content} >
-			<Grid container spacing={16} className={classes.grid} >
-				<Grid item xs={12}>
-					<Typography variant="display1">Plugin ID is: {match.params.id}</Typography>
-				</Grid>
-				<Grid item xs={6} >
-					<PluginContainer pluginId={match.params.id} />
-				</Grid>
-				<Grid item xs={6} >
-					<SerialContainer />
-				</Grid>
-			</Grid>
-		</div>*/}
+		</VerticalSliceCard>
+		<VerticalSliceCard>
+			<SerialContainer className={classes.serial} />
+		</VerticalSliceCard>
 	</PageLayout>
 )
 
