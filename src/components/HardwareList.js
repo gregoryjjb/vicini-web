@@ -50,8 +50,9 @@ const HardwareList = ({ classes, hardware, isLoading, refreshClicked }) => (
                 onClick={refreshClicked}
                 disabled={isLoading}
                 className={classes.refreshButton}
-                variant='outlined'
-                size='small' >
+                variant='raised'
+                size='small'
+                color='secondary' >
                 Rescan
             </Button>
         </div>
