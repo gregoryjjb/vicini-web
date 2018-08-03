@@ -27,7 +27,6 @@ const PluginField = ({ className, field, value, onChange, onClick, }) => {
 				className={className}
 				name={field.name}
 				variant="outlined"
-				color="primary"
 				onClick={() => onClick(field.name)} >
 				{label}
 			</Button>
