@@ -10,6 +10,7 @@ import {
     Card,
     CardContent,
     Typography,
+    Grid,
 } from "@material-ui/core";
 
 import PluginField from 'components/PluginField';
@@ -24,9 +25,9 @@ const styles = theme => ({
     },
     panel: {
         //backgroundColor: theme.palette.background.default,
-        width: 240,
-        marginBottom: 16,
-        marginRight: 16,
+        //width: 240,
+        //marginBottom: 16,
+        //marginRight: 16,
     },
     inputArea: {
         display: 'flex',
@@ -55,25 +56,28 @@ const PluginForm = ({ classes, fields, values, handleChange, handleClick }) => {
     
     return(
         <form className={classes.form} >
-            {groupedFields.map(g => (
-                <Card key={g.group} className={classes.panel} >
-                    <CardContent>
-                        <Typography variant="subheading" gutterBottom >
-                            {g.group}
-                        </Typography>
-                        {g.fields.map(f => (
-                            <PluginField
-                                className={classes.input}
-                                field={f}
-                                value={values[f.name]}
-                                onChange={handleChange}
-                                onClick={handleClick}
-                                key={f.name} />
-                        ))}
-                    </CardContent>
-                </Card>
-            ))}
-            
+            <Grid container spacing={16}>
+                {groupedFields.map(g => (
+                    <Grid item xl={3} lg={4} md={6} sm={12} >
+                        <Card key={g.group} className={classes.panel} >
+                            <CardContent>
+                                <Typography variant="subheading" gutterBottom >
+                                    {g.group}
+                                </Typography>
+                                {g.fields.map(f => (
+                                    <PluginField
+                                        className={classes.input}
+                                        field={f}
+                                        value={values[f.name]}
+                                        onChange={handleChange}
+                                        onClick={handleClick}
+                                        key={f.name} />
+                                ))}
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                ))}
+            </Grid>
         </form>
     )
 }
