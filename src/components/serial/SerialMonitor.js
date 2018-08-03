@@ -11,6 +11,7 @@ import {
 
 import { serialPortShape } from 'utils/types';
 import { addSerialLine } from 'utils/actions';
+import SerialChip from './SerialChip';
 
 const styles = theme => ({
 	root: {
@@ -22,7 +23,7 @@ const styles = theme => ({
 		display: 'flex',
 		flexDirection: 'column',
 		overflowY: 'auto',
-		padding: '8px 0',
+		padding: '6px 0',
 	},
 	chip: {
 		marginBottom: 8,
@@ -105,9 +106,10 @@ class SerialMonitor extends Component {
 		
 		return (
 			<div className={classes.root} >
+				<Divider />
 				<div className={classes.chipArea} >
 					{port.lines.map(line => (
-						<Chip className={classes.chip + " " + (line.sent ? classes.sentChip : classes.receivedChip)} label={line.text} />
+						<SerialChip text={line.text} sent={line.sent} />
 					))}
 					<div ref={el => { this.scrollRef = el; }} />
 				</div>

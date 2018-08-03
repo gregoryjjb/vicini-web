@@ -8,6 +8,7 @@ import {
 
 import HardwareContainer from 'containers/HardwareContainer';
 import SerialContainer from 'containers/SerialContainer';
+import SerialChip from '../components/serial/SerialChip';
 
 const styles = theme => ({
 	root: {
@@ -31,6 +32,7 @@ const TestPage = ({ classes }) => (
 		<Card className={classes.card} >
 			<CardContent>
 				<h1>First card</h1>
+				<SerialChip text={"Hello there, this is a chip\nAnd here's a new line"} />
 				<p>{lorem}</p>
 			</CardContent>
 		</Card>
