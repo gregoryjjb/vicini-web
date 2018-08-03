@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import { fieldType } from 'utils/types';
 
+import { Scrollbars } from 'react-custom-scrollbars';
 import {
     withStyles,
     ExpansionPanel,
@@ -27,7 +28,7 @@ const styles = theme => ({
         paddingBottom: 16,
         marginTop: 0,
         marginBottom: 0,
-        overflowY: 'auto',
+        //overflowY: 'auto',
     },
     inputArea: {
         display: 'flex',
@@ -60,31 +61,33 @@ const PluginForm = ({ classes, fields, values, handleChange, handleClick }) => {
     console.log(groupedFields);
     
     return(
-        <form className={classes.form} >
-            <Divider />
-            <Grid container spacing={16} className={classes.grid} >
-                {groupedFields.map(g => (
-                    <Grid item xl={3} lg={4} md={6} sm={12} >
-                        <Card key={g.group} className={classes.panel} >
-                            <CardContent>
-                                <Typography variant="subheading" gutterBottom >
-                                    {g.group}
-                                </Typography>
-                                {g.fields.map(f => (
-                                    <PluginField
-                                        className={classes.input}
-                                        field={f}
-                                        value={values[f.name]}
-                                        onChange={handleChange}
-                                        onClick={handleClick}
-                                        key={f.name} />
-                                ))}
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                ))}
-            </Grid>
-        </form>
+        <Scrollbars style={{ height: '100%' }} >
+            <form className={classes.form} >
+                <Divider />
+                <Grid container spacing={16} className={classes.grid} >
+                    {groupedFields.map(g => (
+                        <Grid item xl={3} lg={4} md={6} sm={12} >
+                            <Card key={g.group} className={classes.panel} >
+                                <CardContent>
+                                    <Typography variant="subheading" gutterBottom >
+                                        {g.group}
+                                    </Typography>
+                                    {g.fields.map(f => (
+                                        <PluginField
+                                            className={classes.input}
+                                            field={f}
+                                            value={values[f.name]}
+                                            onChange={handleChange}
+                                            onClick={handleClick}
+                                            key={f.name} />
+                                    ))}
+                                </CardContent>
+                            </Card>
+                        </Grid>
+                    ))}
+                </Grid>
+            </form>
+        </Scrollbars>
     )
 }
 
