@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withStore } from 'utils/store';
 
-import SerialCard from 'components/SerialCard';
+import SerialCard from 'components/serial/SerialCard';
 
 import { addSerialLine } from 'utils/actions';
 
