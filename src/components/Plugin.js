@@ -128,7 +128,7 @@ class Plugin extends React.Component {
 		let { plugin } = this.props;
 		
 		return(
-			<div style={{ display: 'flex', flexDirection: 'column' }} >
+			<div style={{ display: 'flex', flexDirection: 'column', minHeight: 0, }} >
 				<Typography variant="headline" gutterBottom>{plugin.name}</Typography>
 				<Typography variant="subheading" gutterBottom>{plugin.description}</Typography>
 				<PluginForm

@@ -17,6 +17,7 @@ const styles = theme => ({
     root: {
         display: 'flex',
         flexDirection: 'column',
+        minHeight: 0, // Firefox
         //alignItems: 'start',
     },
     titleArea: {

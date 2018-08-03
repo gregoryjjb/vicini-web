@@ -21,6 +21,7 @@ const styles = theme => ({
     form: {
         display: 'flex',
         flexDirection: 'column',
+        minHeight: 0,
     },
     grid: {
         paddingTop: 8,

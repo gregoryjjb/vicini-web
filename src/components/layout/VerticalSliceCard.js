@@ -17,6 +17,7 @@ const styles = theme => ({
 	content: {
 		display: 'flex',
 		flexDirection: 'column',
+		minHeight: 0, // Firefox
 	}
 })
 

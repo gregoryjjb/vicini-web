@@ -18,9 +18,9 @@ import SerialMonitor from './SerialMonitor';
 
 const styles = theme => ({
 	root: {
-		minWidth: 300,
 		display: 'flex',
 		flexDirection: 'column',
+		minHeight: 0, // Firefox
 	},
 	tabs: {
 		//background: theme.palette.primary.main,
