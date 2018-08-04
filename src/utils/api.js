@@ -71,8 +71,31 @@ api.identifyHardware = (id) => {
         console.log("OPENED THE DATA")
         console.log(result)
         store.setCopy('hardware.list')(result.data.hardware);
+        addSerialChannel({ id });
     })
     
+}
+
+api.sendCommand = async (id, command, args) => {
+    
+    let body = {
+        command: {
+            name: command,
+            args: args,
+        },
+        timeout: null,
+    }
+    
+    let output = '';
+    
+    console.log("SENDING BODY", body)
+    
+    let result = await axios.put(`/hardware/${id}/send_command`, body)
+    //.then(result => {
+        
+    console.log(result);
+    output = result.data.serial.receive;
+    return output;
 }
 
 export default api;

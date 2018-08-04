@@ -1,8 +1,23 @@
-export const send = (data, callback) => {
+import api from './api';
+import { addSerialLine } from './actions';
+
+export const send = (command, args = [], callback) => {
 	
-	let newData = Math.floor(Math.random() * 100);
+	//let newData = Math.floor(Math.random() * 100);
 	
-	return callback({
-		myVal: newData,
+	addSerialLine({
+		channel: 'COM4',
+		text: command,
+		sent: true,
+	})
+	
+	api.sendCommand('COM4', command, args)
+	.then(response => {
+		addSerialLine({
+			channel: 'COM4',
+			text: response,
+			sent: false,
+		})
+		callback(response)
 	})
 }

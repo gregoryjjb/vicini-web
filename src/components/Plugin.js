@@ -85,9 +85,10 @@ class Plugin extends React.Component {
 			return;
 		}
 		
-		let updatedValues = buttonField.onClick({...this.state.values});
-		updatedValues = this.cleanValues(updatedValues);
-		this.performReduce(updatedValues);
+		buttonField.onClick({...this.state.values}, updatedValues => {
+			updatedValues = this.cleanValues(updatedValues);
+			this.performReduce(updatedValues);
+		});
 	}
 	
 	/** Removes any keys that shouldn't exist in the state

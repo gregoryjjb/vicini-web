@@ -42,32 +42,21 @@ export default {
 		name: 'resetButton',
 		label: 'Reset Values',
 		type: 'button',
-		onClick: (values) => {
-			/*return send(
-				values.volts,
-				linduinoValues => {
-					return {
-						linOutput: linduinoValues.volts,
-					}
-				}
-			);*/
-			
-			return {
+		onClick: (values, updateValues) => {
+			updateValues({
 				volts: 420,
-			};
+			});
 		},
 	}, {
 		name: 'linduinoButton',
 		label: 'Talk to Linduino',
 		type: 'button',
-		onClick: (values) => {
-			return send(
-				'',
-				(linduinoValues) => {
-					console.log(linduinoValues);
-					return { linOutput: linduinoValues.myVal }
-				}, 
-			)
+		onClick: (values, updateValues) => {
+			
+			send('id', [], response => {
+				console.log("RESPONSE", response);
+				updateValues({ linOutput: response });
+			})
 		},
 	}, {
 		name: 'g1',
