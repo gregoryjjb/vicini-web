@@ -32,11 +32,11 @@ const styles = theme => ({
 
 const HardwareCard = ({ classes, hardware, disabled }) => {
     
-    let identified = hardware.details && hardware.details.part;
+    let identified = hardware.details && hardware.details.board;
     
     let { available } = hardware;
     
-    let btnDisabled = !available || disabled;
+    let btnDisabled = /*!available ||*/ disabled;
     
     return (
         <OutlinedCard className={classes.card} >
@@ -45,9 +45,9 @@ const HardwareCard = ({ classes, hardware, disabled }) => {
                 {identified &&
                     <span>
                         <Typography variant="body1">Part</Typography>
-                        <Typography variant="display1" gutterBottom>{hardware.details.part}</Typography>
+                        <Typography variant="display1" gutterBottom>{hardware.details.chip}</Typography>
                         <Typography variant="body1">EVAL Board</Typography>
-                        <Typography variant="display1" gutterBottom>{hardware.details.eval}</Typography>
+                        <Typography variant="display1" gutterBottom>{hardware.details.board}</Typography>
                     </span>
                 }
                 {!available &&
@@ -56,7 +56,7 @@ const HardwareCard = ({ classes, hardware, disabled }) => {
             </CardContent>
             <CardActions className={classes.buttonArea} >
                 {!identified && <Button disabled={btnDisabled} onClick={() => api.identifyHardware(hardware.id)} size='small' >Identify</Button>}
-                {identified && <UnstyledLink to={`/plugin/${hardware.details.part}`} >
+                {identified && <UnstyledLink to={`/plugin/${hardware.details.chip}`} >
                     <Button disabled={btnDisabled} size='small' >Open</Button>
                 </UnstyledLink>}
                 <Button disabled={btnDisabled} size='small' onClick={() => addSerialLine({channel: hardware.id, text: "BLINK", sent: true})} >Blink</Button>

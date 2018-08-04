@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import { store } from 'utils/store';
 import { addSerialChannel, addSerialLine } from './actions';
 
@@ -34,9 +36,12 @@ api.getHardware = () => {
     store.set('hardware.loading')(true);
     store.set('hardware.error')(false);
     
-    fakeAxios(hardwares)
+    //fakeAxios(hardwares)
+    axios.get('/hardware')
     .then(result => {
-        store.setCopy('hardware.list')(result);
+        console.log("GOTTHEHARDWARE");
+        console.log(result.data.hardware)
+        store.setCopy('hardware.list')(result.data.hardware);
     })
     .catch(error => {
         store.set('hardware.error')(true);
@@ -48,7 +53,7 @@ api.getHardware = () => {
 
 api.identifyHardware = (id) => {
     
-    hardwares.find(h => h.id === id).details = {
+    /*hardwares.find(h => h.id === id).details = {
         part: id === "COM1" ? "LTC1234" : "AD",
         eval: "EVAL",
     }
@@ -59,9 +64,15 @@ api.identifyHardware = (id) => {
         channel: id,
         text: "Well golly gee looks like we've opened a serial line at " + id,
         sent: false,
-    });
+    });*/
     
-    api.getHardware();
+    axios.put(`/hardware/${id}/open`)
+    .then(result => {
+        console.log("OPENED THE DATA")
+        console.log(result)
+        store.setCopy('hardware.list')(result.data.hardware);
+    })
+    
 }
 
 export default api;

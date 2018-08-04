@@ -10,8 +10,8 @@ export const hardwareShape = {
     available: PropTypes.bool.isRequired,
     open: PropTypes.bool.isRequired,
     details: PropTypes.shape({
-        part: PropTypes.string.isRequired,
-        eval: PropTypes.string.isRequired,
+        chip: PropTypes.string.isRequired,
+        board: PropTypes.string.isRequired,
     })
 }
 
