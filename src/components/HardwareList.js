@@ -39,10 +39,14 @@ const styles = theme => ({
         marginTop: 0,
         marginBottom: 0,
         overflowY: 'auto',
+    },
+    error: {
+        color: theme.palette.error.main,
+        marginBottom: 24,
     }
 })
 
-const HardwareList = ({ classes, hardware, isLoading, refreshClicked }) => (
+const HardwareList = ({ classes, hardware, error, isLoading, refreshClicked }) => (
     <div className={classes.root} >
         <div className={classes.titleArea} >
             <Typography variant='headline' className={classes.title} >Attached Hardware</Typography>
@@ -66,6 +70,9 @@ const HardwareList = ({ classes, hardware, isLoading, refreshClicked }) => (
                     </Grid>
                 ))}
             </Grid>
+        }
+        {error &&
+            <Typography variant="title" className={classes.error} >There was an error getting the hardware.</Typography>
         }
     </div>
 );
