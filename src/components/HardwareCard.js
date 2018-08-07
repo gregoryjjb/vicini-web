@@ -36,7 +36,7 @@ const HardwareCard = ({ classes, hardware, disabled }) => {
     
     let { available } = hardware;
     
-    let btnDisabled = /*!available ||*/ disabled;
+    let btnDisabled = !available || disabled;
     
     return (
         <OutlinedCard className={classes.card} >
