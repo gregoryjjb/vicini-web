@@ -42,7 +42,7 @@ class App extends Component {
 					<Header />
 					<PageArea>
 						<Route exact path="/" component={HomePage} />
-						<Route path="/plugin/:id" component={PluginPage} />
+						<Route path="/plugin/:port/:id" component={PluginPage} />
 						<Route path="/test" component={TestPage} />
 					</PageArea>
 				</div>

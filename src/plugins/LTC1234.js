@@ -1,6 +1,5 @@
-import { send } from 'utils/linduino';
 
-export default {
+export default (send) => ({
 	id: 'LTC1234',
 	name: 'LTC1234 Plugin',
 	description: 'Imaginary part made for testing',
@@ -83,4 +82,4 @@ export default {
 			text: volts * selectTest + ' mV',
 		};
 	},
-}
+})

@@ -32,7 +32,7 @@ const styles = theme => ({
 const PluginPage = ({ classes, match }) => (
 	<PageLayout>
 		<VerticalSliceCard noBottom >
-			<PluginContainer pluginId={match.params.id} />
+			<PluginContainer pluginId={match.params.id} port={match.params.port} />
 		</VerticalSliceCard>
 		<VerticalSliceCard>
 			<SerialContainer className={classes.serial} />

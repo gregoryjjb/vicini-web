@@ -6,6 +6,7 @@ import { pluginType } from 'utils/types';
 
 import PluginWrapper from 'components/PluginWrapper';
 import { pluginShape } from '../utils/types';
+import { getSend } from 'utils/linduino';
 
 class PluginContainer extends Component {
     
@@ -24,7 +25,7 @@ class PluginContainer extends Component {
         
 		import(`../plugins/${pluginId}`)
 		.then(pluginModule => {
-            let plugin = pluginModule.default;
+            let plugin = pluginModule.default(getSend(this.props.port));
             
             let typeErrors = checkTypes(pluginShape, plugin, 'PluginContainer-loader');
             
@@ -78,6 +79,7 @@ class PluginContainer extends Component {
 
 PluginContainer.propTypes = {
     pluginId: PropTypes.string,
+    port: PropTypes.string,
 }
 
 export default PluginContainer;
