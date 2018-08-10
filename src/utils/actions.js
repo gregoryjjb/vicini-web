@@ -31,3 +31,25 @@ export const addSerialLine = ({ channel, text, sent = false }) => {
 	
 	store.set('serial.ports')(ports);
 }
+
+export const refreshSerialChannels = () => {
+	
+	console.log("REFRESH SERIAL CHANNELS")
+	
+	let ports = store.getCopy('serial.ports');
+	let hardware = store.getCopy('hardware.list');
+	
+	for(let h of hardware) {
+		console.log('Checking', h.id)
+		// If a port for this hardware doesn't exist
+		if(h.open === true && ports.find(p => p.id === h.id) === undefined) {
+			console.log(h.id)
+			ports.push({
+				id: h.id,
+				lines: [],
+			});
+		}
+	}
+	
+	store.set('serial.ports')(ports);
+}

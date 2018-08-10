@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import api from 'utils/api';
+import { refreshSerialChannels } from 'utils/actions';
 import { withStore } from 'utils/store';
 import HardwareList from '../components/HardwareList';
 
@@ -11,7 +12,11 @@ class HardwareContainer extends Component {
     
     fetchHardware = () => {
         
-        api.getHardware();
+        /*api.getHardware();
+        
+        setTimeout(() => {
+            refreshSerialChannels();
+        }, 2000);*/
     }
     
     render() {
