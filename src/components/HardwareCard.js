@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from 'prop-types';
+
 import {
     withStyles,
     Card,
@@ -13,6 +15,7 @@ import OutlinedCard from 'components/OutlinedCard';
 
 import api from 'utils/api';
 import { addSerialLine } from 'utils/actions';
+import { hardwareType } from 'utils/types';
 
 const styles = theme => ({
     root: {},
@@ -23,7 +26,7 @@ const styles = theme => ({
     },
     buttonArea: {
         display: 'flex',
-        justifyContent: 'space-evenly',
+        justifyContent: 'flex-start',
     },
     disabled: {
         color: theme.palette.text.disabled,
@@ -34,7 +37,7 @@ const HardwareCard = ({ classes, hardware, disabled }) => {
     
     let identified = hardware.details && hardware.details.board;
     
-    let { available } = hardware;
+    let { available, open } = hardware;
     
     let btnDisabled = !available || disabled;
     
@@ -44,7 +47,7 @@ const HardwareCard = ({ classes, hardware, disabled }) => {
                 <Typography variant="headline" gutterBottom>{hardware.id}</Typography>
                 {identified &&
                     <span>
-                        <Typography variant="body1">Part</Typography>
+                        <Typography variant="body1">Chip</Typography>
                         <Typography variant="display1" gutterBottom>{hardware.details.chip}</Typography>
                         <Typography variant="body1">EVAL Board</Typography>
                         <Typography variant="display1" gutterBottom>{hardware.details.board}</Typography>
@@ -55,15 +58,24 @@ const HardwareCard = ({ classes, hardware, disabled }) => {
                 }
             </CardContent>
             <CardActions className={classes.buttonArea} >
-                {!identified && <Button disabled={btnDisabled} onClick={() => api.identifyHardware(hardware.id)} size='small' >Identify</Button>}
-                {identified && <UnstyledLink to={`/plugin/${hardware.id}/${hardware.details.chip}`} >
-                    <Button disabled={btnDisabled} size='small' >Open</Button>
-                </UnstyledLink>}
-                <Button disabled={btnDisabled} size='small' onClick={() => addSerialLine({channel: hardware.id, text: "BLINK", sent: true})} >Blink</Button>
+                {open ?
+                    <React.Fragment>
+                        <Button disabled={btnDisabled} size='small' onClick={() => api.closeHardware(hardware.id)} >Disconnect</Button>
+                        <UnstyledLink to={`/plugin/${hardware.id}/${hardware.details.chip}`} >
+                            <Button disabled={btnDisabled} size='small' >Plugin</Button>
+                        </UnstyledLink>
+                    </React.Fragment>
+                    :
+                    <Button disabled={btnDisabled} onClick={() => api.identifyHardware(hardware.id)} size='small' >Connect</Button>
+                }
             </CardActions>
         </OutlinedCard>
     );
 }
 
+HardwareCard.propTypes = {
+    disabled: PropTypes.bool,
+    hardware: hardwareType,
+}
 
 export default withStyles(styles)(HardwareCard);

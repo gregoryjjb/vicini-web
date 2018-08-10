@@ -52,19 +52,7 @@ api.getHardware = () => {
 }
 
 api.identifyHardware = (id) => {
-    
-    /*hardwares.find(h => h.id === id).details = {
-        part: id === "COM1" ? "LTC1234" : "AD",
-        eval: "EVAL",
-    }
-    
-    addSerialChannel({ id });
-    
-    addSerialLine({
-        channel: id,
-        text: "Well golly gee looks like we've opened a serial line at " + id,
-        sent: false,
-    });*/
+    store.set('hardware.loading')(true);
     
     axios.put(`/hardware/${id}/open`)
     .then(result => {
@@ -73,7 +61,27 @@ api.identifyHardware = (id) => {
         store.setCopy('hardware.list')(result.data.hardware);
         addSerialChannel({ id });
     })
+    .catch(error => {
+        
+    })
+    .finally(() => {
+        store.set('hardware.loading')(false);
+    })
+}
+
+api.closeHardware = id => {
+    store.set('hardware.loading')(true);
     
+    axios.put(`/hardware/${id}/close`)
+    .then(result => {
+        store.setCopy('hardware.list')(result.data.hardware);
+    })
+    .catch(error => {
+        
+    })
+    .finally(() => {
+        store.set('hardware.loading')(false);
+    })
 }
 
 api.sendCommand = async (id, command, args) => {
