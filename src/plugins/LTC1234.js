@@ -53,8 +53,9 @@ export default (send) => ({
 		onClick: (values, updateValues) => {
 			
 			send('id', [], response => {
-				console.log("RESPONSE", response);
-				updateValues({ linOutput: response });
+				updateValues({
+					linOutput: 'Response: ' + response
+				});
 			})
 		},
 	}, {

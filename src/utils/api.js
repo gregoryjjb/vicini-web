@@ -94,16 +94,64 @@ api.sendCommand = async (id, command, args) => {
         timeout: null,
     }
     
-    let output = '';
+    console.log("Sending command:", body, "to", id)
     
-    console.log("SENDING BODY", body)
-    
-    let result = await axios.put(`/hardware/${id}/send_command`, body)
-    //.then(result => {
+    try{
         
-    console.log(result);
-    output = result.data.serial.receive;
-    return output;
+        let result = await axios.put(`/hardware/${id}/send_command`, body)
+        console.log("Received response:", result);
+        
+        let { send, receive } = result.data.serial;
+        
+        addSerialLine({
+            channel: id,
+            text: send,
+            sent: true,
+        });
+        
+        addSerialLine({
+            channel: id,
+            text: receive,
+            sent: false,
+        });
+        
+        return receive;
+    }
+    catch(error) {
+        console.error(error);
+    }
+}
+
+api.sendSerial = async (id, text) => {
+    
+    let body = {
+        command: {
+            name: text,
+            args: [],
+        },
+        timeout: null,
+    }
+    
+    addSerialLine({
+        channel: id,
+        text,
+        sent: true,
+    })
+    
+    try {
+        let result = await axios.put(`/hardware/${id}/send_command`, body)
+        
+        let { receive } = result.data.serial;
+        
+        addSerialLine({
+            channel: id,
+            text: receive,
+            sent: false,
+        })
+    }
+    catch(error) {
+        console.error(error);
+    }
 }
 
 export default api;

@@ -16,7 +16,8 @@ class SerialContainer extends Component {
 	handleSend = (text, channel) => {
 		if(text) {
 			//addSerialLine({ channel, text, sent: true });
-			api.sendCommand(channel, text, [""])
+			//api.sendCommand(channel, text, [""])
+			api.sendSerial(channel, text)
 		}
 	}
 	

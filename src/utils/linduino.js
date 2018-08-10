@@ -5,19 +5,19 @@ export const send = (port, command, args = [], callback) => {
 	
 	//let newData = Math.floor(Math.random() * 100);
 	
-	addSerialLine({
-		channel: port,
-		text: command,
-		sent: true,
-	})
+	//addSerialLine({
+	//	channel: port,
+	//	text: command,
+	//	sent: true,
+	//})
 	
-	api.sendCommand('COM4', command, args)
+	api.sendCommand(port, command, args)
 	.then(response => {
-		addSerialLine({
-			channel: 'COM4',
-			text: response,
-			sent: false,
-		})
+		//addSerialLine({
+		//	channel: port,
+		//	text: response,
+		//	sent: false,
+		//})
 		callback(response)
 	})
 }
