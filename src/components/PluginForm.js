@@ -49,12 +49,18 @@ const PluginForm = ({ classes, fields, values, handleChange, handleClick }) => {
     
     const groups = [...new Set(fields.map(f => f.group || 'nogroup'))];
     
-    const groupedFields = groups.map(g => {
+    let groupedFields = groups
+    .map(g => {
+        let filteredFields = fields
+        .filter(f => f.group === g || (f.group === undefined && g === 'nogroup'))
+        .filter(f => (f.visible !== false && f.type !== 'none'));
+        
         return {
             group: g,
-            fields: fields.filter(f => f.group === g || (f.group === undefined && g === 'nogroup')),
+            fields: filteredFields,
         }
     })
+    .filter(g => g.fields.length > 0);
     
     return(
         <form className={classes.form} >

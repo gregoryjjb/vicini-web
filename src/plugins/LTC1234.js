@@ -9,6 +9,7 @@ export default (send) => ({
 		label: 'Voltage',
 		type: 'number',
 		units: 'mV',
+		visible: true,
 		defaultValue: 420,
 		output: false,
 		group: "My First Groups",
@@ -24,6 +25,7 @@ export default (send) => ({
 			{value: 3, label: 'Triple'},
 		],
 		defaultValue: 1,
+		visible: true,
 		group: 'Inputs',
 	}, {
 		name: 'text',
@@ -53,6 +55,7 @@ export default (send) => ({
 		onClick: (values, updateValues) => {
 			
 			send('id', [], response => {
+				console.log("The linduino said", response)
 				updateValues({
 					linOutput: 'Response: ' + response
 				});
@@ -70,8 +73,11 @@ export default (send) => ({
 		name: 'g3',
 		type: 'text',
 		group: 'Group 3',
+	}, {
+		name: 'extraName',
+		type: 'none',
+		defaultValue: 'hellothere',
 	}],
-	
 	
 	reducer: function(oldValues) {
 		
@@ -81,6 +87,7 @@ export default (send) => ({
 		
 		return {
 			text: volts * selectTest + ' mV',
+			units: 'volts',
 		};
 	},
 })

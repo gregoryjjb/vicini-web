@@ -21,6 +21,10 @@ const PluginField = ({ className, field, value, onChange, onClick, }) => {
 	
 	let units = (field.units ? <InputAdornment position='end'>{field.units}</InputAdornment> : null);
 	
+	if(field.type === 'none' && field.visible !== true) return null;
+	
+	if(field.visible === false) return null;
+	
 	if(field.type === 'button') {
 		return (
 			<Button
