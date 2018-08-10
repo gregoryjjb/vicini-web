@@ -49,8 +49,6 @@ const PluginForm = ({ classes, fields, values, handleChange, handleClick }) => {
     
     const groups = [...new Set(fields.map(f => f.group || 'nogroup'))];
     
-    console.log("GROUPS", groups);
-    
     const groupedFields = groups.map(g => {
         return {
             group: g,
@@ -58,15 +56,13 @@ const PluginForm = ({ classes, fields, values, handleChange, handleClick }) => {
         }
     })
     
-    console.log(groupedFields);
-    
     return(
         <form className={classes.form} >
             <Divider />
             <Grid container spacing={16} className={classes.grid} >
                 {groupedFields.map(g => (
-                    <Grid item xl={3} lg={4} md={6} sm={12} >
-                        <Card key={g.group} className={classes.panel} >
+                    <Grid item xl={3} lg={4} md={6} sm={12} key={g.group} >
+                        <Card className={classes.panel} >
                             <CardContent>
                                 <Typography variant="subheading" gutterBottom >
                                     {g.group}

@@ -65,8 +65,8 @@ const HardwareList = ({ classes, hardware, error, isLoading, refreshClicked }) =
         {hardware &&
             <Grid container spacing={16} className={classes.cardGrid} >
                 {hardware.map(h => (
-                    <Grid item xs={12} md={6} lg={4} >
-                        <HardwareCard hardware={h} key={h.id} disabled={isLoading} />
+                    <Grid item xs={12} md={6} lg={4} key={h.id} >
+                        <HardwareCard hardware={h} disabled={isLoading} />
                     </Grid>
                 ))}
             </Grid>

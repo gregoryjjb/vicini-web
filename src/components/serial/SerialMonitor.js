@@ -110,7 +110,7 @@ class SerialMonitor extends Component {
 				<Divider />
 				<div className={classes.chipArea} >
 					{port.lines.map(line => (
-						<SerialChip text={line.text} sent={line.sent} />
+						<SerialChip text={line.text} sent={line.sent} key={line.text} />
 					))}
 					<div ref={el => { this.scrollRef = el; }} />
 				</div>
