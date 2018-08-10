@@ -5,7 +5,7 @@ const styles = theme => ({
     root: {
         boxShadow: 'none',
         border: '1px solid ' + theme.palette.divider,
-        borderRadius: 8,
+        borderRadius: 6,
     },
 })
 

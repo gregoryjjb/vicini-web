@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import {
     withStyles,
-    Card,
     CardContent,
     Typography,
     CardActions,
@@ -27,6 +26,9 @@ const styles = theme => ({
     buttonArea: {
         display: 'flex',
         justifyContent: 'flex-start',
+    },
+    button: {
+        marginRight: 4,
     },
     disabled: {
         color: theme.palette.text.disabled,
@@ -60,13 +62,30 @@ const HardwareCard = ({ classes, hardware, disabled }) => {
             <CardActions className={classes.buttonArea} >
                 {open ?
                     <React.Fragment>
-                        <Button disabled={btnDisabled} size='small' onClick={() => api.closeHardware(hardware.id)} >Disconnect</Button>
+                        <Button
+                            disabled={btnDisabled}
+                            size='small'
+                            className={classes.button}
+                            onClick={() => api.closeHardware(hardware.id)} >
+                            Disconnect
+                        </Button>
                         <UnstyledLink to={`/plugin/${hardware.id}/${hardware.details.chip}`} >
-                            <Button disabled={btnDisabled} size='small' >Plugin</Button>
+                            <Button
+                                disabled={btnDisabled}
+                                size='small'
+                                className={classes.button} >
+                                Plugin
+                            </Button>
                         </UnstyledLink>
                     </React.Fragment>
                     :
-                    <Button disabled={btnDisabled} onClick={() => api.identifyHardware(hardware.id)} size='small' >Connect</Button>
+                    <Button
+                        disabled={btnDisabled}
+                        size='small'
+                        className={classes.button}
+                        onClick={() => api.identifyHardware(hardware.id)} >
+                        Connect
+                    </Button>
                 }
             </CardActions>
         </OutlinedCard>
