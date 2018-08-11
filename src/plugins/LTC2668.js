@@ -74,9 +74,17 @@ export default send => ({
                 }
             )
         }
+    }, {
+        name: 'checkTest',
+        label: 'Check Test',
+        type: 'checkbox',
+        defaultValue: true,
+        group: 'Other',
     }],
     
     reducer: function(oldValues) {
+        
+        console.log('Check Test:', oldValues.checkTest)
         
         return {};
     }

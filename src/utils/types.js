@@ -12,7 +12,7 @@ export const hardwareShape = {
 
 export const hardwareType = PropTypes.shape(hardwareShape)
 
-const stringOrNumber = PropTypes.oneOfType([PropTypes.string, PropTypes.number]);
+const valueTypes = PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool,]);
 
 export const fieldType = PropTypes.shape({
     name: PropTypes.string.isRequired,
@@ -20,9 +20,9 @@ export const fieldType = PropTypes.shape({
     label: PropTypes.string,
     units: PropTypes.string,
     group: PropTypes.string,
-    defaultValue: stringOrNumber,
+    defaultValue: valueTypes,
     options: PropTypes.arrayOf(PropTypes.shape({
-        value: stringOrNumber.isRequired,
+        value: valueTypes.isRequired,
         label: PropTypes.string.isRequired,
     })),
     output: PropTypes.bool,

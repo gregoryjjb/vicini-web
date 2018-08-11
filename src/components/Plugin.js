@@ -67,7 +67,11 @@ class Plugin extends React.Component {
 	}
 	
 	handleInputChange = (e) => {
-		let { name, value } = e.target;
+		let { name, value, checked, type, } = e.target;
+		
+		if(type === 'checkbox') {
+			value = checked;
+		}
 		
 		let newValues = {
 			...this.state.values,

@@ -9,21 +9,37 @@ import {
 	Select,
 	MenuItem,
 	InputAdornment,
+	FormControlLabel,
+	Checkbox,
 } from '@material-ui/core';
 
 const PluginField = ({ className, field, value, onChange, onClick, }) => {
 	
 	let isOutput = field.output || false;
-	
 	let label = field.label || field.name;
-	
 	let fixedValue = (value === undefined) ? '' : value;
-	
 	let units = (field.units ? <InputAdornment position='end'>{field.units}</InputAdornment> : null);
 	
 	if(field.type === 'none' && field.visible !== true) return null;
 	
 	if(field.visible === false) return null;
+	
+	if(field.type === 'checkbox') {
+		return(
+			<FormControlLabel
+				className={className}
+				label={label}
+				control={
+					<Checkbox
+						name={field.name}
+						checked={fixedValue}
+						onChange={onChange}
+						disabled={true}
+					/>
+				}
+			/>
+		)
+	}
 	
 	if(field.type === 'button') {
 		return (
