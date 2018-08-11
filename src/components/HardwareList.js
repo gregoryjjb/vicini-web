@@ -46,7 +46,7 @@ const styles = theme => ({
     }
 })
 
-const HardwareList = ({ classes, hardware, error, isLoading, refreshClicked }) => (
+const HardwareList = ({ classes, hardware, error, isLoading, refreshClicked, openClicked, closeClicked }) => (
     <div className={classes.root} >
         <div className={classes.titleArea} >
             <Typography variant='headline' className={classes.title} >Attached Hardware</Typography>
@@ -66,7 +66,11 @@ const HardwareList = ({ classes, hardware, error, isLoading, refreshClicked }) =
             <Grid container spacing={16} className={classes.cardGrid} >
                 {hardware.map(h => (
                     <Grid item xs={12} md={6} lg={4} key={h.id} >
-                        <HardwareCard hardware={h} disabled={isLoading} />
+                        <HardwareCard
+                            hardware={h}
+                            disabled={isLoading}
+                            openClicked={() => openClicked(h.id)}
+                            closeClicked={() => closeClicked(h.id)} />
                     </Grid>
                 ))}
             </Grid>
@@ -79,6 +83,9 @@ const HardwareList = ({ classes, hardware, error, isLoading, refreshClicked }) =
 
 HardwareList.propTypes = {
     hardware: PropTypes.arrayOf(hardwareType),
+    refreshClicked: PropTypes.func.isRequired,
+    openClicked: PropTypes.func.isRequired,
+    closeClicked: PropTypes.func.isRequired,
 }
 
 export default withStyles(styles)(HardwareList);

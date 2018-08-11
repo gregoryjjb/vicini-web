@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
 
 import api from 'utils/api';
-import { refreshSerialChannels } from 'utils/actions';
+import {
+    refreshHardware,
+    openHardware,
+    closeHardware,
+} from 'utils/actions';
 import { withStore } from 'utils/store';
 import HardwareList from '../components/HardwareList';
 
 class HardwareContainer extends Component {
     
     fetchHardware = () => {
-        
-        api.getHardware();
-        
-        setTimeout(() => {
-            refreshSerialChannels();
-        }, 2000);
+        refreshHardware();
     }
     
     render() {
@@ -24,7 +23,9 @@ class HardwareContainer extends Component {
                 isLoading={store.get('hardware.loading')}
                 error={store.get('hardware.error')}
                 hardware={store.get('hardware.list')}
-                refreshClicked={this.fetchHardware} />
+                refreshClicked={this.fetchHardware}
+                openClicked={openHardware}
+                closeClicked={closeHardware} />
         )
     }
 }

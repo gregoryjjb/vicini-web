@@ -12,17 +12,10 @@ import {
 import UnstyledLink from "components/UnstyledLink";
 import OutlinedCard from 'components/OutlinedCard';
 
-import api from 'utils/api';
-import { addSerialLine } from 'utils/actions';
 import { hardwareType } from 'utils/types';
 
 const styles = theme => ({
     root: {},
-    card: {
-        //width: 275,
-        //marginRight: 16, //temp
-        //marginBottom: 16,
-    },
     buttonArea: {
         display: 'flex',
         justifyContent: 'flex-start',
@@ -35,7 +28,7 @@ const styles = theme => ({
     }
 })
 
-const HardwareCard = ({ classes, hardware, disabled }) => {
+const HardwareCard = ({ classes, hardware, disabled, openClicked, closeClicked }) => {
     
     let identified = hardware.details && hardware.details.board;
     
@@ -44,7 +37,7 @@ const HardwareCard = ({ classes, hardware, disabled }) => {
     let btnDisabled = !available || disabled;
     
     return (
-        <OutlinedCard className={classes.card} >
+        <OutlinedCard>
             <CardContent>
                 <Typography variant="headline" gutterBottom>{hardware.id}</Typography>
                 {identified &&
@@ -66,7 +59,7 @@ const HardwareCard = ({ classes, hardware, disabled }) => {
                             disabled={btnDisabled}
                             size='small'
                             className={classes.button}
-                            onClick={() => api.closeHardware(hardware.id)} >
+                            onClick={closeClicked} >
                             Disconnect
                         </Button>
                         <UnstyledLink to={`/plugin/${hardware.id}/${hardware.details.chip}`} >
@@ -83,7 +76,7 @@ const HardwareCard = ({ classes, hardware, disabled }) => {
                         disabled={btnDisabled}
                         size='small'
                         className={classes.button}
-                        onClick={() => api.identifyHardware(hardware.id)} >
+                        onClick={openClicked} >
                         Connect
                     </Button>
                 }
@@ -95,6 +88,8 @@ const HardwareCard = ({ classes, hardware, disabled }) => {
 HardwareCard.propTypes = {
     disabled: PropTypes.bool,
     hardware: hardwareType,
+    openClicked: PropTypes.func.isRequired,
+    closeClicked: PropTypes.func.isRequired,
 }
 
 export default withStyles(styles)(HardwareCard);

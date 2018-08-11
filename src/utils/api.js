@@ -4,6 +4,7 @@ import { store } from 'utils/store';
 import { addSerialChannel, addSerialLine } from './actions';
 
 const api = {};
+const root = '';
 
 const fakeAxios = (data, fail) => {
     return new Promise((resolve, reject) => {
@@ -14,75 +15,11 @@ const fakeAxios = (data, fail) => {
     })
 }
 
-let hardwares = [
-    {
-        id: "COM1",
-        available: true,
-        open: false,
-    },
-    {
-        id: "COM2",
-        available: true,
-        open: false,
-    },
-    {
-        id: "COM3",
-        available: false,
-        open: false,
-    }
-]
+api.getHardware = () => axios.get(`${root}/hardware`);
 
-api.getHardware = () => {
-    store.set('hardware.loading')(true);
-    store.set('hardware.error')(false);
-    
-    //fakeAxios(hardwares)
-    axios.get('/hardware')
-    .then(result => {
-        console.log("GOTTHEHARDWARE");
-        console.log(result.data.hardware)
-        store.setCopy('hardware.list')(result.data.hardware);
-    })
-    .catch(error => {
-        store.set('hardware.error')(true);
-    })
-    .finally(() => {
-        store.set('hardware.loading')(false);
-    })
-}
+api.openHardware = (id) => axios.put(`${root}/hardware/${id}/open`);
 
-api.identifyHardware = (id) => {
-    store.set('hardware.loading')(true);
-    
-    axios.put(`/hardware/${id}/open`)
-    .then(result => {
-        console.log("OPENED THE DATA")
-        console.log(result)
-        store.setCopy('hardware.list')(result.data.hardware);
-        addSerialChannel({ id });
-    })
-    .catch(error => {
-        
-    })
-    .finally(() => {
-        store.set('hardware.loading')(false);
-    })
-}
-
-api.closeHardware = id => {
-    store.set('hardware.loading')(true);
-    
-    axios.put(`/hardware/${id}/close`)
-    .then(result => {
-        store.setCopy('hardware.list')(result.data.hardware);
-    })
-    .catch(error => {
-        
-    })
-    .finally(() => {
-        store.set('hardware.loading')(false);
-    })
-}
+api.closeHardware = (id) => axios.put(`${root}/hardware/${id}/close`);
 
 api.sendCommand = async (id, command, args) => {
     

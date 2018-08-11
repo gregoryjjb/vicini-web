@@ -120,12 +120,14 @@ class SerialMonitor extends Component {
 						className={classes.input}
 						placeholder="Send serial..."
 						value={this.state.inputValue}
+						disabled={port.disabled}
 						onChange={e => this.setState({ inputValue: e.target.value })}
 						onKeyDown={e => { if(e.keyCode === 13) this.handleSend() }} />
 					<Button
 						variant="contained"
 						color="secondary"
 						size='small'
+						disabled={port.disabled}
 						className={classes.sendButton}
 						onClick={this.handleSend} >
 						Send

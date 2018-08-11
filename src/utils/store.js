@@ -14,6 +14,7 @@ export let store = createStore({
 	
 	'serial.ports': [{
 		id: 'TEST',
+		disabled: true,
 		lines: [{
 			text: 'Hello there Linduino',
 			sent: true,
