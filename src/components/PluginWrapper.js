@@ -18,6 +18,11 @@ const styles = theme => ({
 	},
 	error: {
 		color: theme.palette.error.dark,
+	},
+	errorMsg: {
+		...theme.typography.mono,
+		whiteSpace: 'pre-wrap',
+		paddingBottom: 24,
 	}
 })
 
@@ -37,7 +42,7 @@ const PluginWrapper = ({ className, classes, loading, error, plugin }) => {
 			<span>
 				<Typography variant="headline" className={classes.error} gutterBottom>Error loading plugin</Typography>
 				
-				<code style={{ whiteSpace: 'pre-wrap' }} >{error}</code>
+				<code className={classes.errorMsg} >{error}</code>
 			</span>
 		);
 	}

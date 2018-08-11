@@ -8,13 +8,13 @@ const styles = theme => {
     
     return {
         root: {
+            ...theme.typography.mono,
             color: col,
             minHeight: 32,
             maxWidth: '100%',
             borderRadius: 16,
             padding: '8px 12px',
-            fontFamily: theme.typography.fontFamily,
-            fontSize: '0.8125rem',
+            //fontSize: '0.8125rem',
             whiteSpace: 'pre-wrap',
             flexShrink: 0,
             margin: '2px 0px',

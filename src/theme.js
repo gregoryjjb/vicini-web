@@ -19,7 +19,13 @@ const getTheme = mode => {
 				display: 'flex',
 				flexDirection: 'column',
 			}
-		}
+		},
+		typography: {
+			mono: {
+				fontFamily: '"Roboto Mono", monospace',
+				fontSize: 12,
+			}
+		},
 	})
 	
 	window.theme = theme;
