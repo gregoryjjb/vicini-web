@@ -28,8 +28,10 @@ class Plugin extends React.Component {
 		
 		for(let field of fields) {
 			let { name, defaultValue } = field;
-			values[name] = defaultValue || '';
+			values[name] = defaultValue !== undefined ? defaultValue : '';
 		}
+		
+		console.log('INITIALZED', values)
 		
 		this.performReduce(values);
 	}

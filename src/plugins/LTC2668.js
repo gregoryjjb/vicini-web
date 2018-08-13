@@ -25,7 +25,7 @@ export default send => ({
 			{value: 14, label: 'Channel 14'},
 			{value: 15, label: 'Channel 15'},
         ],
-        defaultValue: 1,
+        defaultValue: 0,
         group: 'DAC Selection',
     }, {
         name: 'selectDac',
