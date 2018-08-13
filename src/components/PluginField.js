@@ -36,7 +36,7 @@ const PluginField = ({ className, field, value, onChange, onClick, }) => {
 					<Checkbox
 						name={field.name}
 						checked={fixedValue}
-						onChange={onChange}
+						onChange={onChange ? onChange : undefined}
 						disabled={isOutput}
 					/>
 				}
@@ -89,7 +89,7 @@ const PluginField = ({ className, field, value, onChange, onClick, }) => {
 					multiple
 					value={fixedValue}
 					onChange={!isOutput ? onChange : undefined}
-					renderValue={selected => selected.join(',')/* field.options.filter(o => selected.includes(o.value)).map(o => o.label).join(', ')*/}
+					renderValue={selected => field.options.find(o => o.value === selected[0]).label + ' + ' + (selected.length - 1) + ' more' /*selected.join(',')/* field.options.filter(o => selected.includes(o.value)).map(o => o.label).join(', ')*/}
 					inputProps={{
 						name: field.name,
 						id: field.name,
