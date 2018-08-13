@@ -12,7 +12,12 @@ export const hardwareShape = {
 
 export const hardwareType = PropTypes.shape(hardwareShape)
 
-const valueTypes = PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool,]);
+const valueTypes = PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.bool,
+    PropTypes.array,
+]);
 
 export const fieldType = PropTypes.shape({
     name: PropTypes.string.isRequired,

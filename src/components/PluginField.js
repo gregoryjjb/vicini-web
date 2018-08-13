@@ -11,14 +11,17 @@ import {
 	InputAdornment,
 	FormControlLabel,
 	Checkbox,
+	ListItemText,
 } from '@material-ui/core';
 
 const PluginField = ({ className, field, value, onChange, onClick, }) => {
 	
 	let isOutput = field.output || false;
 	let label = field.label || field.name;
-	let fixedValue = (value === undefined) ? '' : value;
 	let units = (field.units ? <InputAdornment position='end'>{field.units}</InputAdornment> : null);
+	
+	let fixedValue = (value === undefined) ? '' : value;
+	if(field.type === 'select-multi' && !Array.isArray(fixedValue)) fixedValue = [];
 	
 	if(field.type === 'none' && field.visible !== true) return null;
 	
@@ -70,6 +73,30 @@ const PluginField = ({ className, field, value, onChange, onClick, }) => {
 							value={o.value}
 							key={o.value} >
 							{o.label}
+						</MenuItem>
+					))}
+				</Select>
+			</FormControl>
+		)
+	}
+	
+	if(field.type === 'select-multi') {
+		return (
+			<FormControl className={className} >
+				<InputLabel htmlFor={field.name}>{field.label}</InputLabel>
+				<Select
+					multiple
+					value={fixedValue}
+					onChange={!isOutput ? onChange : undefined}
+					renderValue={selected => field.options.filter(o => selected.includes(o.value)).map(o => o.label).join(', ')}
+					inputProps={{
+						name: field.name,
+						id: field.name,
+					}} >
+					{field.options.map(o => (
+						<MenuItem key={o.value} value={o.value} >
+							<Checkbox checked={fixedValue.indexOf(o.value) > -1} />
+							<ListItemText primary={o.label} />
 						</MenuItem>
 					))}
 				</Select>

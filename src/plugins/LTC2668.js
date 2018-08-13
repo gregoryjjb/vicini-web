@@ -80,11 +80,37 @@ export default send => ({
         type: 'checkbox',
         defaultValue: true,
         group: 'Other',
+    }, {
+        name: 'multiTest',
+        label: 'Multi Test',
+        type: 'select-multi',
+        options: [
+            {value: 0, label: 'Channel 0'},
+			{value: 1, label: 'Channel 1'},
+			{value: 2, label: 'Channel 2'},
+			{value: 3, label: 'Channel 3'},
+			{value: 4, label: 'Channel 4'},
+			{value: 5, label: 'Channel 5'},
+			{value: 6, label: 'Channel 6'},
+			{value: 7, label: 'Channel 7'},
+			{value: 8, label: 'Channel 8'},
+			{value: 9, label: 'Channel 9'},
+			{value: 10, label: 'Channel 10'},
+			{value: 11, label: 'Channel 11'},
+			{value: 12, label: 'Channel 12'},
+			{value: 13, label: 'Channel 13'},
+			{value: 14, label: 'Channel 14'},
+			{value: 15, label: 'Channel 15'},
+        ],
+        defaultValue: [],
+        group: 'Other',
     }],
     
     reducer: function(oldValues) {
         
         console.log('Check Test:', oldValues.checkTest)
+        
+        console.log('Multi Test', oldValues.multiTest)
         
         return {};
     }
