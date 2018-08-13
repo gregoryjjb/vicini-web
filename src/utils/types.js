@@ -21,7 +21,15 @@ const valueTypes = PropTypes.oneOfType([
 
 export const fieldType = PropTypes.shape({
     name: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
+    type: PropTypes.oneOf([
+        'text',
+        'number',
+        'checkbox',
+        'select',
+        'select-multi',
+        'button',
+        'none',
+    ]),
     label: PropTypes.string,
     units: PropTypes.string,
     group: PropTypes.string,
