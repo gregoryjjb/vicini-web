@@ -37,7 +37,7 @@ const PluginField = ({ className, field, value, onChange, onClick, }) => {
 						name={field.name}
 						checked={fixedValue}
 						onChange={onChange}
-						disabled={true}
+						disabled={isOutput}
 					/>
 				}
 			/>
@@ -50,6 +50,7 @@ const PluginField = ({ className, field, value, onChange, onClick, }) => {
 				className={className}
 				name={field.name}
 				variant="outlined"
+				size="small"
 				onClick={() => onClick(field.name)} >
 				{label}
 			</Button>
@@ -88,7 +89,7 @@ const PluginField = ({ className, field, value, onChange, onClick, }) => {
 					multiple
 					value={fixedValue}
 					onChange={!isOutput ? onChange : undefined}
-					renderValue={selected => field.options.filter(o => selected.includes(o.value)).map(o => o.label).join(', ')}
+					renderValue={selected => selected.join(',')/* field.options.filter(o => selected.includes(o.value)).map(o => o.label).join(', ')*/}
 					inputProps={{
 						name: field.name,
 						id: field.name,
