@@ -141,6 +141,17 @@ export default send => ({
             //    }
             //)
         }
+    }, {
+        name: 'radioTest',
+        label: 'Radio Test',
+        type: 'radio',
+        options: [
+            {value: 'codes', label: 'Codes'},
+            {value: 'volts', label: 'Volts'},
+        ],
+        defaultValue: 'codes',
+        output: false,
+        group: 'Other',
     }],
     
     reducer: function(oldValues) {
@@ -150,6 +161,8 @@ export default send => ({
         console.log('Multi Test', oldValues.multiTest)
         
         console.log('Channel: ', oldValues.channel)
+        
+        console.log('Radio:', oldValues.radioTest)
         
         return {};
     }

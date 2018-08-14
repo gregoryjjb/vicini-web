@@ -12,6 +12,9 @@ import {
 	FormControlLabel,
 	Checkbox,
 	ListItemText,
+	FormLabel,
+	RadioGroup,
+	Radio,
 } from '@material-ui/core';
 
 const PluginField = ({ className, field, value, onChange, onClick, }) => {
@@ -36,7 +39,7 @@ const PluginField = ({ className, field, value, onChange, onClick, }) => {
 					<Checkbox
 						name={field.name}
 						checked={fixedValue}
-						onChange={onChange ? onChange : undefined}
+						onChange={!isOutput ? onChange : undefined}
 						disabled={isOutput}
 					/>
 				}
@@ -60,7 +63,7 @@ const PluginField = ({ className, field, value, onChange, onClick, }) => {
 	if(field.type === 'select') {
 		return(
 			<FormControl className={className}>
-				<InputLabel htmlFor={field.name}>{field.label}</InputLabel>
+				<InputLabel htmlFor={field.name}>{label}</InputLabel>
 				<Select
 					value={fixedValue}
 					onChange={!isOutput ? onChange : undefined}
@@ -84,7 +87,7 @@ const PluginField = ({ className, field, value, onChange, onClick, }) => {
 	if(field.type === 'select-multi') {
 		return (
 			<FormControl className={className} >
-				<InputLabel htmlFor={field.name}>{field.label}</InputLabel>
+				<InputLabel htmlFor={field.name}>{label}</InputLabel>
 				<Select
 					multiple
 					value={fixedValue}
@@ -101,6 +104,26 @@ const PluginField = ({ className, field, value, onChange, onClick, }) => {
 						</MenuItem>
 					))}
 				</Select>
+			</FormControl>
+		)
+	}
+	
+	if(field.type === 'radio') {
+		return(
+			<FormControl component='fieldset' className={className} >
+				<FormLabel component='legend'>{label}</FormLabel>
+				<RadioGroup
+					name={field.name}
+					value={fixedValue}
+					onChange={!isOutput ? onChange : undefined} >
+					{field.options.map(o => (
+						<FormControlLabel
+							value={o.value}
+							label={o.label}
+							disabled={isOutput}
+							control={<Radio />} />
+					))}
+				</RadioGroup>
 			</FormControl>
 		)
 	}

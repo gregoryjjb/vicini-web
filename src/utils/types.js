@@ -27,6 +27,7 @@ export const fieldType = PropTypes.shape({
         'checkbox',
         'select',
         'select-multi',
+        'radio',
         'button',
         'none',
     ]),
