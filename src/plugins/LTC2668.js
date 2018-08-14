@@ -1,3 +1,5 @@
+import api from 'utils/api';
+
 export default send => ({
     id: 'LTC2668',
     name: 'LTC2668 Plugin',
@@ -8,6 +10,7 @@ export default send => ({
         label: 'Channel',
         type: 'select',
         options: [
+            {value: -1, label: 'All'},
             {value: 0, label: 'Channel 0'},
 			{value: 1, label: 'Channel 1'},
 			{value: 2, label: 'Channel 2'},
@@ -66,9 +69,10 @@ export default send => ({
         type: 'button',
         group: 'DAC Configuration',
         onClick: (vals, update) => {
+            let channel = vals.channel === -1 ? 'all' : vals.channel;
             send(
                 'write',
-                ['volts', vals.channel, vals.volts],
+                ['volts', channel, vals.volts],
                 response => {
                     console.log(response);
                 }
@@ -80,6 +84,9 @@ export default send => ({
         type: 'checkbox',
         defaultValue: true,
         group: 'Other',
+        onClick: (vals, update) => {
+            console.log('CHECKBOX IS NOW', vals.checkTest);
+        }
     }, {
         name: 'multiTest',
         label: 'Multi Test',
@@ -104,6 +111,36 @@ export default send => ({
         ],
         defaultValue: [],
         group: 'Other',
+    }, {
+        name: 'textTest',
+        label: 'Channels',
+        type: 'text',
+        group: 'Other',
+    }, {
+        name: 'write2',
+        label: 'Select All',
+        type: 'button',
+        group: 'Other',
+        onClick: (vals, update) => {
+            
+            //let selectedThings = vals.textTest.split(',').map(s => parseInt(s));
+            
+            //let things = parseListThingy(vals.textTest)
+            
+            ///console.log('THE ARRAY IS', selectedThings);
+            
+            update({
+                multiTest: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
+            })
+            
+            //send(
+            //    'write',
+            //    ['volts', vals.channel, vals.volts],
+            //    response => {
+            //        console.log(response);
+            //    }
+            //)
+        }
     }],
     
     reducer: function(oldValues) {
@@ -111,6 +148,8 @@ export default send => ({
         console.log('Check Test:', oldValues.checkTest)
         
         console.log('Multi Test', oldValues.multiTest)
+        
+        console.log('Channel: ', oldValues.channel)
         
         return {};
     }
