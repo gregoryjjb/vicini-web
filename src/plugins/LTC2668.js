@@ -55,7 +55,7 @@ export default send => ({
         group: 'Channel',
     }, {
         name: 'voltsOrCode',
-        label: 'Write Format',
+        label: '',
         type: 'radio',
         defaultValue: 'volts',
         group: 'Channel',

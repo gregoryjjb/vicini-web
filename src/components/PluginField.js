@@ -29,71 +29,92 @@ const evaluate = (val, fallback, allVals) => {
 	return val;
 }
 
+const sanitizeField = (field, allValues) => {
+	let f = {...field};
+	
+	// Label
+	if(field.type === 'radio') f.label = field.label;
+	else f.label = field.label || field.name;
+	
+	// Enabled/disabled
+	f.output = field.output || false;
+	let enabled = evaluate(field.enabled, true, allValues);
+	f.disabled = f.output || !enabled;
+	
+	// Visibility
+	f.visible = evaluate(field.visible, true, allValues);
+	f.units = evaluate(field.units, undefined, allValues);
+	
+	f.options = field.options || [];
+	
+	return f;
+}
+
 const PluginField = ({ className, field, value, allValues, onChange, onClick, }) => {
 	
-	let visible = evaluate(field.visible, true, allValues);
+	let ff = sanitizeField(field, allValues);
 	
-	let isOutput = field.output || false;
-	let label = field.label || field.name;
+	// Units adornment element
+	let unitsEl = ff.units ? <InputAdornment position='end'>{ff.units}</InputAdornment> : null;
 	
-	let units = evaluate(field.units, undefined, allValues);
-	let unitsEl = units ? <InputAdornment position='end'>{units}</InputAdornment> : null;
-	
+	// Sanitize value
 	let fixedValue = (value === undefined) ? '' : value;
-	if(field.type === 'select-multi' && !Array.isArray(fixedValue)) fixedValue = [];
+	if(ff.type === 'select-multi' && !Array.isArray(fixedValue)) fixedValue = [];
 	
-	let enabled = evaluate(field.enabled, true, allValues);
-	let disabled = isOutput || !enabled;
+	// Sanitize on click/change events
+	let fOnChange = !ff.output ? onChange : undefined;
+	let fOnClick = (ff.type === 'button') ? () => onClick(ff.name) : undefined;
 	
-	if(field.type === 'none' && field.visible !== true) return null;
 	
-	if(visible === false) return null;
+	if(ff.type === 'none' && ff.visible !== true) return null;
 	
-	if(field.type === 'checkbox') {
+	if(ff.visible === false) return null;
+	
+	if(ff.type === 'checkbox') {
 		return(
 			<FormControlLabel
 				className={className}
-				label={label}
+				label={ff.label}
 				control={
 					<Checkbox
-						name={field.name}
+						name={ff.name}
 						checked={fixedValue}
-						onChange={!isOutput ? onChange : undefined}
-						disabled={disabled}
+						onChange={fOnChange}
+						disabled={ff.disabled}
 					/>
 				}
 			/>
 		)
 	}
 	
-	if(field.type === 'button') {
+	if(ff.type === 'button') {
 		return (
 			<Button
 				className={className}
-				name={field.name}
+				name={ff.name}
 				variant="outlined"
 				size="small"
-				disabled={disabled}
-				onClick={() => onClick(field.name)} >
-				{label}
+				disabled={ff.disabled}
+				onClick={fOnClick} >
+				{ff.label}
 			</Button>
 		)
 	}
 	
-	if(field.type === 'select') {
+	if(ff.type === 'select') {
 		return(
 			<FormControl className={className}>
-				<InputLabel htmlFor={field.name}>{label}</InputLabel>
+				<InputLabel htmlFor={ff.name}>{ff.label}</InputLabel>
 				<Select
 					value={fixedValue}
-					onChange={!isOutput ? onChange : undefined}
+					onChange={fOnChange}
 					endAdornment={unitsEl}
-					disabled={disabled}
+					disabled={ff.disabled}
 					inputProps={{
-						name: field.name,
-						id: field.name,
+						name: ff.name,
+						id: ff.name,
 					}}>
-					{field.options.map(o => (
+					{ff.options.map(o => (
 						<MenuItem
 							value={o.value}
 							key={o.value} >
@@ -105,21 +126,21 @@ const PluginField = ({ className, field, value, allValues, onChange, onClick, })
 		)
 	}
 	
-	if(field.type === 'select-multi') {
+	if(ff.type === 'select-multi') {
 		return (
 			<FormControl className={className} >
-				<InputLabel htmlFor={field.name}>{label}</InputLabel>
+				<InputLabel htmlFor={ff.name}>{ff.label}</InputLabel>
 				<Select
 					multiple
 					value={fixedValue}
-					disabled={disabled}
-					onChange={!isOutput ? onChange : undefined}
-					renderValue={selected => field.options.find(o => o.value === selected[0]).label + ' + ' + (selected.length - 1) + ' more' /*selected.join(',')/* field.options.filter(o => selected.includes(o.value)).map(o => o.label).join(', ')*/}
+					disabled={ff.disabled}
+					onChange={fOnChange}
+					renderValue={selected => ff.options.find(o => o.value === selected[0]).label + ' + ' + (selected.length - 1) + ' more' /*selected.join(',')/* field.options.filter(o => selected.includes(o.value)).map(o => o.label).join(', ')*/}
 					inputProps={{
-						name: field.name,
-						id: field.name,
+						name: ff.name,
+						id: ff.name,
 					}} >
-					{field.options.map(o => (
+					{ff.options.map(o => (
 						<MenuItem key={o.value} value={o.value} >
 							<Checkbox checked={fixedValue.indexOf(o.value) > -1} />
 							<ListItemText primary={o.label} />
@@ -130,20 +151,20 @@ const PluginField = ({ className, field, value, allValues, onChange, onClick, })
 		)
 	}
 	
-	if(field.type === 'radio') {
+	if(ff.type === 'radio') {
 		return(
 			<FormControl component='fieldset' className={className} >
-				<FormLabel component='legend'>{label}</FormLabel>
+				<FormLabel component='legend'>{ff.label}</FormLabel>
 				<RadioGroup
-					name={field.name}
+					name={ff.name}
 					value={fixedValue}
-					disabled={disabled}
-					onChange={!isOutput ? onChange : undefined} >
-					{field.options.map(o => (
+					disabled={ff.disabled}
+					onChange={fOnChange} >
+					{ff.options.map(o => (
 						<FormControlLabel
 							value={o.value}
 							label={o.label}
-							disabled={disabled}
+							disabled={ff.disabled}
 							control={<Radio />} />
 					))}
 				</RadioGroup>
@@ -154,15 +175,15 @@ const PluginField = ({ className, field, value, allValues, onChange, onClick, })
 	return (
 		<TextField
 			className={className}
-			name={field.name}
-			label={label}
-			type={field.type}
-			disabled={disabled}
+			name={ff.name}
+			label={ff.label}
+			type={ff.type}
+			disabled={ff.disabled}
 			value={fixedValue}
 			InputProps={{
 				endAdornment: unitsEl,
 			}}
-			onChange={!isOutput ? onChange : undefined}
+			onChange={fOnChange}
 		/>
 	)
 }
