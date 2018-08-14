@@ -29,70 +29,158 @@ export default send => ({
 			{value: 15, label: 'Channel 15'},
         ],
         defaultValue: 0,
-        group: 'DAC Selection',
+        group: 'Channel',
     }, {
-        name: 'selectDac',
-        label: 'Select',
-        type: 'button',
-        onClick: (vals, update) => {
-            let all = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
-            let clear = all.filter(n => n != vals.channel).join(',');
-            let set = vals.channel;
-            
-            let command = `select_bits set ${set} clear ${clear}`;
-            
-            send(
-                'select_bits',
-                ['set', set, 'clear', clear],
-                response => {
-                    console.log(response);
-                }
-            )
-        },
-        group: 'DAC Selection',
+        name: 'selectedBits',
+        label: 'Selected Bits',
+        type: 'text',
+        defaultValue: '0',
+        output: true,
+        units: 'HEX',
+        group: 'Select Bits',
     }, {
         name: 'volts',
         label: 'Volts',
         type: 'number',
         units: 'V',
         defaultValue: 2.4,
-        enabled: vals => vals.radioTest === 'volts',
-        group: 'DAC Configuration',
+        visible: vals => vals.voltsOrCode === 'volts',
+        group: 'Channel',
     }, {
-        name: 'counts',
+        name: 'code',
         label: 'Code',
         type: 'number',
         defaultValue: 1024,
-        enabled: vals => vals.radioTest === 'codes',
-        group: 'DAC Configuration',
+        visible: vals => vals.voltsOrCode === 'code',
+        group: 'Channel',
+    }, {
+        name: 'voltsOrCode',
+        label: 'Write Format',
+        type: 'radio',
+        defaultValue: 'volts',
+        group: 'Channel',
+        options: [
+            { value: 'volts', label: 'Volts' },
+            { value: 'code', label: 'Code' },
+        ]
     }, {
         name: 'write',
         label: 'Write',
         type: 'button',
-        group: 'DAC Configuration',
+        group: 'Channel',
         onClick: (vals, update) => {
             let channel = vals.channel === -1 ? 'all' : vals.channel;
+            let type = vals.voltsOrCode;
+            let amount = (type === 'volts') ? vals.volts : vals.code;
             send(
                 'write',
-                ['volts', channel, vals.volts],
+                [type, channel, amount],
                 response => {
                     console.log(response);
                 }
             )
         }
     }, {
-        name: 'checkTest',
-        label: 'Check Test',
-        type: 'checkbox',
-        defaultValue: true,
-        group: 'Other',
-        onClick: (vals, update) => {
-            console.log('CHECKBOX IS NOW', vals.checkTest);
+        name: 'span',
+        label: 'Span',
+        type: 'select',
+        options: [
+            { value: '5', label: '5', },
+            { value: '10', label: '10', },
+            { value: '+-5', label: '+-5', },
+            { value: '+-10', label: '+-10', },
+            { value: '+-2.5', label: '+-2.5', },
+        ],
+        defaultValue: '5',
+        units: 'V',
+        group: 'Channel',
+    }, {
+        name: 'writeSpan',
+        label: 'Write Span',
+        type: 'button',
+        group: 'Channel',
+        onClick: vals => {
+            send(
+                'span',
+                [vals.channel, vals.span],
+                response => {
+                    
+                }
+            )
         }
     }, {
-        name: 'multiTest',
-        label: 'Multi Test',
-        type: 'select-multi',
+        name: 'setBits',
+        label: 'Set Bits',
+        type: 'text',
+        group: 'Select Bits',
+    }, {
+        name: 'clearBits',
+        label: 'Clear Bits',
+        type: 'text',
+        group: 'Select Bits',
+    }, {
+        name: 'selectBitsButton',
+        label: 'Select',
+        type: 'button',
+        onClick: (vals, update) => {
+            //let all = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+            let clear = vals.clearBits;
+            let set = vals.setBits;
+            let args = [];
+            
+            if(set) args.push('set', set);
+            if(clear) args.push('clear', clear);
+            if(args.length === 0) return;
+            
+            send(
+                'select_bits',
+                args,
+                response => {
+                    update({
+                        selectedBits: response.split(' ')[4],
+                    })
+                }
+            )
+        },
+        group: 'Select Bits',
+    }, {
+        name: 'setAll',
+        label: 'Set All',
+        type: 'button',
+        group: 'Select Bits',
+        onClick: (vals, update) => {
+            let all = '0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15';
+            send(
+                'select_bits',
+                ['set', all],
+                response => {
+                    update({
+                        selectedBits: response.split(' ')[4],
+                    })
+                }
+            )
+        },
+    }, {
+        name: 'clearAll',
+        label: 'Clear All',
+        type: 'button',
+        group: 'Select Bits',
+        onClick: (vals, update) => {
+            let all = '0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15';
+            send(
+                'select_bits',
+                ['clear', all],
+                response => {
+                    update({
+                        selectedBits: response.split(' ')[4],
+                    })
+                }
+            )
+        },
+    }, {
+        name: 'muxChannel',
+        label: 'Channel',
+        type: 'select',
         options: [
             {value: 0, label: 'Channel 0'},
 			{value: 1, label: 'Channel 1'},
@@ -111,51 +199,29 @@ export default send => ({
 			{value: 14, label: 'Channel 14'},
 			{value: 15, label: 'Channel 15'},
         ],
-        defaultValue: [],
-        group: 'Other',
+        defaultValue: 0,
+        group: 'MUX',
     }, {
-        name: 'textTest',
-        label: 'Channels',
-        type: 'text',
-        group: 'Other',
-        units: vals => vals.checkTest ? 'YES' : 'NO',
-        //visible: vals => vals.checkTest,
+        name: 'muxEnable',
+        label: 'Enable Mux',
+        type: 'checkbox',
+        defaultValue: false,
+        group: 'MUX',
     }, {
-        name: 'write2',
-        label: 'Select All',
+        name: 'muxApply',
+        label: 'Apply Mux',
         type: 'button',
-        group: 'Other',
+        group: 'MUX',
         onClick: (vals, update) => {
-            
-            //let selectedThings = vals.textTest.split(',').map(s => parseInt(s));
-            
-            //let things = parseListThingy(vals.textTest)
-            
-            ///console.log('THE ARRAY IS', selectedThings);
-            
-            update({
-                multiTest: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
-            })
-            
-            //send(
-            //    'write',
-            //    ['volts', vals.channel, vals.volts],
-            //    response => {
-            //        console.log(response);
-            //    }
-            //)
+            let en = vals.muxEnable ? vals.muxChannel : 'disable';
+            send(
+                'mux',
+                [en],
+                response => {
+                    
+                }
+            )
         }
-    }, {
-        name: 'radioTest',
-        label: 'Radio Test',
-        type: 'radio',
-        options: [
-            {value: 'codes', label: 'Codes'},
-            {value: 'volts', label: 'Volts'},
-        ],
-        defaultValue: 'codes',
-        output: false,
-        group: 'Other',
     }],
     
     reducer: function(oldValues) {
