@@ -31,6 +31,8 @@ const evaluate = (val, fallback, allVals) => {
 
 const PluginField = ({ className, field, value, allValues, onChange, onClick, }) => {
 	
+	let visible = evaluate(field.visible, true, allValues);
+	
 	let isOutput = field.output || false;
 	let label = field.label || field.name;
 	
@@ -45,7 +47,7 @@ const PluginField = ({ className, field, value, allValues, onChange, onClick, })
 	
 	if(field.type === 'none' && field.visible !== true) return null;
 	
-	if(field.visible === false) return null;
+	if(visible === false) return null;
 	
 	if(field.type === 'checkbox') {
 		return(

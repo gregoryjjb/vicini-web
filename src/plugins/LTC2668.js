@@ -119,6 +119,7 @@ export default send => ({
         type: 'text',
         group: 'Other',
         units: vals => vals.checkTest ? 'YES' : 'NO',
+        //visible: vals => vals.checkTest,
     }, {
         name: 'write2',
         label: 'Select All',
