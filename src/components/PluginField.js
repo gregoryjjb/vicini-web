@@ -148,7 +148,7 @@ const PluginField = ({ className, field, value, allValues, onChange, onClick, })
 					value={fixedValue}
 					disabled={ff.disabled}
 					onChange={fOnChange}
-					renderValue={selected => ff.options.find(o => o.value === selected[0]).label + ' + ' + (selected.length - 1) + ' more' /*selected.join(',')/* field.options.filter(o => selected.includes(o.value)).map(o => o.label).join(', ')*/}
+					renderValue={selected => ff.options.find(o => o.value === selected[0]).label + (selected.length > 1 ? ' + ' + (selected.length - 1) + ' more' : '')}
 					inputProps={{
 						name: ff.name,
 						id: ff.name,
