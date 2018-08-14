@@ -16,6 +16,7 @@ const styles = theme => {
             padding: '8px 12px',
             //fontSize: '0.8125rem',
             whiteSpace: 'pre-wrap',
+            wordWrap: 'break-word',
             flexShrink: 0,
             margin: '2px 0px',
         },
