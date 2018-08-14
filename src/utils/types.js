@@ -32,7 +32,7 @@ export const fieldType = PropTypes.shape({
         'none',
     ]),
     label: PropTypes.string,
-    units: PropTypes.string,
+    units: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     group: PropTypes.string,
     defaultValue: valueTypes,
     options: PropTypes.arrayOf(PropTypes.shape({

@@ -33,7 +33,9 @@ const PluginField = ({ className, field, value, allValues, onChange, onClick, })
 	
 	let isOutput = field.output || false;
 	let label = field.label || field.name;
-	let units = (field.units ? <InputAdornment position='end'>{field.units}</InputAdornment> : null);
+	
+	let units = evaluate(field.units, undefined, allValues);
+	let unitsEl = units ? <InputAdornment position='end'>{units}</InputAdornment> : null;
 	
 	let fixedValue = (value === undefined) ? '' : value;
 	if(field.type === 'select-multi' && !Array.isArray(fixedValue)) fixedValue = [];
@@ -83,7 +85,7 @@ const PluginField = ({ className, field, value, allValues, onChange, onClick, })
 				<Select
 					value={fixedValue}
 					onChange={!isOutput ? onChange : undefined}
-					endAdornment={units}
+					endAdornment={unitsEl}
 					disabled={disabled}
 					inputProps={{
 						name: field.name,
@@ -156,7 +158,7 @@ const PluginField = ({ className, field, value, allValues, onChange, onClick, })
 			disabled={disabled}
 			value={fixedValue}
 			InputProps={{
-				endAdornment: units,
+				endAdornment: unitsEl,
 			}}
 			onChange={!isOutput ? onChange : undefined}
 		/>
