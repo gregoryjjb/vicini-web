@@ -75,6 +75,7 @@ const PluginForm = ({ classes, fields, values, handleChange, handleClick }) => {
                                         className={classes.input}
                                         field={f}
                                         value={values[f.name]}
+                                        allValues={values}
                                         onChange={handleChange}
                                         onClick={handleClick}
                                         key={f.name} />

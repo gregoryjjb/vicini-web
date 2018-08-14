@@ -56,12 +56,14 @@ export default send => ({
         type: 'number',
         units: 'V',
         defaultValue: 2.4,
+        enabled: vals => vals.radioTest === 'volts',
         group: 'DAC Configuration',
     }, {
         name: 'counts',
         label: 'Code',
         type: 'number',
         defaultValue: 1024,
+        enabled: vals => vals.radioTest === 'codes',
         group: 'DAC Configuration',
     }, {
         name: 'write',
@@ -161,8 +163,6 @@ export default send => ({
         console.log('Multi Test', oldValues.multiTest)
         
         console.log('Channel: ', oldValues.channel)
-        
-        console.log('Radio:', oldValues.radioTest)
         
         return {};
     }

@@ -17,7 +17,19 @@ import {
 	Radio,
 } from '@material-ui/core';
 
-const PluginField = ({ className, field, value, onChange, onClick, }) => {
+const evaluate = (val, fallback, allVals) => {
+	if(typeof val === 'function') {
+		return val(allVals);
+	}
+	
+	if(val === undefined || val === null) {
+		return fallback;
+	}
+	
+	return val;
+}
+
+const PluginField = ({ className, field, value, allValues, onChange, onClick, }) => {
 	
 	let isOutput = field.output || false;
 	let label = field.label || field.name;
@@ -25,6 +37,9 @@ const PluginField = ({ className, field, value, onChange, onClick, }) => {
 	
 	let fixedValue = (value === undefined) ? '' : value;
 	if(field.type === 'select-multi' && !Array.isArray(fixedValue)) fixedValue = [];
+	
+	let enabled = evaluate(field.enabled, true, allValues);
+	let disabled = isOutput || !enabled;
 	
 	if(field.type === 'none' && field.visible !== true) return null;
 	
@@ -40,7 +55,7 @@ const PluginField = ({ className, field, value, onChange, onClick, }) => {
 						name={field.name}
 						checked={fixedValue}
 						onChange={!isOutput ? onChange : undefined}
-						disabled={isOutput}
+						disabled={disabled}
 					/>
 				}
 			/>
@@ -54,6 +69,7 @@ const PluginField = ({ className, field, value, onChange, onClick, }) => {
 				name={field.name}
 				variant="outlined"
 				size="small"
+				disabled={disabled}
 				onClick={() => onClick(field.name)} >
 				{label}
 			</Button>
@@ -68,6 +84,7 @@ const PluginField = ({ className, field, value, onChange, onClick, }) => {
 					value={fixedValue}
 					onChange={!isOutput ? onChange : undefined}
 					endAdornment={units}
+					disabled={disabled}
 					inputProps={{
 						name: field.name,
 						id: field.name,
@@ -91,6 +108,7 @@ const PluginField = ({ className, field, value, onChange, onClick, }) => {
 				<Select
 					multiple
 					value={fixedValue}
+					disabled={disabled}
 					onChange={!isOutput ? onChange : undefined}
 					renderValue={selected => field.options.find(o => o.value === selected[0]).label + ' + ' + (selected.length - 1) + ' more' /*selected.join(',')/* field.options.filter(o => selected.includes(o.value)).map(o => o.label).join(', ')*/}
 					inputProps={{
@@ -115,12 +133,13 @@ const PluginField = ({ className, field, value, onChange, onClick, }) => {
 				<RadioGroup
 					name={field.name}
 					value={fixedValue}
+					disabled={disabled}
 					onChange={!isOutput ? onChange : undefined} >
 					{field.options.map(o => (
 						<FormControlLabel
 							value={o.value}
 							label={o.label}
-							disabled={isOutput}
+							disabled={disabled}
 							control={<Radio />} />
 					))}
 				</RadioGroup>
@@ -134,7 +153,7 @@ const PluginField = ({ className, field, value, onChange, onClick, }) => {
 			name={field.name}
 			label={label}
 			type={field.type}
-			disabled={isOutput}
+			disabled={disabled}
 			value={fixedValue}
 			InputProps={{
 				endAdornment: units,
