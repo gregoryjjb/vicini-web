@@ -1,5 +1,24 @@
 import api from 'utils/api';
 
+const channelOptions = [
+    {value: 0, label: 'Channel 0'},
+    {value: 1, label: 'Channel 1'},
+    {value: 2, label: 'Channel 2'},
+    {value: 3, label: 'Channel 3'},
+    {value: 4, label: 'Channel 4'},
+    {value: 5, label: 'Channel 5'},
+    {value: 6, label: 'Channel 6'},
+    {value: 7, label: 'Channel 7'},
+    {value: 8, label: 'Channel 8'},
+    {value: 9, label: 'Channel 9'},
+    {value: 10, label: 'Channel 10'},
+    {value: 11, label: 'Channel 11'},
+    {value: 12, label: 'Channel 12'},
+    {value: 13, label: 'Channel 13'},
+    {value: 14, label: 'Channel 14'},
+    {value: 15, label: 'Channel 15'},
+];
+
 export default send => ({
     id: 'LTC2668',
     name: 'LTC2668 Plugin',
@@ -11,75 +30,10 @@ export default send => ({
         type: 'select',
         options: [
             {value: -1, label: 'All'},
-            {value: 0, label: 'Channel 0'},
-			{value: 1, label: 'Channel 1'},
-			{value: 2, label: 'Channel 2'},
-			{value: 3, label: 'Channel 3'},
-			{value: 4, label: 'Channel 4'},
-			{value: 5, label: 'Channel 5'},
-			{value: 6, label: 'Channel 6'},
-			{value: 7, label: 'Channel 7'},
-			{value: 8, label: 'Channel 8'},
-			{value: 9, label: 'Channel 9'},
-			{value: 10, label: 'Channel 10'},
-			{value: 11, label: 'Channel 11'},
-			{value: 12, label: 'Channel 12'},
-			{value: 13, label: 'Channel 13'},
-			{value: 14, label: 'Channel 14'},
-			{value: 15, label: 'Channel 15'},
+            ...channelOptions,
         ],
         defaultValue: 0,
         group: 'Channel',
-    }, {
-        name: 'selectedBits',
-        label: 'Selected Bits',
-        type: 'text',
-        defaultValue: '0',
-        output: true,
-        units: 'HEX',
-        group: 'Select Bits',
-    }, {
-        name: 'volts',
-        label: 'Volts',
-        type: 'number',
-        units: 'V',
-        defaultValue: 2.4,
-        visible: vals => vals.voltsOrCode === 'volts',
-        group: 'Channel',
-    }, {
-        name: 'code',
-        label: 'Code',
-        type: 'number',
-        defaultValue: 1024,
-        visible: vals => vals.voltsOrCode === 'code',
-        group: 'Channel',
-    }, {
-        name: 'voltsOrCode',
-        label: '',
-        type: 'radio',
-        defaultValue: 'volts',
-        group: 'Channel',
-        options: [
-            { value: 'volts', label: 'Volts' },
-            { value: 'code', label: 'Code' },
-        ]
-    }, {
-        name: 'write',
-        label: 'Write',
-        type: 'button',
-        group: 'Channel',
-        onClick: (vals, update) => {
-            let channel = vals.channel === -1 ? 'all' : vals.channel;
-            let type = vals.voltsOrCode;
-            let amount = (type === 'volts') ? vals.volts : vals.code;
-            send(
-                'write',
-                [type, channel, amount],
-                response => {
-                    console.log(response);
-                }
-            )
-        }
     }, {
         name: 'span',
         label: 'Span',
@@ -109,6 +63,95 @@ export default send => ({
             )
         }
     }, {
+        name: 'powerDown',
+        label: 'Power Down',
+        type: 'button',
+        group: 'Channel',
+        onClick: vals => {
+            send(
+                'power_down',
+                [vals.channel],
+                response => {}
+            )
+        }
+    }, {
+        name: 'update',
+        label: 'Update',
+        type: 'button',
+        group: 'Channel',
+        onClick: vals => {
+            let channel = vals.channel === -1 ? 'all' : vals.channel;
+            send(
+                'update',
+                [channel],
+                response => {}
+            )
+        }
+    }, {
+        name: 'volts',
+        label: 'Volts',
+        type: 'number',
+        units: 'V',
+        defaultValue: 2.4,
+        visible: vals => vals.voltsOrCode === 'volts',
+        group: 'Voltage',
+    }, {
+        name: 'code',
+        label: 'Code',
+        type: 'number',
+        defaultValue: 1024,
+        visible: vals => vals.voltsOrCode === 'code',
+        group: 'Voltage',
+    }, {
+        name: 'voltsOrCode',
+        label: '',
+        type: 'radio',
+        defaultValue: 'volts',
+        group: 'Voltage',
+        options: [
+            { value: 'volts', label: 'Volts' },
+            { value: 'code', label: 'Code' },
+        ]
+    }, {
+        name: 'write',
+        label: 'Write',
+        type: 'button',
+        group: 'Voltage',
+        onClick: (vals, update) => {
+            let channel = vals.channel === -1 ? 'all' : vals.channel;
+            let type = vals.voltsOrCode;
+            let amount = (type === 'volts') ? vals.volts : vals.code;
+            send(
+                'write',
+                [type, channel, amount],
+                response => {}
+            )
+        }
+    }, {
+        name: 'writeUpdate',
+        label: 'Write & Update',
+        type: 'button',
+        group: 'Voltage',
+        onClick: (vals, update) => {
+            let channel = vals.channel === -1 ? 'all' : vals.channel;
+            let type = vals.voltsOrCode;
+            let amount = (type === 'volts') ? vals.volts : vals.code;
+            send(
+                'write_update',
+                [type, channel, amount],
+                response => {}
+            )
+        }
+    }, {
+        name: 'selectedBits',
+        label: 'Selected Bits',
+        type: 'text',
+        defaultValue: '0',
+        output: true,
+        multiline: true,
+        units: 'HEX',
+        group: 'Select Bits',
+    }, {
         name: 'setBits',
         label: 'Set Bits',
         type: 'text',
@@ -136,8 +179,10 @@ export default send => ({
                 'select_bits',
                 args,
                 response => {
+                    let hexStr = response.split(' ')[4];
+                    let num = parseInt(hexStr, 16);
                     update({
-                        selectedBits: response.split(' ')[4],
+                        selectedBits: num.toString(2),
                     })
                 }
             )
@@ -154,8 +199,10 @@ export default send => ({
                 'select_bits',
                 ['set', all],
                 response => {
+                    let hexStr = response.split(' ')[4];
+                    let num = parseInt(hexStr, 16);
                     update({
-                        selectedBits: response.split(' ')[4],
+                        selectedBits: num.toString(2),
                     })
                 }
             )
@@ -178,34 +225,34 @@ export default send => ({
             )
         },
     }, {
+        name: 'reference',
+        label: '',
+        type: 'radio',
+        options: ['Internal', 'External'],
+        group: 'Reference Voltage'
+    }, {
+        name: 'refApply',
+        label: 'Apply VRef',
+        type: 'button',
+        group: 'Reference Voltage',
+        onClick: (vals, update) => {
+            send(
+                'reference',
+                [(vals.reference === 'Internal') ? 'internal' : 'external'],
+                response => {
+                    
+                }
+            )
+        }
+    }, {
         name: 'muxChannel',
         label: 'Channel',
         type: 'select',
         options: [
-            {value: 0, label: 'Channel 0'},
-			{value: 1, label: 'Channel 1'},
-			{value: 2, label: 'Channel 2'},
-			{value: 3, label: 'Channel 3'},
-			{value: 4, label: 'Channel 4'},
-			{value: 5, label: 'Channel 5'},
-			{value: 6, label: 'Channel 6'},
-			{value: 7, label: 'Channel 7'},
-			{value: 8, label: 'Channel 8'},
-			{value: 9, label: 'Channel 9'},
-			{value: 10, label: 'Channel 10'},
-			{value: 11, label: 'Channel 11'},
-			{value: 12, label: 'Channel 12'},
-			{value: 13, label: 'Channel 13'},
-			{value: 14, label: 'Channel 14'},
-			{value: 15, label: 'Channel 15'},
+            {value: -1, label: 'None'},
+            ...channelOptions,
         ],
         defaultValue: 0,
-        group: 'MUX',
-    }, {
-        name: 'muxEnable',
-        label: 'Enable Mux',
-        type: 'checkbox',
-        defaultValue: false,
         group: 'MUX',
     }, {
         name: 'muxApply',
@@ -213,7 +260,8 @@ export default send => ({
         type: 'button',
         group: 'MUX',
         onClick: (vals, update) => {
-            let en = vals.muxEnable ? vals.muxChannel : 'disable';
+            let c = vals.muxChannel;
+            let en = (c === -1) ? 'disable' : c;
             send(
                 'mux',
                 [en],
@@ -222,7 +270,7 @@ export default send => ({
                 }
             )
         }
-    }],
+    }, ],
     
     reducer: function(oldValues) {
         

@@ -45,7 +45,19 @@ const sanitizeField = (field, allValues) => {
 	f.visible = evaluate(field.visible, true, allValues);
 	f.units = evaluate(field.units, undefined, allValues);
 	
-	f.options = field.options || [];
+	// Multiline
+	f.multiline = field.multiline || false;
+	
+	// Options
+	f.options = [];
+	if(field.options && field.options[0]) {
+		if(typeof field.options[0] === 'string') {
+			f.options = field.options.map(s => ({ value: s, label: s, }));
+		}
+		else {
+			f.options = field.options;
+		}
+	}
 	
 	return f;
 }
@@ -95,7 +107,8 @@ const PluginField = ({ className, field, value, allValues, onChange, onClick, })
 				variant="outlined"
 				size="small"
 				disabled={ff.disabled}
-				onClick={fOnClick} >
+				onClick={fOnClick}
+				style={{ textTransform: 'none' }} >
 				{ff.label}
 			</Button>
 		)
@@ -162,6 +175,7 @@ const PluginField = ({ className, field, value, allValues, onChange, onClick, })
 					onChange={fOnChange} >
 					{ff.options.map(o => (
 						<FormControlLabel
+							key={o.value}
 							value={o.value}
 							label={o.label}
 							disabled={ff.disabled}
@@ -184,6 +198,7 @@ const PluginField = ({ className, field, value, allValues, onChange, onClick, })
 				endAdornment: unitsEl,
 			}}
 			onChange={fOnChange}
+			multiline={ff.multiline}
 		/>
 	)
 }

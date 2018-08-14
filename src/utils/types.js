@@ -19,6 +19,11 @@ const valueTypes = PropTypes.oneOfType([
     PropTypes.array,
 ]);
 
+const optionsType = PropTypes.shape({
+    value: valueTypes.isRequired,
+    label: PropTypes.string.isRequired,
+});
+
 export const fieldType = PropTypes.shape({
     name: PropTypes.string.isRequired,
     type: PropTypes.oneOf([
@@ -33,12 +38,13 @@ export const fieldType = PropTypes.shape({
     ]),
     label: PropTypes.string,
     units: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    multiline: PropTypes.bool,
     group: PropTypes.string,
     defaultValue: valueTypes,
-    options: PropTypes.arrayOf(PropTypes.shape({
-        value: valueTypes.isRequired,
-        label: PropTypes.string.isRequired,
-    })),
+    options: PropTypes.oneOfType([
+        PropTypes.arrayOf(optionsType),
+        PropTypes.arrayOf(PropTypes.string),
+    ]),
     output: PropTypes.bool,
     onClick: PropTypes.func,
     enabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
