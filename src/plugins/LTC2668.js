@@ -145,30 +145,38 @@ export default send => ({
         name: 'selectedBits',
         label: 'Selected Bits',
         type: 'text',
-        defaultValue: '0',
+        //defaultValue: '0',
         output: true,
         multiline: true,
-        units: 'HEX',
+        //units: 'HEX',
         group: 'Select Bits',
     }, {
         name: 'setBits',
         label: 'Set Bits',
-        type: 'text',
+        type: 'select-multi',
+        options: [...channelOptions],
+        defaultValue: [],
         group: 'Select Bits',
-        //error: vals => isCSList(vals.setBits), //vals.setBits == '' ? '' : 'Bad!',
+        error: vals => {
+            let err = vals.setBits.filter(s => vals.clearBits.includes(s)).length > 0;
+            return err ? 'Cannot both set and clear bit' : '';
+        }
     }, {
         name: 'clearBits',
         label: 'Clear Bits',
-        type: 'text',
+        type: 'select-multi',
+        options: [...channelOptions],
+        defaultValue: [],
         group: 'Select Bits',
     }, {
         name: 'selectBitsButton',
-        label: 'Select',
+        label: 'Apply',
         type: 'button',
         onClick: (vals, update) => {
             //let all = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
-            let clear = vals.clearBits;
-            let set = vals.setBits;
+            console.log(vals);
+            let clear = vals.clearBits.join(',');
+            let set = vals.setBits.join(',');
             let args = [];
             
             if(set) args.push('set', set);
@@ -180,15 +188,15 @@ export default send => ({
                 args,
                 response => {
                     let hexStr = response.split(' ')[4];
-                    let num = parseInt(hexStr, 16);
+                    //let num = parseInt(hexStr, 16);
                     update({
-                        selectedBits: num.toString(2),
+                        selectedBits: hexStr, // num.toString(2),
                     })
                 }
             )
         },
         group: 'Select Bits',
-    }, {
+    }, /*{
         name: 'setAll',
         label: 'Set All',
         type: 'button',
@@ -224,7 +232,7 @@ export default send => ({
                 }
             )
         },
-    }, {
+    },*/ {
         name: 'reference',
         label: '',
         type: 'radio',
