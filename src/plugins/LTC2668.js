@@ -92,6 +92,7 @@ export default send => ({
         units: 'V',
         defaultValue: 2.4,
         visible: vals => vals.voltsOrCode === 'volts',
+        error: vals => vals.volts === '' ? 'Must be a number' : '',
         group: 'Voltage',
     }, {
         name: 'code',
@@ -154,7 +155,7 @@ export default send => ({
         label: 'Set Bits',
         type: 'text',
         group: 'Select Bits',
-        error: vals => vals.setBits == '' ? '' : 'Bad!',
+        //error: vals => isCSList(vals.setBits), //vals.setBits == '' ? '' : 'Bad!',
     }, {
         name: 'clearBits',
         label: 'Clear Bits',
@@ -283,3 +284,17 @@ export default send => ({
         return {};
     }
 })
+
+const isCSList = str => {
+    
+    let strList = str.split(',');
+    let allNumbers = strList
+    .map(s => !isNaN(s))
+    .reduce((acc, b) => acc && b, true);
+    
+    let numList = strList.map(s => parseInt(s));
+    let allWithinRange = numList
+    .reduce((acc, n) => acc && (n >= 0 && n <= 15), true);
+    
+    return (allNumbers && allWithinRange) ? '' : 'Must be comma-separated list of numbers';
+}

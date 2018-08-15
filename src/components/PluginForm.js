@@ -45,7 +45,7 @@ const styles = theme => ({
     },
 })
 
-const PluginForm = ({ classes, fields, values, handleChange, handleClick }) => {
+const PluginForm = ({ classes, fields, values, errors, handleChange, handleClick }) => {
     
     const groups = [...new Set(fields.map(f => f.group || 'nogroup'))];
     
@@ -58,6 +58,9 @@ const PluginForm = ({ classes, fields, values, handleChange, handleClick }) => {
         ))
     }))
     .filter(g => g.fields.length > 0);
+    
+    let anyError = Object.keys(errors).map(k => errors[k]).join('').length > 0;
+    console.log('Any error:', anyError);
     
     return(
         <form className={classes.form} >
@@ -75,6 +78,8 @@ const PluginForm = ({ classes, fields, values, handleChange, handleClick }) => {
                                         className={classes.input}
                                         field={f}
                                         value={values[f.name]}
+                                        error={errors[f.name]}
+                                        anyError={anyError}
                                         allValues={values}
                                         onChange={handleChange}
                                         onClick={handleClick}
@@ -92,6 +97,7 @@ const PluginForm = ({ classes, fields, values, handleChange, handleClick }) => {
 PluginForm.propTypes = {
     fields: PropTypes.arrayOf(fieldType).isRequired,
     values: PropTypes.object.isRequired,
+    errors: PropTypes.object.isRequired,
     handleChange: PropTypes.func.isRequired,
     handleClick: PropTypes.func.isRequired,
 }

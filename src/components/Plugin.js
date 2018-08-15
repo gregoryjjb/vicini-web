@@ -19,26 +19,32 @@ class Plugin extends React.Component {
 		super(props);
 		
 		this.state = {
-			values: {}
+			values: {},
+			errors: {},
 		}
 	}
 	
 	loadValues = (fields = []) => {
 		let values = {};
+		let errors = {};
 		
 		for(let field of fields) {
 			let { name, defaultValue } = field;
 			values[name] = defaultValue !== undefined ? defaultValue : '';
+			
+			if(typeof field.error === 'function') {
+				errors[name] = '';
+			}
 		}
 		
-		console.log('INITIALZED', values)
-		
+		this.setState({ errors });
 		this.performReduce(values);
 	}
 	
 	performReduce = (values) => {
-		
 		const { reducer, fields } = this.props.plugin;
+		
+		let newValues, errors;
 		
 		if(typeof reducer === 'function') {
 			let reducedValues = reducer(values);
@@ -52,20 +58,33 @@ class Plugin extends React.Component {
 				}
 			}
 			
-			let combo = {
+			newValues = {
 				...values,
 				...reducedOutputs,
 			}
-			
-			this.setState({
-				values: combo,
-			})
 		}
-		else {
-			this.setState({
-				values: values,
-			})
-		}
+		
+		errors = this.performValidation(newValues);
+		
+		this.setState({
+			values: newValues,
+			errors,
+		})
+	}
+	
+	performValidation = (values) => {
+		const { fields } = this.props.plugin;
+		
+		const errors = fields
+		.filter(f => typeof f.error === 'function')
+		.reduce((acc, f) => {
+			acc[f.name] = f.error(values);
+			return acc;
+		}, {});
+		
+		console.log('Errors: ', errors);
+		
+		return errors;
 	}
 	
 	handleInputChange = (e) => {
@@ -141,6 +160,7 @@ class Plugin extends React.Component {
 				<PluginForm
 					fields={plugin.fields}
 					values={this.state.values}
+					errors={this.state.errors}
 					handleChange={this.handleInputChange}
 					handleClick={this.handleInputClick} />
 			</div>

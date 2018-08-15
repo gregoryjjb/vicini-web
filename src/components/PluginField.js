@@ -61,7 +61,7 @@ const sanitizeField = (field, allValues) => {
 	}
 	
 	// Error
-	if(typeof field.error === 'function') {
+	/*if(typeof field.error === 'function') {
 		let e = field.error(allValues);
 		if(e) {
 			f.hasError = true;
@@ -71,12 +71,12 @@ const sanitizeField = (field, allValues) => {
 			f.hasError = false;
 			f.errorMsg = '';
 		}
-	}
+	}*/
 	
 	return f;
 }
 
-const PluginField = ({ className, field, value, allValues, onChange, onClick, }) => {
+const PluginField = ({ className, field, value, error, anyError, allValues, onChange, onClick, }) => {
 	
 	let ff = sanitizeField(field, allValues);
 	
@@ -90,6 +90,9 @@ const PluginField = ({ className, field, value, allValues, onChange, onClick, })
 	// Sanitize on click/change events
 	let fOnChange = !ff.output ? onChange : undefined;
 	let fOnClick = (ff.type === 'button') ? () => onClick(ff.name) : undefined;
+	
+	// Error
+	let hasError = error ? true : false;
 	
 	
 	if(ff.type === 'none' && ff.visible !== true) return null;
@@ -120,7 +123,7 @@ const PluginField = ({ className, field, value, allValues, onChange, onClick, })
 				name={ff.name}
 				variant="outlined"
 				size="small"
-				disabled={ff.disabled}
+				disabled={ff.disabled || anyError}
 				onClick={fOnClick}
 				style={{ textTransform: 'none' }} >
 				{ff.label}
@@ -132,7 +135,7 @@ const PluginField = ({ className, field, value, allValues, onChange, onClick, })
 		return(
 			<FormControl
 				className={className}
-				error={ff.hasError} >
+				error={hasError} >
 				<InputLabel htmlFor={ff.name}>{ff.label}</InputLabel>
 				<Select
 					value={fixedValue}
@@ -151,7 +154,7 @@ const PluginField = ({ className, field, value, allValues, onChange, onClick, })
 						</MenuItem>
 					))}
 				</Select>
-				{ff.hasError && <FormHelperText>{ff.errorMsg}</FormHelperText>}
+				{hasError && <FormHelperText>{error}</FormHelperText>}
 			</FormControl>
 		)
 	}
@@ -160,7 +163,7 @@ const PluginField = ({ className, field, value, allValues, onChange, onClick, })
 		return (
 			<FormControl
 				className={className}
-				error={ff.hasError} >
+				error={hasError} >
 				<InputLabel htmlFor={ff.name}>{ff.label}</InputLabel>
 				<Select
 					multiple
@@ -179,7 +182,7 @@ const PluginField = ({ className, field, value, allValues, onChange, onClick, })
 						</MenuItem>
 					))}
 				</Select>
-				{ff.hasError && <FormHelperText>{ff.errorMsg}</FormHelperText>}
+				{hasError && <FormHelperText>{error}</FormHelperText>}
 			</FormControl>
 		)
 	}
@@ -189,7 +192,7 @@ const PluginField = ({ className, field, value, allValues, onChange, onClick, })
 			<FormControl
 				component='fieldset'
 				className={className}
-				error={ff.hasError} >
+				error={hasError} >
 				<FormLabel component='legend'>{ff.label}</FormLabel>
 				<RadioGroup
 					name={ff.name}
@@ -205,7 +208,7 @@ const PluginField = ({ className, field, value, allValues, onChange, onClick, })
 							control={<Radio />} />
 					))}
 				</RadioGroup>
-				{ff.hasError && <FormHelperText>{ff.errorMsg}</FormHelperText>}
+				{hasError && <FormHelperText>{error}</FormHelperText>}
 			</FormControl>
 		)
 	}
@@ -217,8 +220,8 @@ const PluginField = ({ className, field, value, allValues, onChange, onClick, })
 			label={ff.label}
 			type={ff.type}
 			disabled={ff.disabled}
-			error={ff.hasError}
-			helperText={ff.errorMsg}
+			error={hasError}
+			helperText={error}
 			value={fixedValue}
 			InputProps={{
 				endAdornment: unitsEl,
