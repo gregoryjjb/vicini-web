@@ -67,6 +67,7 @@ api.sendSerial = async (id, text) => {
             args: [],
         },
         timeout: null,
+        wait: 500,
     }
     
     addSerialLine({
