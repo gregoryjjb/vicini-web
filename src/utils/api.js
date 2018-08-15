@@ -79,7 +79,15 @@ api.sendSerial = async (id, text) => {
     try {
         let result = await axios.put(`/hardware/${id}/send_command`, body)
         
-        let { receive } = result.data.serial;
+        let { receive, previous } = result.data.serial;
+        
+        if(previous) {
+            addSerialLine({
+                channel: id,
+                text: previous,
+                sent: false,
+            })
+        }
         
         addSerialLine({
             channel: id,
