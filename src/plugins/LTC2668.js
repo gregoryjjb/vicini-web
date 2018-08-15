@@ -57,9 +57,7 @@ export default send => ({
             send(
                 'span',
                 [vals.channel, vals.span],
-                response => {
-                    
-                }
+                response => {}
             )
         }
     }, {
@@ -156,6 +154,7 @@ export default send => ({
         label: 'Set Bits',
         type: 'text',
         group: 'Select Bits',
+        error: vals => vals.setBits == '' ? '' : 'Bad!',
     }, {
         name: 'clearBits',
         label: 'Clear Bits',
@@ -229,7 +228,8 @@ export default send => ({
         label: '',
         type: 'radio',
         options: ['Internal', 'External'],
-        group: 'Reference Voltage'
+        defaultValue: 'Internal',
+        group: 'Reference Voltage',
     }, {
         name: 'refApply',
         label: 'Apply VRef',

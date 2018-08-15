@@ -15,6 +15,7 @@ import {
 	FormLabel,
 	RadioGroup,
 	Radio,
+	FormHelperText,
 } from '@material-ui/core';
 
 const evaluate = (val, fallback, allVals) => {
@@ -56,6 +57,19 @@ const sanitizeField = (field, allValues) => {
 		}
 		else {
 			f.options = field.options;
+		}
+	}
+	
+	// Error
+	if(typeof field.error === 'function') {
+		let e = field.error(allValues);
+		if(e) {
+			f.hasError = true;
+			f.errorMsg = e;
+		}
+		else {
+			f.hasError = false;
+			f.errorMsg = '';
 		}
 	}
 	
@@ -116,7 +130,9 @@ const PluginField = ({ className, field, value, allValues, onChange, onClick, })
 	
 	if(ff.type === 'select') {
 		return(
-			<FormControl className={className}>
+			<FormControl
+				className={className}
+				error={ff.hasError} >
 				<InputLabel htmlFor={ff.name}>{ff.label}</InputLabel>
 				<Select
 					value={fixedValue}
@@ -135,13 +151,16 @@ const PluginField = ({ className, field, value, allValues, onChange, onClick, })
 						</MenuItem>
 					))}
 				</Select>
+				{ff.hasError && <FormHelperText>{ff.errorMsg}</FormHelperText>}
 			</FormControl>
 		)
 	}
 	
 	if(ff.type === 'select-multi') {
 		return (
-			<FormControl className={className} >
+			<FormControl
+				className={className}
+				error={ff.hasError} >
 				<InputLabel htmlFor={ff.name}>{ff.label}</InputLabel>
 				<Select
 					multiple
@@ -160,13 +179,17 @@ const PluginField = ({ className, field, value, allValues, onChange, onClick, })
 						</MenuItem>
 					))}
 				</Select>
+				{ff.hasError && <FormHelperText>{ff.errorMsg}</FormHelperText>}
 			</FormControl>
 		)
 	}
 	
 	if(ff.type === 'radio') {
 		return(
-			<FormControl component='fieldset' className={className} >
+			<FormControl
+				component='fieldset'
+				className={className}
+				error={ff.hasError} >
 				<FormLabel component='legend'>{ff.label}</FormLabel>
 				<RadioGroup
 					name={ff.name}
@@ -182,6 +205,7 @@ const PluginField = ({ className, field, value, allValues, onChange, onClick, })
 							control={<Radio />} />
 					))}
 				</RadioGroup>
+				{ff.hasError && <FormHelperText>{ff.errorMsg}</FormHelperText>}
 			</FormControl>
 		)
 	}
@@ -193,6 +217,8 @@ const PluginField = ({ className, field, value, allValues, onChange, onClick, })
 			label={ff.label}
 			type={ff.type}
 			disabled={ff.disabled}
+			error={ff.hasError}
+			helperText={ff.errorMsg}
 			value={fixedValue}
 			InputProps={{
 				endAdornment: unitsEl,

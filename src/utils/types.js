@@ -48,6 +48,7 @@ export const fieldType = PropTypes.shape({
     output: PropTypes.bool,
     onClick: PropTypes.func,
     enabled: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+    error: PropTypes.func,
 })
 
 export const pluginShape = {
