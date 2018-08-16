@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import {
 	withStyles,
-	Chip,
+	Typography,
 	TextField,
 	Button,
 	Divider,
@@ -50,6 +50,11 @@ const styles = theme => ({
 	sendButton: {
 		borderRadius: 100,
 		marginLeft: 16,
+	},
+	emptyCommMessage: {
+		color: theme.palette.text.disabled,
+		padding: '16px 0',
+		fontStyle: 'italic',
 	},
 })
 
@@ -112,6 +117,13 @@ class SerialMonitor extends Component {
 					{port.lines.map((line, key) => (
 						<SerialChip text={line.text} sent={line.sent} key={key} />
 					))}
+					{port.lines.length === 0 &&
+						<Typography
+							className={classes.emptyCommMessage}
+							variant="body1" >
+							NO COMMUNICATION TO SHOW
+						</Typography>
+					}
 					<div ref={el => { this.scrollRef = el; }} />
 				</div>
 				<Divider />
