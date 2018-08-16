@@ -1,10 +1,11 @@
 import { connect, createStore, withLogger } from 'undux';
+import { getSettings } from './storage';
 
 // Create a store with an initial value.
 export let store = createStore({
 	pluginId: '',
 	
-	'ui.lightMode': true,
+	'ui.lightMode': getSettings().lightMode,
 	
 	'hardware.loading': false,
 	'hardware.error': false,

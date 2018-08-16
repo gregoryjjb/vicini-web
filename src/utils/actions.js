@@ -1,5 +1,6 @@
 import { store } from './store';
 import api from './api';
+import { setSettings } from './storage';
 
 const hw = (apiFunc, id) => {
 	store.set('hardware.loading')(true);
@@ -77,4 +78,9 @@ export const refreshSerialChannels = () => {
 	}
 	
 	store.set('serial.ports')(ports);
+}
+
+export const setLightMode = (yesNo) => {
+	store.set('ui.lightMode')(yesNo);
+	setSettings({ lightMode: yesNo });
 }
