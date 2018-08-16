@@ -88,7 +88,7 @@ class SerialMonitor extends Component {
 	}
 	
 	forceScrollDown = () => {
-		console.log("FORCING SCROLL")
+		//console.log("FORCING SCROLL")
 		this.scrollRef.scrollIntoView({ behavior: 'smooth' });
 	}
 	

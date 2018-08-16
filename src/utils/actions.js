@@ -61,7 +61,7 @@ export const refreshSerialChannels = () => {
 	for(let h of hardware) {
 		// If a port for this hardware doesn't exist
 		if(h.open === true && ports.find(p => p.id === h.id) === undefined) {
-			console.log(h.id)
+			console.info('Creating new serial monitor window:', h.id);
 			ports.push({
 				id: h.id,
 				disabled: false,

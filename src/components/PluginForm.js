@@ -60,7 +60,9 @@ const PluginForm = ({ classes, fields, values, errors, handleChange, handleClick
     .filter(g => g.fields.length > 0);
     
     let anyError = Object.keys(errors).map(k => errors[k]).join('').length > 0;
-    console.log('Any error:', anyError);
+    if(anyError) {
+        console.warn('Validation errors:', errors);
+    }
     
     return(
         <form className={classes.form} >

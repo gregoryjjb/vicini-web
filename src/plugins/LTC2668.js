@@ -225,7 +225,7 @@ export default send => ({
                         })
                     } else {
                         let channelStr = response.split(':')[1].trim();
-                        console.log(vals.setAllButtonType);
+                        //console.log(vals.setAllButtonType);
                         update({
                             selectedBits: channelStr,
                         })
@@ -313,12 +313,6 @@ export default send => ({
     ],
     
     reducer: function(oldValues) {
-        
-        console.log('Check Test:', oldValues.checkTest)
-        
-        console.log('Multi Test', oldValues.multiTest)
-        
-        console.log('Channel: ', oldValues.channel)
         
         return {};
     }

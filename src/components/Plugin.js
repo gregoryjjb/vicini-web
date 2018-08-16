@@ -85,7 +85,7 @@ class Plugin extends React.Component {
 			return acc;
 		}, {});
 		
-		console.warn('Validation errors: ', errors);
+		//console.warn('Validation errors: ', errors);
 		return errors;
 	}
 	
