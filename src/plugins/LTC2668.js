@@ -90,23 +90,23 @@ export default send => ({
         label: 'Volts',
         type: 'number',
         units: 'V',
-        defaultValue: 2.4,
+        defaultValue: 0.0,
         visible: vals => vals.voltsOrCode === 'volts',
         error: vals => vals.volts === '' ? 'Must be a number' : '',
-        group: 'Voltage',
+        group: 'Output',
     }, {
         name: 'code',
         label: 'Code',
         type: 'number',
-        defaultValue: 1024,
+        defaultValue: 0,
         visible: vals => vals.voltsOrCode === 'code',
-        group: 'Voltage',
+        group: 'Output',
     }, {
         name: 'voltsOrCode',
         label: '',
         type: 'radio',
         defaultValue: 'volts',
-        group: 'Voltage',
+        group: 'Output',
         options: [
             { value: 'volts', label: 'Volts' },
             { value: 'code', label: 'Code' },
@@ -115,7 +115,7 @@ export default send => ({
         name: 'write',
         label: 'Write',
         type: 'button',
-        group: 'Voltage',
+        group: 'Output',
         onClick: (vals, update) => {
             let channel = vals.channel === -1 ? 'all' : vals.channel;
             let type = vals.voltsOrCode;
@@ -130,7 +130,7 @@ export default send => ({
         name: 'writeUpdate',
         label: 'Write & Update',
         type: 'button',
-        group: 'Voltage',
+        group: 'Output',
         onClick: (vals, update) => {
             let channel = vals.channel === -1 ? 'all' : vals.channel;
             let type = vals.voltsOrCode;
@@ -144,11 +144,10 @@ export default send => ({
     }, {
         name: 'selectedBits',
         label: 'Selected Bits',
+        defaultValue: 'None',
         type: 'text',
-        //defaultValue: '0',
         output: true,
         multiline: true,
-        //units: 'HEX',
         group: 'Select Bits',
     }, {
         name: 'setBits',
@@ -173,7 +172,6 @@ export default send => ({
         label: 'Apply',
         type: 'button',
         onClick: (vals, update) => {
-            //let all = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
             console.log(vals);
             let clear = vals.clearBits.join(',');
             let set = vals.setBits.join(',');
@@ -187,52 +185,59 @@ export default send => ({
                 'select_bits',
                 args,
                 response => {
-                    let hexStr = response.split(' ')[4];
-                    //let num = parseInt(hexStr, 16);
-                    update({
-                        selectedBits: hexStr, // num.toString(2),
-                    })
+                    if (response === 'No bits are set') {
+                        update({
+                            selectedBits: 'None',
+                        })
+                    } else {
+                        let channelStr = response.split(':')[1].trim();
+                        update({
+                            selectedBits: channelStr,
+                        })
+                    }
                 }
             )
+            
+            update({
+                clearBits: [],
+                setBits: [],
+            });
         },
         group: 'Select Bits',
-    }, /*{
-        name: 'setAll',
-        label: 'Set All',
-        type: 'button',
-        group: 'Select Bits',
-        onClick: (vals, update) => {
-            let all = '0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15';
-            send(
-                'select_bits',
-                ['set', all],
-                response => {
-                    let hexStr = response.split(' ')[4];
-                    let num = parseInt(hexStr, 16);
-                    update({
-                        selectedBits: num.toString(2),
-                    })
-                }
-            )
-        },
     }, {
-        name: 'clearAll',
-        label: 'Clear All',
+        name: 'setAllButtonType',
+        type: 'none',
+        group: 'Select Bits',
+        defaultValue: 'set'        
+    }, { 
+        name: 'setAllButton',
+        label: vals => vals.setAllButtonType === 'set' ? 'Set All Bits' : 'Clear All Bits',
         type: 'button',
         group: 'Select Bits',
         onClick: (vals, update) => {
-            let all = '0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15';
             send(
                 'select_bits',
-                ['clear', all],
+                [vals.setAllButtonType, 'all'],
                 response => {
+                    if (response === 'No bits are set') {
+                        update({
+                            selectedBits: 'None',
+                        })
+                    } else {
+                        let channelStr = response.split(':')[1].trim();
+                        console.log(vals.setAllButtonType);
+                        update({
+                            selectedBits: channelStr,
+                        })
+                    }
                     update({
-                        selectedBits: response.split(' ')[4],
+                        setAllButtonType: vals.setAllButtonType === 'set' ? 'clear' : 'set',
                     })
                 }
             )
-        },
-    },*/ {
+            
+        }
+    }, {
         name: 'reference',
         label: '',
         type: 'radio',
@@ -279,7 +284,33 @@ export default send => ({
                 }
             )
         }
-    }, ],
+    },  {
+        name: 'toggleHigh',
+        label: "High",
+        type: "button",
+        group: "Global Toggle Bit",
+        onClick: (vals, update) => {
+            send(
+                'global_toggle',
+                ['high'],
+                response => { }
+            )
+        }
+    },  {
+        name: 'toggleLow',
+        label: "Low",
+        type: "button",
+        group: "Global Toggle Bit",
+        onClick: (vals, update) => {
+            send(
+                'global_toggle',
+                ['low'],
+                response => { }
+            )
+        }         
+    },
+
+    ],
     
     reducer: function(oldValues) {
         
