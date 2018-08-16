@@ -12,7 +12,7 @@ export let store = createStore({
 	
 	'plugin.id': '',
 	
-	'serial.ports': [{
+	'serial.ports': [/*{
 		id: 'TEST',
 		disabled: true,
 		lines: [{
@@ -37,7 +37,7 @@ export let store = createStore({
 			text: 'I concur',
 			sent: true,
 		}]
-	}],
+	}*/],
 	'serial.selectedTab': 0,
 });
 
