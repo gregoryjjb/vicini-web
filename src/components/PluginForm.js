@@ -62,7 +62,7 @@ const PluginForm = ({ classes, fields, values, errors, handleChange, handleClick
     }
     
     return(
-        <form className={classes.form} >
+        <form className={classes.form} onSubmit={e => e.preventDefault()} >
             <Divider />
             <Grid container spacing={16} className={classes.grid} >
                 {groupedFields.map(g => (
