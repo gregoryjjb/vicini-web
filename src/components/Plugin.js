@@ -7,6 +7,7 @@ import {
 } from '@material-ui/core';
 
 import { withStore } from 'utils/store';
+import { deepClone } from 'utils/utils';
 import PluginForm from './PluginForm';
 
 const styles = theme => ({
@@ -47,7 +48,7 @@ class Plugin extends React.Component {
 		let newValues, errors;
 		
 		if(typeof reducer === 'function') {
-			let reducedValues = reducer(values);
+			let reducedValues = reducer(deepClone(values));
 			let reducedOutputs = { };
 			
 			// Don't let the reducer change the inputs
@@ -110,7 +111,7 @@ class Plugin extends React.Component {
 			return;
 		}
 		
-		buttonField.onClick({...this.state.values}, updatedValues => {
+		buttonField.onClick(deepClone(this.state.values), updatedValues => {
 			updatedValues = this.cleanValues(updatedValues);
 			this.performReduce(updatedValues);
 		});
