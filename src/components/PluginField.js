@@ -64,19 +64,6 @@ const sanitizeField = (field, allValues) => {
 		}
 	}
 	
-	// Error
-	/*if(typeof field.error === 'function') {
-		let e = field.error(allValues);
-		if(e) {
-			f.hasError = true;
-			f.errorMsg = e;
-		}
-		else {
-			f.hasError = false;
-			f.errorMsg = '';
-		}
-	}*/
-	
 	return f;
 }
 
@@ -89,7 +76,9 @@ const PluginField = ({ className, field, value, error, anyError, allValues, onCh
 	
 	// Sanitize value
 	let fixedValue = (value === undefined) ? '' : value;
-	if(ff.type === 'select-multi' && !Array.isArray(fixedValue)) fixedValue = [];
+	if(ff.type === 'select-multi' && !Array.isArray(fixedValue)) {
+		fixedValue = [];
+	}
 	
 	// Sanitize on click/change events
 	let fOnChange = !ff.output ? onChange : undefined;

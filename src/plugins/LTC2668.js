@@ -154,7 +154,7 @@ export default send => ({
         label: 'Set Bits',
         type: 'select-multi',
         options: [...channelOptions],
-        defaultValue: [],
+        //defaultValue: [],
         group: 'Select Bits',
         error: vals => {
             let err = vals.setBits.filter(s => vals.clearBits.includes(s)).length > 0;
@@ -165,7 +165,7 @@ export default send => ({
         label: 'Clear Bits',
         type: 'select-multi',
         options: [...channelOptions],
-        defaultValue: [],
+        //defaultValue: [],
         group: 'Select Bits',
     }, {
         name: 'selectBitsButton',

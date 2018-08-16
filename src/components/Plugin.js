@@ -30,8 +30,9 @@ class Plugin extends React.Component {
 		let errors = {};
 		
 		for(let field of fields) {
-			let { name, defaultValue } = field;
-			values[name] = defaultValue !== undefined ? defaultValue : '';
+			let { name, defaultValue, type } = field;
+			let fallback = (type === 'select-multi') ? [] : '';
+			values[name] = defaultValue !== undefined ? defaultValue : fallback;
 			
 			if(typeof field.error === 'function') {
 				errors[name] = '';
