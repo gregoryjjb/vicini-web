@@ -5,14 +5,9 @@ import { serialPortShape } from 'utils/types';
 
 import {
 	withStyles,
-	Card,
-	CardContent,
-	Button,
-	TextField,
 	Typography,
 	Tabs,
 	Tab,
-	TabContainer,
 } from '@material-ui/core';
 import SerialMonitor from './SerialMonitor';
 

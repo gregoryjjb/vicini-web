@@ -6,7 +6,6 @@ import {
 	CardContent,
 } from '@material-ui/core';
 
-import HardwareContainer from 'containers/HardwareContainer';
 import SerialContainer from 'containers/SerialContainer';
 import SerialChip from '../components/serial/SerialChip';
 

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import api from 'utils/api';
 import {
     refreshHardware,
     openHardware,

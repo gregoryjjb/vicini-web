@@ -1,5 +1,3 @@
-import api from 'utils/api';
-
 const channelOptions = [
     {value: 0, label: 'Channel 0'},
     {value: 1, label: 'Channel 1'},
@@ -318,16 +316,16 @@ export default send => ({
     }
 })
 
-const isCSList = str => {
+/*const isCSList = str => {
     
     let strList = str.split(',');
     let allNumbers = strList
     .map(s => !isNaN(s))
     .reduce((acc, b) => acc && b, true);
     
-    let numList = strList.map(s => parseInt(s));
+    let numList = strList.map(s => parseInt(s, 10));
     let allWithinRange = numList
     .reduce((acc, n) => acc && (n >= 0 && n <= 15), true);
     
     return (allNumbers && allWithinRange) ? '' : 'Must be comma-separated list of numbers';
-}
+}*/

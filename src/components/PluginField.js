@@ -18,6 +18,8 @@ import {
 	FormHelperText,
 } from '@material-ui/core';
 
+import { fieldType } from 'utils/types';
+
 const evaluate = (val, fallback, allVals) => {
 	if(typeof val === 'function') {
 		return val(allVals);
@@ -226,13 +228,9 @@ const PluginField = ({ className, field, value, error, anyError, allValues, onCh
 }
 
 PluginField.propTypes = {
-	field: PropTypes.shape({
-		name: PropTypes.string.isRequired,
-		label: PropTypes.oneOfType[PropTypes.string, PropTypes.func],
-		type: PropTypes.string.isRequired,
-		output: PropTypes.bool,
-		onClick: PropTypes.func,
-	})
+	field: fieldType,
+	onChange: PropTypes.func,
+	onClick: PropTypes.func,
 }
 
 export default PluginField;

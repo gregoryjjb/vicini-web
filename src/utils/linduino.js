@@ -1,5 +1,4 @@
 import api from './api';
-import { addSerialLine } from './actions';
 
 export const send = (port, command, args = [], callback) => {
 	

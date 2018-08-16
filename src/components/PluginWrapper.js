@@ -6,8 +6,6 @@ import {
 	withStyles,
 	CircularProgress,
 	Typography,
-	Card,
-	CardContent,
 } from "@material-ui/core";
 
 import Plugin from 'components/Plugin';
