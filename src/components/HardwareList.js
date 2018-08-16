@@ -64,7 +64,7 @@ const HardwareList = ({ classes, hardware, error, isLoading, refreshClicked, ope
         <Divider />
         {hardware &&
             <Grid container spacing={16} className={classes.cardGrid} >
-                {hardware.map(h => (
+                {hardware.sort((h1, h2) => h1.id > h2.id).map(h => (
                     <Grid item xs={12} md={6} lg={4} key={h.id} >
                         <HardwareCard
                             hardware={h}
