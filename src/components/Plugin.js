@@ -43,12 +43,13 @@ class Plugin extends React.Component {
 	}
 	
 	performReduce = (values) => {
+		values = deepClone(values);
 		const { reducer, fields } = this.props.plugin;
 		
 		let newValues, errors;
 		
 		if(typeof reducer === 'function') {
-			let reducedValues = reducer(deepClone(values));
+			let reducedValues = reducer(values);
 			let reducedOutputs = { };
 			
 			// Don't let the reducer change the inputs
@@ -83,8 +84,7 @@ class Plugin extends React.Component {
 			return acc;
 		}, {});
 		
-		console.log('Errors: ', errors);
-		
+		console.warn('Validation errors: ', errors);
 		return errors;
 	}
 	
@@ -107,7 +107,7 @@ class Plugin extends React.Component {
 		let buttonField = this.props.plugin.fields.find(f => f.name === buttonName);
 		
 		if(!buttonField) {
-			console.error(`NO BUTTON WITH NAME '${buttonName}' FOUND`)
+			console.error(`No button with name '${buttonName}' found`)
 			return;
 		}
 		
