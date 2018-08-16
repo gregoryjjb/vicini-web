@@ -8,6 +8,8 @@ import {
 	Typography,
 	Tabs,
 	Tab,
+	TextField,
+	InputAdornment,
 } from '@material-ui/core';
 import SerialMonitor from './SerialMonitor';
 
@@ -16,6 +18,10 @@ const styles = theme => ({
 		display: 'flex',
 		flexDirection: 'column',
 		minHeight: 0, // Firefox
+	},
+	header: {
+		display: 'flex',
+		flexDirection: 'row',
 	},
 	tabs: {
 		//background: theme.palette.primary.main,
@@ -47,7 +53,14 @@ const styles = theme => ({
 
 const SerialCard = ({ className, classes, ports, selectedTab, onTabChange, onSend }) => (
 	<div className={classes.root}>
-		<Typography variant="headline">Serial Monitor</Typography>
+		<div className={classes.header} >
+			<Typography style={{ flex: 1 }} variant="headline">Serial Monitor</Typography>
+			{/*<TextField
+				label="Timeout"
+				type="number"
+				style={{ maxWidth: 128 }}
+				InputProps={{ endAdornment: <InputAdornment position='end' >ms</InputAdornment> }} />*/} 
+		</div>
 		<Tabs className={classes.tabs} value={selectedTab} onChange={onTabChange} >
 			{ports.map(port => (
 				<Tab label={port.id} key={port.id} />
