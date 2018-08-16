@@ -56,11 +56,18 @@ const SerialCard = ({ className, classes, ports, selectedTab, onTabChange, onSen
 		{ports[selectedTab] &&
 			<SerialMonitor port={ports[selectedTab]} onSend={onSend} />
 		}
+		{ports.length === 0 &&
+			<React.Fragment>
+				<Typography variant="title" gutterBottom>No open serial monitors</Typography>
+				<Typography variant="body1">Connect to a device to open a new serial connection</Typography>
+			</React.Fragment>
+		}
 	</div>
 )
 
 SerialCard.propTypes = {
 	ports: PropTypes.arrayOf(PropTypes.shape(serialPortShape)).isRequired,
+	selectedTab: PropTypes.number,
 }
 
 export default withStyles(styles)(SerialCard);
