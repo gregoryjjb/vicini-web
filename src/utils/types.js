@@ -36,7 +36,7 @@ export const fieldType = PropTypes.shape({
         'button',
         'none',
     ]),
-    label: PropTypes.string,
+    label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     units: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     multiline: PropTypes.bool,
     group: PropTypes.string,

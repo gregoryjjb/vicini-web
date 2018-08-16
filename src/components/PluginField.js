@@ -34,8 +34,12 @@ const sanitizeField = (field, allValues) => {
 	let f = {...field};
 	
 	// Label
-	if(field.type === 'radio') f.label = field.label;
-	else f.label = field.label || field.name;
+	if(field.type === 'radio') {
+        f.label = field.label;
+    } else {
+        //f.label = field.label || field.name;
+        f.label = evaluate(field.label, field.name, allValues);
+    }
 	
 	// Enabled/disabled
 	f.output = field.output || false;
@@ -235,7 +239,7 @@ const PluginField = ({ className, field, value, error, anyError, allValues, onCh
 PluginField.propTypes = {
 	field: PropTypes.shape({
 		name: PropTypes.string.isRequired,
-		label: PropTypes.string,
+		label: PropTypes.oneOfType[PropTypes.string, PropTypes.func],
 		type: PropTypes.string.isRequired,
 		output: PropTypes.bool,
 		onClick: PropTypes.func,
