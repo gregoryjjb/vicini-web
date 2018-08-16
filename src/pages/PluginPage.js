@@ -2,8 +2,6 @@ import React from 'react';
 
 import {
 	withStyles,
-	Typography,
-	Grid,
 } from '@material-ui/core';
 
 import PluginContainer from 'containers/PluginContainer';

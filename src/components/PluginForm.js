@@ -4,9 +4,6 @@ import { fieldType } from 'utils/types';
 
 import {
     withStyles,
-    ExpansionPanel,
-    ExpansionPanelDetails,
-    ExpansionPanelSummary,
     Card,
     CardContent,
     Typography,

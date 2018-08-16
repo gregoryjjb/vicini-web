@@ -3,7 +3,6 @@ import { withStore } from 'utils/store';
 
 import SerialCard from 'components/serial/SerialCard';
 
-import { addSerialLine } from 'utils/actions';
 import api from 'utils/api';
 
 class SerialContainer extends Component {

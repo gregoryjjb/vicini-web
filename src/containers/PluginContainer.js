@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import checkTypes from 'utils/check-types';
-import { pluginType } from 'utils/types';
 
 import PluginWrapper from 'components/PluginWrapper';
 import { pluginShape } from '../utils/types';

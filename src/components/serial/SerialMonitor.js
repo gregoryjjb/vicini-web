@@ -10,7 +10,6 @@ import {
 } from '@material-ui/core';
 
 import { serialPortShape } from 'utils/types';
-import { addSerialLine } from 'utils/actions';
 import SerialChip from './SerialChip';
 
 const styles = theme => ({

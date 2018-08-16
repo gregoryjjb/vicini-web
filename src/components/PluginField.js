@@ -220,9 +220,7 @@ const PluginField = ({ className, field, value, error, anyError, allValues, onCh
 			value={fixedValue}
 			InputProps={{
 				endAdornment: unitsEl,
-			}}
-			inputProps={{
-				step: 'any',
+				inputProps: { step: 'any' },
 			}}
 			onChange={fOnChange}
 			multiline={ff.multiline}

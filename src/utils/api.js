@@ -1,19 +1,18 @@
 import axios from 'axios';
 
-import { store } from 'utils/store';
-import { addSerialChannel, addSerialLine } from './actions';
+import { addSerialLine } from './actions';
 
 const api = {};
 const root = '';
 
-const fakeAxios = (data, fail) => {
+/*const fakeAxios = (data, fail) => {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             if(fail) reject(new Error("Error fetching"));
             else resolve(data);
         }, 1000);
     })
-}
+}*/
 
 api.getHardware = () => axios.get(`${root}/hardware`);
 

@@ -2,8 +2,6 @@ import React from "react";
 
 import {
 	withStyles,
-	Typography,
-	CardContent,
 } from "@material-ui/core";
 
 import HardwareContainer from "../containers/HardwareContainer";
