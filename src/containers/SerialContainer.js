@@ -3,7 +3,7 @@ import { withStore } from 'utils/store';
 
 import SerialCard from 'components/serial/SerialCard';
 
-import api from 'utils/api';
+import { sendSerialLine } from 'utils/actions';
 
 class SerialContainer extends Component {
 	
@@ -14,9 +14,7 @@ class SerialContainer extends Component {
 	
 	handleSend = (text, channel) => {
 		if(text) {
-			//addSerialLine({ channel, text, sent: true });
-			//api.sendCommand(channel, text, [""])
-			api.sendSerial(channel, text)
+			sendSerialLine({ port: channel, line: text, });
 		}
 	}
 	

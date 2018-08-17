@@ -80,6 +80,79 @@ export const refreshSerialChannels = () => {
 	store.set('serial.ports')(ports);
 }
 
+export const sendSerialCommand = async ({ port, command, args }) => {
+	
+	let body = {
+        command: {
+            name: command,
+            args: args,
+        },
+        timeout: null,
+	}
+	
+	try {
+		let result = await api.sendCommand(port, body);
+		let { send, receive } = result.data.serial;
+		
+		addSerialLine({
+            channel: port,
+            text: send,
+            sent: true,
+        });
+        
+        addSerialLine({
+            channel: port,
+            text: receive,
+            sent: false,
+		});
+		
+		return receive;
+	}
+	catch(error) {
+		console.error(error);
+	}
+}
+
+export const sendSerialLine = async ({ port, line, wait = 500, }) => {
+	
+	let body = {
+		command: {
+			name: line,
+			args: [],
+		},
+		timeout: null,
+		wait,
+	}
+	
+	addSerialLine({
+		channel: port,
+		text: line,
+		sent: true,
+	})
+	
+	try {
+		let result = await api.sendCommand(port, body);
+		let { previous, receive } = result.data.serial;
+		
+		if(previous) {
+			addSerialLine({
+				channel: port,
+				text: previous,
+				send: false,
+			})
+		}
+		
+		addSerialLine({
+			channel: port,
+			text: receive,
+			send: false,
+		})
+	}
+	catch(error) {
+		console.error(error);
+	}
+}
+
 export const setLightMode = (yesNo) => {
 	store.set('ui.lightMode')(yesNo);
 	setSettings({ lightMode: yesNo });
