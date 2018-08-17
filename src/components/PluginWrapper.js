@@ -24,7 +24,7 @@ const styles = theme => ({
 	}
 })
 
-const PluginWrapper = ({ className, classes, loading, error, plugin }) => {
+const PluginWrapper = ({ classes, loading, error, hardwareConnected, plugin }) => {
 	
 	let content;
 	
@@ -45,7 +45,7 @@ const PluginWrapper = ({ className, classes, loading, error, plugin }) => {
 		);
 	}
 	else if(plugin && plugin.name) {
-		content = <Plugin plugin={plugin} />;
+		content = <Plugin plugin={plugin} hardwareConnected={hardwareConnected} />;
 	}
 	else {
 		content = <Typography variant="headline">No plugin loaded</Typography>

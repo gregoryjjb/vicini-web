@@ -1,17 +1,28 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { pluginType } from 'utils/types';
 
 import {
 	withStyles,
 	Typography,
+	Chip,
+	Tooltip,
 } from '@material-ui/core';
 
 import { withStore } from 'utils/store';
 import { deepClone } from 'utils/utils';
+import UnstyledLink from 'components/UnstyledLink';
 import PluginForm from './PluginForm';
 
 const styles = theme => ({
-	
+	errorChip: {
+		backgroundColor: theme.palette.error.main,
+		color: theme.palette.getContrastText(theme.palette.error.main),
+		'&:hover': {
+			backgroundColor: theme.palette.error.dark,
+			color: theme.palette.getContrastText(theme.palette.error.dark),
+		}
+	}
 })
 
 class Plugin extends React.Component {
@@ -158,11 +169,23 @@ class Plugin extends React.Component {
 	
 	render() {
 		
-		let { plugin } = this.props;
+		let { plugin, hardwareConnected, classes } = this.props;
 		
 		return(
 			<div style={{ display: 'flex', flexDirection: 'column', minHeight: 0, }} >
-				<Typography variant="headline" gutterBottom>{plugin.name}</Typography>
+				<div style={{ display: 'flex', flexDirection: 'row', }}>
+					<Typography variant="headline" gutterBottom style={{flex: 1}}>{plugin.name}</Typography>
+					{!hardwareConnected &&
+						<UnstyledLink to='/'>
+							<Tooltip title="Return to the main menu and connect to a device" >
+								<Chip
+									label="No hardware connected"
+									className={classes.errorChip}
+									clickable />
+							</Tooltip>
+						</UnstyledLink>
+					}
+				</div>
 				<Typography variant="subheading" gutterBottom>{plugin.description}</Typography>
 				<PluginForm
 					fields={plugin.fields}
@@ -177,6 +200,7 @@ class Plugin extends React.Component {
 
 Plugin.propTypes = {
 	plugin: pluginType.isRequired,
+	hardwareConnected: PropTypes.bool,
 }
 
 export default withStyles(styles)(withStore(Plugin));

@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import checkTypes from 'utils/check-types';
 
 import PluginWrapper from 'components/PluginWrapper';
-import { pluginShape } from '../utils/types';
+import { withStore } from 'utils/store';
+import { pluginShape } from 'utils/types';
 import { getSend } from 'utils/linduino';
 
 class PluginContainer extends Component {
@@ -52,11 +53,15 @@ class PluginContainer extends Component {
     
     // @TODO put pluginId in the store and have the page matcher set the store THEN this will get updated
     componentDidMount() {
-		let pluginId = this.props.pluginId;// store.get('pluginId');
+		let { pluginId, port, store } = this.props; // store.get('pluginId');
 		
 		if(pluginId && typeof pluginId === 'string') {
 			this.loadPlugin(pluginId);
-		}
+        }
+        
+        let hardware = store.get('hardware.list');
+        
+        
 	}
 	
 	// Re-fetch new plugin if selected plugin changed
@@ -72,7 +77,24 @@ class PluginContainer extends Component {
     render() {
         let { loading, error, plugin } = this.state;
         
-        return <PluginWrapper loading={loading} error={error} plugin={plugin} className={this.props.className} />
+        let { store, port, pluginId } = this.props;
+        let hardware = store.get('hardware.list');
+        
+        let hasHardware = (
+            Array.isArray(hardware) &&
+            hardware.find(h => (
+                h.id === port &&
+                h.details &&
+                h.details.chip === pluginId
+            )) !== undefined
+        )
+        
+        return <PluginWrapper
+            loading={loading}
+            error={error}
+            hardwareConnected={hasHardware}
+            plugin={plugin}
+            className={this.props.className} />
     }
 }
 
@@ -81,4 +103,4 @@ PluginContainer.propTypes = {
     port: PropTypes.string,
 }
 
-export default PluginContainer;
+export default withStore(PluginContainer);

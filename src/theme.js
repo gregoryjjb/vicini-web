@@ -32,13 +32,11 @@ const getTheme = mode => {
 					backgroundColor: mode === 'dark' ? '#fff' : '#616161',
 					color: mode === 'dark' ? '#000' : '#fff',
 					fontSize: 12,
+					userSelect: 'none',
 				},
 				popper: {
 					opacity: 1,
 				},
-				open: {
-					opacity: 1,
-				}
 			}
 		}
 	})
