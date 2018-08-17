@@ -26,6 +26,21 @@ const getTheme = mode => {
 				fontSize: 12,
 			}
 		},
+		overrides: {
+			MuiTooltip: {
+				tooltip: {
+					backgroundColor: mode === 'dark' ? '#fff' : '#616161',
+					color: mode === 'dark' ? '#000' : '#fff',
+					fontSize: 12,
+				},
+				popper: {
+					opacity: 1,
+				},
+				open: {
+					opacity: 1,
+				}
+			}
+		}
 	})
 	
 	window.theme = theme;

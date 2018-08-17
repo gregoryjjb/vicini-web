@@ -47,6 +47,7 @@ export default send => ({
         defaultValue: '5',
         units: 'V',
         group: 'Channel',
+        tooltip: 'Select a span',
     }, {
         name: 'writeSpan',
         label: 'Write Span',

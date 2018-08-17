@@ -22,20 +22,9 @@ import {
 
 import { fieldType } from 'utils/types';
 
-const styles = theme => {
+const styles = theme => ({
 	
-	let tt = theme.palette.type === 'dark' ? {
-		background: theme.palette.common.white,
-		color: theme.palette.common.black,
-	} : { };
-	
-	return {
-		tooltip: {
-			...tt,
-			fontSize: 12,
-		}
-	}
-}
+})
 
 const evaluate = (val, fallback, allVals) => {
 	if(typeof val === 'function') {
@@ -252,9 +241,8 @@ const PluginField = ({ className, classes, field, value, error, anyError, allVal
 	if(typeof ff.tooltip === 'string') {
 		return(
 			<Tooltip
-				classes={{ tooltip: classes.tooltip}}
 				title={ff.tooltip}
-				placement='top'
+				placement='right'
 				leaveDelay={0} >
 				{el}
 			</Tooltip>
