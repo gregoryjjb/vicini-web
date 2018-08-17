@@ -32,6 +32,7 @@ export default send => ({
         ],
         defaultValue: 0,
         group: 'Channel',
+        tooltip: 'Select a channel',
     }, {
         name: 'span',
         label: 'Span',

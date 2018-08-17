@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
+	withStyles,
 	TextField,
 	Button,
 	FormControl,
@@ -16,9 +17,25 @@ import {
 	RadioGroup,
 	Radio,
 	FormHelperText,
+	Tooltip,
 } from '@material-ui/core';
 
 import { fieldType } from 'utils/types';
+
+const styles = theme => {
+	
+	let tt = theme.palette.type === 'dark' ? {
+		background: theme.palette.common.white,
+		color: theme.palette.common.black,
+	} : { };
+	
+	return {
+		tooltip: {
+			...tt,
+			fontSize: 12,
+		}
+	}
+}
 
 const evaluate = (val, fallback, allVals) => {
 	if(typeof val === 'function') {
@@ -69,7 +86,7 @@ const sanitizeField = (field, allValues) => {
 	return f;
 }
 
-const PluginField = ({ className, field, value, error, anyError, allValues, onChange, onClick, }) => {
+const PluginField = ({ className, classes, field, value, error, anyError, allValues, onChange, onClick, }) => {
 	
 	let ff = sanitizeField(field, allValues);
 	
@@ -94,8 +111,10 @@ const PluginField = ({ className, field, value, error, anyError, allValues, onCh
 	
 	if(ff.visible === false) return null;
 	
+	let el = null;
+	
 	if(ff.type === 'checkbox') {
-		return(
+		el = (
 			<FormControlLabel
 				className={className}
 				label={ff.label}
@@ -112,7 +131,7 @@ const PluginField = ({ className, field, value, error, anyError, allValues, onCh
 	}
 	
 	if(ff.type === 'button') {
-		return (
+		el = (
 			<Button
 				className={className}
 				name={ff.name}
@@ -127,7 +146,7 @@ const PluginField = ({ className, field, value, error, anyError, allValues, onCh
 	}
 	
 	if(ff.type === 'select') {
-		return(
+		el = (
 			<FormControl
 				className={className}
 				error={hasError} >
@@ -155,7 +174,7 @@ const PluginField = ({ className, field, value, error, anyError, allValues, onCh
 	}
 	
 	if(ff.type === 'select-multi') {
-		return (
+		el = (
 			<FormControl
 				className={className}
 				error={hasError} >
@@ -183,7 +202,7 @@ const PluginField = ({ className, field, value, error, anyError, allValues, onCh
 	}
 	
 	if(ff.type === 'radio') {
-		return(
+		el = (
 			<FormControl
 				component='fieldset'
 				className={className}
@@ -208,24 +227,42 @@ const PluginField = ({ className, field, value, error, anyError, allValues, onCh
 		)
 	}
 	
-	return (
-		<TextField
-			className={className}
-			name={ff.name}
-			label={ff.label}
-			type={ff.type}
-			disabled={ff.disabled}
-			error={hasError}
-			helperText={error}
-			value={fixedValue}
-			InputProps={{
-				endAdornment: unitsEl,
-				inputProps: { step: 'any' },
-			}}
-			onChange={fOnChange}
-			multiline={ff.multiline}
-		/>
-	)
+	if(el === null) {
+		el = (
+			<TextField
+				className={className}
+				name={ff.name}
+				label={ff.label}
+				type={ff.type}
+				disabled={ff.disabled}
+				error={hasError}
+				helperText={error}
+				value={fixedValue}
+				InputProps={{
+					endAdornment: unitsEl,
+					inputProps: { step: 'any' },
+				}}
+				onChange={fOnChange}
+				multiline={ff.multiline}
+			/>
+		)
+		
+	}
+	
+	if(typeof ff.tooltip === 'string') {
+		return(
+			<Tooltip
+				classes={{ tooltip: classes.tooltip}}
+				title={ff.tooltip}
+				placement='top'
+				leaveDelay={0} >
+				{el}
+			</Tooltip>
+		)
+	}
+	else {
+		return el;
+	}
 }
 
 PluginField.propTypes = {
@@ -234,4 +271,4 @@ PluginField.propTypes = {
 	onClick: PropTypes.func,
 }
 
-export default PluginField;
+export default withStyles(styles)(PluginField);
