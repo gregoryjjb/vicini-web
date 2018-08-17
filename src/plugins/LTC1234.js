@@ -63,7 +63,7 @@ export default (send) => ({
 		},
 	}, {
 		name: 'g1',
-		type: 'text',
+		type: 'button',
 		group: 'Group 1',
 	}, {
 		name: 'g2',

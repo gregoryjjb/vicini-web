@@ -108,7 +108,12 @@ class Plugin extends React.Component {
 		let buttonField = this.props.plugin.fields.find(f => f.name === buttonName);
 		
 		if(!buttonField) {
-			console.error(`No button with name '${buttonName}' found`)
+			console.error(`No button with name '${buttonName}' found`);
+			return;
+		}
+		
+		if(typeof buttonField.onClick !== 'function') {
+			console.warn(`No onClick function specified for '${buttonName}'; type is '${typeof buttonField.onClick}'`);
 			return;
 		}
 		
