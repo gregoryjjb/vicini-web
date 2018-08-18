@@ -5,7 +5,10 @@ import {
 	withStyles,
 	Snackbar,
 	SnackbarContent,
+	IconButton,
 } from '@material-ui/core';
+
+import CloseIcon from '@material-ui/icons/Close';
 
 import { green, amber} from '@material-ui/core/colors';
 
@@ -58,6 +61,14 @@ const ColoredSnackbar = ({
 		<SnackbarContent
 			className={classes[variant]}
 			message={message}
+			action={
+				<IconButton
+					key='close'
+					color='inherit'
+					onClick={onClose} >
+					<CloseIcon />
+				</IconButton>
+			}
 			/>
 	</Snackbar>
 );
