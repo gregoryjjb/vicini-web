@@ -46,7 +46,6 @@ class SnackbarContainer extends Component {
 			notifications.shift();
 			store.set('ui.notifications')(notifications);
 		}
-		
 	}
 	
 	render() {
@@ -55,7 +54,7 @@ class SnackbarContainer extends Component {
 		return(
 			current &&
 			<ColoredSnackbar
-				key={current.key}
+				snackbarKey={420}
 				open={open}
 				duration={current.duration || 5000}
 				onClose={this.handleClose}

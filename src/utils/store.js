@@ -7,9 +7,6 @@ export let store = createStore({
 	
 	'ui.lightMode': getSettings().lightMode,
 	'ui.notifications': [
-		{ message: 'Startup', variant: 'success'  },
-		{ message: 'Second one', variant: 'error', },
-		{ message: 'And another', variant: 'warning', },
 	],
 	
 	'hardware.loading': false,

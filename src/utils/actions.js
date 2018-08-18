@@ -153,6 +153,18 @@ export const sendSerialLine = async ({ port, line, wait = 500, }) => {
 	}
 }
 
+export const showNotification = (message, variant='default') => {
+	
+	let n = { message, variant };
+	let list = store.getCopy('ui.notifications');
+	
+	list.push(n);
+	
+	store.set('ui.notifications')(list);
+}
+
+window.SN = showNotification;
+
 export const setLightMode = (yesNo) => {
 	store.set('ui.lightMode')(yesNo);
 	setSettings({ lightMode: yesNo });

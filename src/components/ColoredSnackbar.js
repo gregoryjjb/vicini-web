@@ -37,7 +37,7 @@ const styles = theme => {
 const ColoredSnackbar = ({
 	classes,
 	message,
-	key,
+	snackbarKey,
 	open,
 	variant='default',
 	duration=5000,
@@ -50,7 +50,7 @@ const ColoredSnackbar = ({
 			vertical: 'bottom',
 			horizontal: 'left',
 		}}
-		key={key}
+		key={snackbarKey}
 		open={open}
 		autoHideDuration={duration}
 		onClose={onClose}
@@ -64,7 +64,7 @@ const ColoredSnackbar = ({
 
 ColoredSnackbar.propTypes = {
 	message: PropTypes.string.isRequired,
-	key: PropTypes.number.isRequired,
+	snackbarKey: PropTypes.number.isRequired,
 	open: PropTypes.bool.isRequired,
 	variant: PropTypes.oneOf(['default', 'success', 'warning', 'error']),
 	duration: PropTypes.number,
