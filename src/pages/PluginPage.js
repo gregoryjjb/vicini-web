@@ -25,16 +25,22 @@ const styles = theme => ({
 		...theme.mixins.verticalSlice,
 	},
 	serial: theme.mixins.verticalSlice,
+	
+	column: {
+		margin: '0 8px',
+		//height: '100%',
+		minHeight: 0,
+	}
 })
 
 const PluginPage = ({ classes, match }) => (
 	<PageLayout>
-		<VerticalSliceCard noBottom >
+		<div className={classes.column} >
 			<PluginContainer pluginId={match.params.id} port={match.params.port} />
-		</VerticalSliceCard>
-		<VerticalSliceCard>
+		</div>
+		<div className={classes.column}>
 			<SerialContainer className={classes.serial} />
-		</VerticalSliceCard>
+		</div>
 	</PageLayout>
 )
 

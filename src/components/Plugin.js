@@ -13,6 +13,7 @@ import { withStore } from 'utils/store';
 import { deepClone } from 'utils/utils';
 import UnstyledLink from 'components/UnstyledLink';
 import PluginForm from './PluginForm';
+import PageSection from './layout/PageSection';
 
 const styles = theme => ({
 	errorChip: {
@@ -172,8 +173,8 @@ class Plugin extends React.Component {
 		let { plugin, hardwareConnected, classes } = this.props;
 		
 		return(
-			<div style={{ display: 'flex', flexDirection: 'column', minHeight: 0, }} >
-				<div style={{ display: 'flex', flexDirection: 'row', }}>
+			<PageSection>
+				<div style={{ display: 'flex', flexDirection: 'row', flex: '1 0', }}>
 					<Typography variant="headline" gutterBottom style={{flex: 1}}>{plugin.name}</Typography>
 					{!hardwareConnected &&
 						<UnstyledLink to='/'>
@@ -193,7 +194,7 @@ class Plugin extends React.Component {
 					errors={this.state.errors}
 					handleChange={this.handleInputChange}
 					handleClick={this.handleInputClick} />
-			</div>
+			</PageSection>
 		)
 	}
 }
