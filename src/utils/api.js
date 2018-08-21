@@ -1,7 +1,12 @@
 import axios from 'axios';
 
 const api = {};
-const root = '';
+const root = '/';
+
+const ax = axios.create({
+    baseURL: root,
+    timeout: 5000,
+});
 
 /*const fakeAxios = (data, fail) => {
     return new Promise((resolve, reject) => {
@@ -12,12 +17,12 @@ const root = '';
     })
 }*/
 
-api.getHardware = () => axios.get(`${root}/hardware`);
+api.getHardware = () => ax.get(`hardware`);
 
-api.openHardware = (id) => axios.put(`${root}/hardware/${id}/open`);
+api.openHardware = (id) => ax.put(`hardware/${id}/open`);
 
-api.closeHardware = (id) => axios.put(`${root}/hardware/${id}/close`);
+api.closeHardware = (id) => ax.put(`hardware/${id}/close`);
 
-api.sendCommand = (id, body) => axios.put(`${root}/hardware/${id}/send_command`, body);
+api.sendCommand = (id, body) => ax.put(`hardware/${id}/send_command`, body);
 
 export default api;
