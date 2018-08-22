@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import { withStyles } from '@material-ui/core';
 
@@ -8,6 +8,8 @@ import HomePage from 'pages/HomePage';
 import PluginPage from 'pages/PluginPage';
 import PageArea from 'components/layout/PageArea';
 import TestPage from '../pages/TestPage';
+import NotFoundPage from '../pages/NotFoundPage';
+
 import SnackbarContainer from '../containers/SnackbarContainer';
 
 const styles = theme => ({
@@ -42,9 +44,12 @@ class App extends Component {
 				<div className={classes.root} >
 					<Header />
 					<PageArea>
-						<Route exact path="/" component={HomePage} />
-						<Route path="/plugin/:port/:id" component={PluginPage} />
-						<Route path="/test" component={TestPage} />
+						<Switch>
+							<Route exact path="/" component={HomePage} />
+							<Route path="/plugin/:port/:id" component={PluginPage} />
+							<Route path="/test" component={TestPage} />
+							<Route path="/:wrong" component={NotFoundPage} />
+						</Switch>
 					</PageArea>
 					<SnackbarContainer />
 				</div>
