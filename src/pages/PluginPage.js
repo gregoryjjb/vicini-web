@@ -23,6 +23,7 @@ const PluginPage = ({ classes, match }) => (
 			<SerialContainer className={classes.serial} />
 		</PageGridItem>*/}
 		<TabbedGridItem 
+			card
 			labels={['Serial Monitor', 'Data Analysis']}
 			contents={[
 				<SerialMonitorContainer hardwareId={match.params.port} />,

@@ -8,7 +8,10 @@ import PageGridItem from './PageGridItem';
 import PageGridItemContents from './PageGridItemContents';
 
 const styles = theme => ({
-	root: {},
+	tabs: {
+		color: theme.palette.text.primary, 
+		flex: '1 0',
+	}
 })
 
 class TabbedGridItem extends Component {
@@ -29,12 +32,15 @@ class TabbedGridItem extends Component {
 	
 	render() {
 		let { selectedTab } = this.state;
-		let { labels, contents } = this.props;
+		let { classes, labels, contents, card } = this.props;
 		
 		return(
-			<PageGridItem>
+			<PageGridItem card={card || false} >
 				<PageGridItemContents>
-					<Tabs value={selectedTab} onChange={this.handleTabChange} >
+					<Tabs
+						className={classes.tabs}
+						value={selectedTab}
+						onChange={this.handleTabChange} >
 						{labels.map(l => (
 							<Tab label={l} key={l} />
 						))}

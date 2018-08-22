@@ -2,6 +2,8 @@ import React from 'react';
 
 import {
 	withStyles,
+	Card,
+	CardContent,
 } from '@material-ui/core';
 
 const styles = theme => ({
@@ -9,6 +11,12 @@ const styles = theme => ({
 		margin: 8,
 		minHeight: 0,
 	},
+	card: {
+		minHeight: 0,
+		maxHeight: '100%',
+		display: 'flex',
+		flexDirection: 'column',
+	}
 })
 
 const PageGridItem = ({
@@ -16,6 +24,7 @@ const PageGridItem = ({
 	children,
 	column='auto',
 	row='auto',
+	card=false,
 }) => (
 	<div
 		className={classes.root}
@@ -23,7 +32,15 @@ const PageGridItem = ({
 			gridColumn: column,
 			gridRow: row,
 		}} >
-		{children}
+		{card === true ? (
+			<Card className={classes.card} >
+				<CardContent className={classes.card} >
+					{children}
+				</CardContent>
+			</Card>
+		) : (
+			children
+		)}
 	</div>
 );
 
