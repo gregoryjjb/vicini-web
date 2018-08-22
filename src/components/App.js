@@ -6,7 +6,7 @@ import { withStyles } from '@material-ui/core';
 import Header from 'components/Header';
 import HomePage from 'pages/HomePage';
 import PluginPage from 'pages/PluginPage';
-import PageArea from './PageArea';
+import PageArea from 'components/layout/PageArea';
 import TestPage from '../pages/TestPage';
 import SnackbarContainer from '../containers/SnackbarContainer';
 
