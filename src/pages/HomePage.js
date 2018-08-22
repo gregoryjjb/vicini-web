@@ -4,11 +4,12 @@ import {
 	withStyles,
 } from "@material-ui/core";
 
-import HardwareContainer from "../containers/HardwareContainer";
-import SerialContainer from "../containers/SerialContainer";
+import HardwareContainer from "containers/HardwareContainer";
+import SerialContainer from "containers/SerialContainer";
 
-import PageLayout from "../components/PageLayout";
-import VerticalSliceCard from 'components/layout/VerticalSliceCard';
+import PageGrid from "components/layout/PageGrid";
+import PageGridItem from "components/layout/PageGridItem";
+
 
 const styles = theme => ({
 	root: {
@@ -24,14 +25,11 @@ const styles = theme => ({
 })
 
 const HomePage = ({ classes }) => (
-	<PageLayout>
-		<VerticalSliceCard noBottom >
+	<PageGrid columns='50% 50%' >
+		<PageGridItem >
 			<HardwareContainer />
-		</VerticalSliceCard>
-		<VerticalSliceCard>
-			<SerialContainer className={classes.serialArea} />
-		</VerticalSliceCard>
-	</PageLayout>
+		</PageGridItem>
+	</PageGrid>
 );
 
 export default withStyles(styles)(HomePage);

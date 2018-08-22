@@ -14,7 +14,7 @@ import {
 	CardContent,
 } from '@material-ui/core';
 import SerialMonitor from './SerialMonitor';
-import PageSection from '../layout/PageSection';
+import PageGridItemContents from '../layout/PageGridItemContents';
 
 const styles = theme => ({
 	card: {
@@ -55,7 +55,7 @@ const styles = theme => ({
 })
 
 const SerialCard = ({ className, classes, ports, selectedTab, onTabChange, onSend }) => (
-	<PageSection>
+	<PageGridItemContents>
 		<Card className={classes.card} >
 			<CardContent className={classes.card} >
 				<div className={classes.header} >
@@ -82,7 +82,7 @@ const SerialCard = ({ className, classes, ports, selectedTab, onTabChange, onSen
 				}
 			</CardContent>
 		</Card>
-	</PageSection>
+	</PageGridItemContents>
 )
 
 SerialCard.propTypes = {

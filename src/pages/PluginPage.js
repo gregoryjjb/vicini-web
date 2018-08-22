@@ -6,42 +6,25 @@ import {
 
 import PluginContainer from 'containers/PluginContainer';
 import SerialContainer from 'containers/SerialContainer';
-import PageLayout from '../components/PageLayout';
-import VerticalSliceCard from 'components/layout/VerticalSliceCard';
+import PageGrid from 'components/layout/PageGrid';
+import PageGridItem from '../components/layout/PageGridItem';
 
 const styles = theme => ({
 	root: {
 		display: 'flex',
 		flexDirection: 'column',
 	},
-	toolbarSpacing: {
-		...theme.mixins.toolbar,
-	},
-	content: {
-		display: 'flex',
-		flexDirection: 'row',
-	},
-	plugin: {
-		...theme.mixins.verticalSlice,
-	},
-	serial: theme.mixins.verticalSlice,
-	
-	column: {
-		margin: '0 8px',
-		//height: '100%',
-		minHeight: 0,
-	}
 })
 
 const PluginPage = ({ classes, match }) => (
-	<PageLayout>
-		<div className={classes.column} >
+	<PageGrid columns='50% 50%' rows='auto' >
+		<PageGridItem column='1 / 2' >
 			<PluginContainer pluginId={match.params.id} port={match.params.port} />
-		</div>
-		<div className={classes.column}>
+		</PageGridItem>
+		<PageGridItem column='2 / 3' >
 			<SerialContainer className={classes.serial} />
-		</div>
-	</PageLayout>
+		</PageGridItem>
+	</PageGrid>
 )
 
 export default withStyles(styles)(PluginPage);

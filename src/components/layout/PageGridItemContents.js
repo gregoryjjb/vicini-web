@@ -13,10 +13,10 @@ const styles = theme => ({
 	},
 })
 
-const PageSection = ({ classes, children }) => (
+const PageGridItemContents = ({ classes, children }) => (
 	<div className={classes.root} >
 		{children}
 	</div>
 );
 
-export default withStyles(styles)(PageSection);
+export default withStyles(styles)(PageGridItemContents);
