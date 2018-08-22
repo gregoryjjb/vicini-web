@@ -151,7 +151,7 @@ Datatype: `func(values)`
 
 There are still some rough edges but these are the goals we are trying to adhere to.
 
-The project uses React and the [Material-UI](https://material-ui.com/) styling library. Careful consideration has been taken to keep styles that are needed in multiple parts of the application in the Material-UI `theme` object. New features should support the light and dark theme.
+The project uses React and the [Material-UI](https://material-ui.com/) styling library. Careful consideration has been taken to keep styles that are needed in multiple parts of the application in the Material-UI `theme` object. Don't forget to test new features in both the light and dark theme!
 
 [Undux](https://github.com/bcherny/undux) is being used for the global store. Data should be stored in the global store if it is pulled from the server with async requests, or is needed in multiple places across the application. API calls/routes are defined in `utils/api.js`, while `utils/actions.js` usually contains a call to those API functions and a call to update the global store as well. Updates to the store should be called inside `actions.js` only (this will probably change and be split into a few files). Note that data in the store must be serializable; this means no functions or promises.
 
