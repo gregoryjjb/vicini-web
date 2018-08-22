@@ -142,3 +142,21 @@ Default: `true`
 Applies validation. Return the error message string if there is a validation error, or an empty string if there is none.
 
 Datatype: `func(values)`
+
+---
+
+## Contributing
+
+### Basic Ideas
+
+There are still some rough edges but these are the goals we are trying to adhere to.
+
+The project uses React and the [Material-UI](https://material-ui.com/) styling library. Careful consideration has been taken to keep styles that are needed in multiple parts of the application in the Material-UI `theme` object. New features should support the light and dark theme.
+
+[Undux](https://github.com/bcherny/undux) is being used for the global store. Data should be stored in the global store if it is pulled from the server with async requests, or is needed in multiple places across the application. API calls/routes are defined in `utils/api.js`, while `utils/actions.js` usually contains a call to those API functions and a call to update the global store as well. Updates to the store should be called inside `actions.js` only (this will probably change and be split into a few files). Note that data in the store must be serializable; this means no functions or promises.
+
+React components that read or update the state or make API calls (through `actions.js`) are called *containers*. These containers live under `src/containers` and have "container" in the name. They can have their own internal state if needed. They generally do not render anything directly but instead pass data through props into one or more *dumb component* children.
+
+React components that simply render data passed in through props are *dumb components* are live under `src/components`. These components should **not** contain any calls to any actions or update the store directly; callback functions should be passed in through props. They should also be [defined functionally](https://reactjs.org/docs/components-and-props.html#functional-and-class-components) if possible, although they are allowed to have internal state if neccessary. This internal state should not affect any other part of the app, however (an example of "good" internal state for a dumb button component might be whether or not the user is hovering over the button; this data shouldn't go in the global store since nothing else cares about it).
+
+While we are not using [Redux](https://redux.js.org/), we are using many of its design principles in a simplified, less-verbose way.
