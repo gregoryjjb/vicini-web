@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import {
-	withStyles, Tabs, Tab,
+	withStyles,
+	Tabs,
+	Tab,
+	CardContent,
 } from '@material-ui/core';
+
 import PageGridItem from './PageGridItem';
 import PageGridItemContents from './PageGridItemContents';
 
@@ -11,7 +15,13 @@ const styles = theme => ({
 	tabs: {
 		color: theme.palette.text.primary, 
 		flex: '1 0',
-	}
+	},
+	card: {
+		minHeight: 0,
+		maxHeight: '100%',
+		display: 'flex',
+		flexDirection: 'column',
+	},
 })
 
 class TabbedGridItem extends Component {
@@ -35,7 +45,7 @@ class TabbedGridItem extends Component {
 		let { classes, labels, contents, card } = this.props;
 		
 		return(
-			<PageGridItem card={card || false} >
+			<PageGridItem card={card || false} content={false} >
 				<PageGridItemContents>
 					<Tabs
 						className={classes.tabs}
@@ -45,7 +55,13 @@ class TabbedGridItem extends Component {
 							<Tab label={l} key={l} />
 						))}
 					</Tabs>
-					{contents[selectedTab]}
+					{card === true ? (
+						<CardContent className={classes.card}>
+							{contents[selectedTab]}
+						</CardContent>
+					) : (
+						contents[selectedTab]
+					)}
 				</PageGridItemContents>
 			</PageGridItem>
 		)

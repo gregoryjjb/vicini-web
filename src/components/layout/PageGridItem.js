@@ -25,6 +25,7 @@ const PageGridItem = ({
 	column='auto',
 	row='auto',
 	card=false,
+	content=true,
 }) => (
 	<div
 		className={classes.root}
@@ -34,9 +35,13 @@ const PageGridItem = ({
 		}} >
 		{card === true ? (
 			<Card className={classes.card} >
-				<CardContent className={classes.card} >
-					{children}
-				</CardContent>
+				{content === true ? (
+					<CardContent className={classes.card} >
+						{children}
+					</CardContent>
+				) : (
+					children
+				)}
 			</Card>
 		) : (
 			children
