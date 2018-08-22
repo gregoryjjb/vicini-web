@@ -10,14 +10,17 @@ import {
 	Tab,
 	TextField,
 	InputAdornment,
+	Card,
+	CardContent,
 } from '@material-ui/core';
 import SerialMonitor from './SerialMonitor';
+import PageGridItemContents from '../layout/PageGridItemContents';
 
 const styles = theme => ({
-	root: {
+	card: {
 		display: 'flex',
 		flexDirection: 'column',
-		minHeight: 0, // Firefox
+		minHeight: 0,
 	},
 	header: {
 		display: 'flex',
@@ -52,30 +55,34 @@ const styles = theme => ({
 })
 
 const SerialCard = ({ className, classes, ports, selectedTab, onTabChange, onSend }) => (
-	<div className={classes.root}>
-		<div className={classes.header} >
-			<Typography style={{ flex: 1 }} variant="headline">Serial Monitor</Typography>
-			{/*<TextField
-				label="Timeout"
-				type="number"
-				style={{ maxWidth: 128 }}
-				InputProps={{ endAdornment: <InputAdornment position='end' >ms</InputAdornment> }} />*/} 
-		</div>
-		<Tabs className={classes.tabs} value={selectedTab} onChange={onTabChange} >
-			{ports.map(port => (
-				<Tab label={port.id} key={port.id} />
-			))}
-		</Tabs>
-		{ports[selectedTab] &&
-			<SerialMonitor port={ports[selectedTab]} onSend={onSend} />
-		}
-		{ports.length === 0 &&
-			<React.Fragment>
-				<Typography variant="title" gutterBottom>No open serial monitors</Typography>
-				<Typography variant="body1">Connect to a device to open a new serial connection</Typography>
-			</React.Fragment>
-		}
-	</div>
+	<PageGridItemContents>
+		<Card className={classes.card} >
+			<CardContent className={classes.card} >
+				<div className={classes.header} >
+					<Typography style={{ flex: 1 }} variant="headline">Serial Monitor</Typography>
+					{/*<TextField
+						label="Timeout"
+						type="number"
+						style={{ maxWidth: 128 }}
+						InputProps={{ endAdornment: <InputAdornment position='end' >ms</InputAdornment> }} />*/} 
+				</div>
+				<Tabs className={classes.tabs} value={selectedTab} onChange={onTabChange} >
+					{ports.map(port => (
+						<Tab label={port.id} key={port.id} />
+					))}
+				</Tabs>
+				{ports[selectedTab] &&
+					<SerialMonitor port={ports[selectedTab]} onSend={onSend} />
+				}
+				{ports.length === 0 &&
+					<React.Fragment>
+						<Typography variant="title" gutterBottom>No open serial monitors</Typography>
+						<Typography variant="body1">Connect to a device to open a new serial connection</Typography>
+					</React.Fragment>
+				}
+			</CardContent>
+		</Card>
+	</PageGridItemContents>
 )
 
 SerialCard.propTypes = {

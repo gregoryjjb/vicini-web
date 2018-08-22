@@ -5,10 +5,12 @@ import {
 	AppBar,
 	Toolbar,
 	Typography,
+	Button
 } from '@material-ui/core';
 
 import UnstyledLink from 'components/UnstyledLink';
 import ThemeModeSwitchContainer from 'containers/ThemeModeSwitchContainer';
+import { showNotification } from '../utils/actions';
 
 const styles = theme => ({
 	root: {
@@ -29,6 +31,7 @@ const Header = ({ classes }) => (
 					</Typography>
 				</UnstyledLink>
 				<ThemeModeSwitchContainer />
+				<Button onClick={() => showNotification('WHAT')}>WAHT</Button>
 			</Toolbar>
 		</AppBar>
 	</header>

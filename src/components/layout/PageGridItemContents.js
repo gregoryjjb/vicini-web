@@ -6,19 +6,17 @@ import {
 
 const styles = theme => ({
 	root: {
-		height: '100%',
-		margin: '0 -8px',
-		
 		display: 'flex',
-		flexDirection: 'row',
-		alignItems: 'flex-start',
+		flexDirection: 'column',
+		minHeight: 0,
+		maxHeight: '100%',
 	},
 })
 
-const PageLayout = ({ children, classes }) => (
+const PageGridItemContents = ({ classes, children }) => (
 	<div className={classes.root} >
 		{children}
 	</div>
 );
 
-export default withStyles(styles)(PageLayout);
+export default withStyles(styles)(PageGridItemContents);
