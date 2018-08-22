@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+  - "iojs"
+  - "8"
+install:
+  - yarn install
+script:
+  - yarn run build
+cache:
+  directories:
+    - "node_modules"
+    
+# Take this out when testing is complete
+branches:
+  only:
+    - travis-setup
