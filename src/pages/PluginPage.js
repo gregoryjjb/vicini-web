@@ -10,10 +10,7 @@ import PageGrid from 'components/layout/PageGrid';
 import PageGridItem from '../components/layout/PageGridItem';
 
 const styles = theme => ({
-	root: {
-		display: 'flex',
-		flexDirection: 'column',
-	},
+	
 })
 
 const PluginPage = ({ classes, match }) => (

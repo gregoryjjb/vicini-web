@@ -8,13 +8,7 @@ const styles = theme => ({
 	root: {
 		height: '100%',
 		margin: -8,
-		
-		//display: 'flex',
-		//flexDirection: 'row',
-		//alignItems: 'flex-start',
 		display: 'grid',
-		//gridTemplateColumns: '50% 50%',
-		//gridTemplateRows: 'auto',
 	},
 })
 

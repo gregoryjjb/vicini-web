@@ -12,16 +12,7 @@ import PageGridItem from "components/layout/PageGridItem";
 
 
 const styles = theme => ({
-	root: {
-		margin: 16,
-	},
-	hardwareArea: {
-		//display: 'flex',
-		//flexDirection: 'row',
-		//overflowY: 'auto',
-		...theme.mixins.verticalSlice,
-	},
-	serialArea: theme.mixins.verticalSlice,
+	
 })
 
 const HomePage = ({ classes }) => (
