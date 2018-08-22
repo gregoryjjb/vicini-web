@@ -19,13 +19,13 @@ const styles = theme => ({
         display: 'flex',
         flexDirection: 'column',
         minHeight: 0,
+        overflow: 'hidden auto',
     },
     grid: {
         paddingTop: 8,
         paddingBottom: 16,
         marginTop: 0,
         marginBottom: 0,
-        overflowY: 'auto',
     },
     inputArea: {
         display: 'flex',
