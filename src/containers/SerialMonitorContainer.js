@@ -1,5 +1,9 @@
 import React from 'react';
 
+import {
+	Typography
+} from '@material-ui/core';
+
 import SerialMonitor from 'components/serial/SerialMonitor';
 
 import { withStore } from 'utils/store';
@@ -22,7 +26,10 @@ class SerialMonitorContainer extends React.Component {
 		let ports = store.get('serial.ports');
 		let port = ports.find(p => p.id === hardwareId);
 		
-		return port ? <SerialMonitor port={port} onSend={this.handleSend} /> : null;
+		return port ?
+			<SerialMonitor port={port} onSend={this.handleSend} />
+			: 
+			<Typography variant='subheading' color='textSecondary' >No serial connection established on {hardwareId}</Typography>
 	}
 }
 
