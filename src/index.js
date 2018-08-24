@@ -1,5 +1,9 @@
 import 'babel-polyfill';
 
+// fonts
+import 'typeface-roboto';
+import 'typeface-roboto-mono';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 
