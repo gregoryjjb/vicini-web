@@ -2,6 +2,17 @@
 
 A prototype for a Linduino GUI. See vicini-server-dotnet for the server.
 
+## Installation
+
+1. Download and install [Node.js 8+](https://nodejs.org/) and [Yarn](https://yarnpkg.com/)
+2. `cd` into the repository and run `yarn install` to grab dependencies (give this a second to finish)
+3. Run `yarn start` to start the development server
+4. Run `yarn build` to produce a production build under `build/`.
+
+### The Server
+
+If you don't have a copy of the server running you will get a "Error finding hardware". You can still navigate to plugins by URL specifically, like `localhost:3000/plugin/COM4/LTC2668`, you'll just get a warning that you are not actually talking to hardware.
+
 ## Plugins
 
 Plugins go under src/plugins.
