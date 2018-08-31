@@ -31,7 +31,12 @@ const Header = ({ classes }) => (
 					</Typography>
 				</UnstyledLink>
 				<ThemeModeSwitchContainer />
-				<Button onClick={() => showNotification('WHAT')}>WAHT</Button>
+				<Button onClick={() => {
+                    let text = ['Garlic!', 'Buttered', 'With Jam', 'Ooh Nutella...'];
+                    let color = ['success', 'warning', 'default', 'error'];
+                    let index = Math.floor(Math.random() * text.length);
+                    showNotification(text[index], color[index])
+                }}>Show Toast</Button>
 			</Toolbar>
 		</AppBar>
 	</header>
